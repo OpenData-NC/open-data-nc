@@ -1,0 +1,70 @@
+/* Table of Contents
+ * -- Includes
+ * -- Variables
+ * -- Sitewide
+ * -- Individual pages
+ */
+
+/* Includes
+==================== */
+
+@import "../bootstrap/less/bootstrap";
+@import "../flat-ui/less/flat-ui";
+
+/* Variables
+==================== */
+
+@base:             @belize-hole;
+@firm:             @peter-river;
+
+@gray:             @concrete;
+@lightgray:        @silver;
+@inverse:          white;
+
+@success:          @emerald;
+@danger:           @alizarin;
+@warning:          @sun-flower;
+@info:             @peter-river;
+
+@link-color:       @green-sea;
+@link-hover-color: @turquoise;
+
+@inputWidth: 50%;
+@inputHeight: 21px;
+
+/* Sitewide
+==================== */
+
+.navbar&.navbar-inverse {
+    .navbar-inner {
+        .border-radius(0);
+    }
+    .nav {
+        > li {
+            line-height: 24px;
+            > a {
+                border: none;
+            }
+        }
+    }
+    .brand {
+        border: none;
+        padding: 14px 15px 11px 0;
+        text-decoration: none;
+        @media (max-width: 767px) {
+            padding-left: 15px;
+        }
+    }
+}
+
+#messages {
+    text-align: center;
+    min-height: 1px;
+}
+
+footer {
+    padding-top: 10px;
+}
+
+/* Individual pages
+==================== */

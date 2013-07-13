@@ -11,7 +11,7 @@
     {% block extra-meta %}{% endblock %}
     {% if debug %}
     <link rel="stylesheet/less" type="text/css" media="all" href="{{ STATIC_URL }}less/site.less">
-    <script src="{{ STATIC_URL }}js/libs/less-1.3.0.min.js"></script>
+    <script src="{{ STATIC_URL }}js/libs/less-1.4.1.min.js"></script>
     {% else %}
     {% compress css %}
     <link rel="stylesheet" type="text/less" media="all" href="{{ STATIC_URL }}less/site.less">
@@ -20,14 +20,55 @@
     {% block extra-css %}{% endblock %}
     <script src="{{ STATIC_URL }}js/libs/modernizr-2.5.3.js"></script>
 </head>
-<body>
-    <div class="container">
-        {% block content %}{% endblock %}
+<body id="{% block body_id %}{% endblock body_id %}" class="{% block body_class %}{% endblock body_class %}">
+    {% block masthead %}{% endblock masthead %}
+
+    {% block navigation %}
+        {% include "includes/navigation.html" %}
+    {% endblock navigation %}
+
+    {% block content-outer %}
+    <div id="content" class="container-fluid">
+        <div class="row-fluid">
+            {% block messages-outer %}
+            <div id="messages" class="span12">
+                {% block messages %}
+                {% for msg in messages %}
+                    {% include "includes/message.html" with msg=msg %}
+                {% endfor %}
+                {% endblock messages %}
+            </div>
+            {% endblock messages-outer %}
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+            {% block content %}{% endblock content %}
+            </div>
+        </div>
     </div>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    {% endblock content-outer %}
+
+    {% block footer %}
+        {% include "includes/footer.html" %}
+    {% endblock footer %}
+
+    {% block js %}
+    <script charset="utf-8" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script charset="utf-8" src="{{ STATIC_URL }}flat-ui/js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script charset="utf-8" src="{{ STATIC_URL }}flat-ui/js/jquery.ui.touch-punch.min.js"></script>
     {% compress js %}
-    <script src="{{ STATIC_URL }}js/site.js"></script>
+    <script charset="utf-8" src="{{ STATIC_URL }}flat-ui/js/bootstrap.min.js"></script>
+    <script charset="utf-8" src="{{ STATIC_URL }}flat-ui/js/bootstrap-select.js"></script>
+    <script charset="utf-8" src="{{ STATIC_URL }}flat-ui/js/bootstrap-switch.js"></script>
+    <script charset="utf-8" src="{{ STATIC_URL }}flat-ui/js/flatui-checkbox.js"></script>
+    <script charset="utf-8" src="{{ STATIC_URL }}flat-ui/js/flatui-radio.js"></script>
+    <script charset="utf-8" src="{{ STATIC_URL }}flat-ui/js/jquery.tagsinput.js"></script>
+    <script charset="utf-8" src="{{ STATIC_URL }}flat-ui/js/jquery.placeholder.js"></script>
+    <script charset="utf-8" src="{{ STATIC_URL }}flat-ui/js/jquery.stacktable.js"></script>
+    <script charset="utf-8" src="{{ STATIC_URL }}flat-ui/js/application.js"></script>
+    <script charset="utf-8" src="{{ STATIC_URL }}js/site.js"></script>
     {% endcompress %}
-    {% block extra-js %}{% endblock %}
+    {% endblock js %}
+    {% block extra-js %}{% endblock extra-js %}
 </body>
 </html>
