@@ -135,9 +135,12 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.humanize',
     'django.contrib.sitemaps',
+    # Internal apps
+    'catalog',
     # External apps
     'south',
     'compressor',
+    'widget_tweaks',
 )
 
 # A sample logging configuration. The only tangible logging
