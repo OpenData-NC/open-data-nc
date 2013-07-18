@@ -141,6 +141,8 @@ INSTALLED_APPS = (
     'south',
     'compressor',
     'widget_tweaks',
+    'haystack',
+    'selectable',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -178,3 +180,12 @@ SKIP_SOUTH_TESTS = True
 COMPRESS_PRECOMPILERS = (
    ('text/less', 'lessc {infile} {outfile}'),
 )
+
+# Haystack Conf
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'http://127.0.0.1:8983/solr'
+    },
+}
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'

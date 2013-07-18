@@ -13,6 +13,27 @@ from django.db.models.signals import post_save
 from djangoratings.fields import RatingField
 
 
+class City(models.Model):
+    name = models.CharField(max_length=50)
+
+    class Meta(object):
+        verbose_name_plural = 'Cities'
+
+    def __unicode__(self):
+        return self.name
+
+
+class County(models.Model):
+    name = models.CharField(max_length=50)
+    cities = models.ManyToManyField(City, related_name='counties')
+
+    class Meta(object):
+        verbose_name_plural = 'Counties'
+
+    def __unicode__(self):
+        return self.name
+
+
 class Tag(models.Model):
     tag_name = models.CharField(max_length=150)
 
@@ -24,13 +45,10 @@ class Tag(models.Model):
 
 
 class DataType(models.Model):
-    data_type = models.CharField(max_length=50)
-    
+    name = models.CharField(max_length=50)
+
     def __unicode__(self):
-        return '%s' % self.data_type
-        
-    class Meta: 
-        ordering = ['data_type']
+        return self.name
 
 
 class UrlType(models.Model):

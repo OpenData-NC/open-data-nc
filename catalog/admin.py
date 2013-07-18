@@ -62,6 +62,15 @@ class CoordSystemAdmin(admin.ModelAdmin):
     verbose_name_plural = 'Resource Urls'
 
 
+class CityAdmin(admin.ModelAdmin):
+    ordering = ('name',)
+
+
+class CountyAdmin(admin.ModelAdmin):
+    ordering = ('name',)
+    filter_horizontal = ('cities',)
+
+
 admin.site.register(Tag)
 admin.site.register(UpdateFrequency)
 admin.site.register(UrlType)
@@ -70,3 +79,5 @@ admin.site.register(DataType)
 admin.site.register(Url, UrlAdmin)
 admin.site.register(UrlImage, UrlImageAdmin)
 admin.site.register(Resource, ResourceAdmin)
+admin.site.register(City, CityAdmin)
+admin.site.register(County, CountyAdmin)

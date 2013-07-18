@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block title %}{{ model_type|default:"search result"|add:"s"|title }}{% endblock title %}
+{% block body_id %}search{% endblock body_id %}
+
+{% block extra-css %}
+    <link rel="stylesheet" type="text/css"
+            href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/base/jquery-ui.css">
+    <link type="text/css" media="all" rel="stylesheet"
+            href="{{ STATIC_URL }}selectable/css/dj.selectable.css">
+{% endblock extra-css %}
+
+{% block extra-js %}
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.js"></script>
+    <script src="{{ STATIC_URL }}selectable/js/jquery.dj.selectable.js"></script>
+    <script src="{{ STATIC_URL }}js/selectable.js"></script>
+{% endblock extra-js %}
+
+{% block content %}
+
+<div class="row-fluid">
+    <div class="span3" id="refine-results">
+        <h3>Refine Results</h3>
+        <div id="reset-filters">
+            <a href="{{ request.path }}{% if query %}?q={{ query }}{% endif %}">Reset Filters</a>
+        </div>
+
+        <div id="search-box">
+            <form class="form-search" method="get" action=".">
+                {% for field in form %}
+                <div class="control-group{% if field.errors %} error{% endif %}">
+                    <label class="control-label" for="{{ field.id_for_label }}">
+                        {{ field.label }}
+                    </label>
+                    <div class="controls" id="controls_{{ field.name }}">
+                        {{ field|add_class:"span6" }}
+                        {% if field.errors %}
+                        <span class="help-block">{{ field.errors.as_text|safe }}</span>
+                        {% endif %}
+                        {% if field.help_text %}
+                        <span class="help-block">{{ field.help_text|safe }}</span>
+                        {% endif %}
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="control-group">
+                    <div class="controls">
+                        <input class="btn btn-inverse" type="submit" value="Search!" />
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+        <ul class="nav nav-list">
+        {% for field, facets in facets.fields.items %}
+            {% if facets %}
+                {% if field == 'creator' %}
+                <li class="nav-header">By Author</li>
+                {% elif field == 'pkg_type' %}
+                <li class="nav-header">By Package Type</li>
+                {% else %}
+                <li class="nav-header">By {{ field }}</li>
+                {% endif %}
+                {% for facet in facets %}
+                {% with path=request.get_full_path %}
+                    <li class="nav-item"><a href="{{ request.get_full_path }}{% if '?q=' not in path %}?q={% endif %}&amp;selected_facets={{ field }}_exact:{{ facet.0|urlencode }}">{{ facet.0|title }} ({{ facet.1 }})</a></li>
+                {% endwith %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+        </ul>
+    </div>
+
+    <div class="span9 search-results">
+{{ facets }}
+        {% for result in page.object_list %}
+        <div class="result">
+            {% with resource=result.object %}
+                <div class="results-header">
+                    <i class="icon-white icon-archive"></i>
+                    <a href="{{ package.get_absolute_url }}">{{ resource }}</a>
+                </div>
+            {% endwith %}
+        </div>
+        {% if not forloop.last %}<hr />{% endif %}
+        {% empty %}
+        <p>No results found.</p>
+        {% endfor %}
+
+        {% if page.has_previous or page.has_next %}
+        <div>
+            {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
+            |
+            {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
