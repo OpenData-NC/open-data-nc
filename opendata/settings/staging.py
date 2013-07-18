@@ -3,6 +3,8 @@ from opendata.settings.base import *
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
+SECRET_KEY = os.environ['SECRET_KEY']
+
 DATABASES['default']['NAME'] = 'opendata_staging'
 
 PUBLIC_ROOT = '/var/www/opendata-staging/public/'
@@ -28,5 +30,6 @@ SESSION_COOKIE_HTTPONLY = True
 
 ALLOWED_HOSTS = ()
 
-# Uncomment if using celery worker configuration
-# BROKER_URL = 'amqp://opendata:%s@127.0.0.1:5672/opendata_staging' % os.environ['BROKER_PASSWORD']
+import djcelery
+djcelery.setup_loader()
+BROKER_URL = 'amqp://website:%s@127.0.0.1:5672/website_staging' % os.environ['BROKER_PASSWORD']

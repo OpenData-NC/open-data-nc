@@ -12,7 +12,7 @@ PROJECT_ROOT = os.path.dirname(__file__)
 CONF_ROOT = os.path.join(PROJECT_ROOT, 'conf')
 env.project = 'opendata'
 env.project_user = 'opendata'
-env.repo = u'' # FIXME: Add repo URL
+env.repo = u'git@github.com:openrural/open-data-nc.git'
 env.shell = '/bin/bash -c'
 env.disable_known_hosts = True
 env.forward_agent = True
@@ -49,6 +49,7 @@ def setup_path():
     env.virtualenv_root = os.path.join(env.root, 'env')
     env.db = '%s_%s' % (env.project, env.environment)
     env.settings = '%(project)s.settings.%(environment)s' % env
+    env.solr_project_dir = os.path.join(env.root, 'apache-solr-3.6.2', u'%(project)s' % env)
 
 
 @task
@@ -203,6 +204,7 @@ def deploy(branch=None):
         syncdb()
     collectstatic()
     supervisor_command('restart %(project)s-%(environment)s:*' % env)
+    configure_solr()
 
 
 @task
@@ -225,3 +227,15 @@ def load_db_dump(dump_file):
     temp_file = os.path.join(env.home, '%(project)s-%(environment)s.sql' % env)
     put(dump_file, temp_file, use_sudo=True)
     sudo('psql -d %s -f %s' % (env.db, temp_file), user=env.project_user)
+
+
+@task
+def configure_solr():
+    """Update solr configuration."""
+    schema_path = os.path.join(env.solr_project_dir, 'solr', 'conf',
+                               'schema.xml')
+    manage_run('build_solr_schema --filename=%s' % schema_path)
+    # https://github.com/toastdriven/django-haystack/issues/311
+    # Use sed to change the name field to a type that is sortable
+    sudo("sed -i 's/<field name=\"name\" type=\"text_en\"/<field name=\"name\" type=\"string\"/' %s" % schema_path)
+    supervisor_command('restart %(project)s-%(environment)s:%(project)s-%(environment)s-solr' % env)
