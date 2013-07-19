@@ -203,7 +203,8 @@ def deploy(branch=None):
     elif migrations:
         syncdb()
     collectstatic()
-    supervisor_command('restart %(project)s-%(environment)s:*' % env)
+    supervisor_command('stop %(project)s-%(environment)s:*' % env)
+    supervisor_command('start %(project)s-%(environment)s:*' % env)
     configure_solr()
 
 

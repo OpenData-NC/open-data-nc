@@ -143,6 +143,7 @@ INSTALLED_APPS = (
     'widget_tweaks',
     'haystack',
     'selectable',
+    'djcelery',
 )
 
 # A sample logging configuration. The only tangible logging
