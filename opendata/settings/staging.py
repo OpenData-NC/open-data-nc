@@ -28,7 +28,7 @@ SESSION_COOKIE_SECURE = True
 
 SESSION_COOKIE_HTTPONLY = True
 
-ALLOWED_HOSTS = ()
+ALLOWED_HOSTS = ('*',)
 
 import djcelery
 djcelery.setup_loader()
