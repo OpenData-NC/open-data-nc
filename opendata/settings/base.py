@@ -1,6 +1,8 @@
 # Django settings for opendata project.
 import os
 
+from django.core.urlresolvers import reverse_lazy
+
 PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 PROJECT_ROOT = os.path.abspath(os.path.join(PROJECT_PATH, os.pardir))
 
@@ -180,6 +182,8 @@ LOGGING = {
     }
 }
 
+LOGIN_REDIRECT_URL = reverse_lazy('home')
+
 # Application settings
 SKIP_SOUTH_TESTS = True
 
@@ -199,3 +203,5 @@ HAYSTACK_CONNECTIONS = {
     },
 }
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
+ACCOUNT_ACTIVATION_DAYS = 7

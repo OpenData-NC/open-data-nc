@@ -47,6 +47,9 @@
             }
         }
     }
+    .nav.aux {
+        float: right;
+    }
     .brand {
         border: none;
         padding: 14px 15px 11px 0;
@@ -73,6 +76,27 @@ footer {
     }
 }
 
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input {
+    .row-fluid & {
+        height: 25px;
+    }
+}
+
 /* Individual pages
 ==================== */
 
@@ -89,5 +113,17 @@ footer {
         height: 28px;
         position: relative;
         left: -3px;
+    }
+}
+
+/****** Registration ******/
+
+body.registration {
+    div.floating-box {
+        margin-top: 5%;
+        margin-bottom: 10%;
+        width: 30em;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
