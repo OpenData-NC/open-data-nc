@@ -27,6 +27,9 @@ CELERY_ALWAYS_EAGER = True
 
 COMPRESS_ENABLED = False
 
+# Doesn't matter what this is with the dev settings
+SECRET_KEY = 'da0*+4%hq_@np$&)6q+76c)prm=!74f_sx^drbiio1f+-n9x^n'
+
 # Special test settings
 if 'test' in sys.argv:
     CELERY_ALWAYS_EAGER = True

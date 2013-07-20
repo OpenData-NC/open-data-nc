@@ -83,9 +83,6 @@ STATICFILES_FINDERS = (
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = 'da0*+4%hq_@np$&)6q+76c)prm=!74f_sx^drbiio1f+-n9x^n'
-
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
@@ -190,7 +187,11 @@ COMPRESS_PRECOMPILERS = (
    ('text/less', 'lessc {infile} {outfile}'),
 )
 
-# Haystack Conf
+# Celery setup
+import djcelery
+djcelery.setup_loader()
+
+# Haystack conf
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',

@@ -20,7 +20,7 @@ CACHES = {
     }
 }
 
-EMAIL_SUBJECT_PREFIX = '[Opendata Staging] '
+EMAIL_SUBJECT_PREFIX = '[Open Data NC Staging] '
 
 COMPRESS_ENABLED = True
 
@@ -30,6 +30,4 @@ SESSION_COOKIE_HTTPONLY = True
 
 ALLOWED_HOSTS = ('*',)
 
-import djcelery
-djcelery.setup_loader()
 BROKER_URL = 'amqp://opendata:%s@127.0.0.1:5672/opendata_staging' % os.environ['BROKER_PASSWORD']

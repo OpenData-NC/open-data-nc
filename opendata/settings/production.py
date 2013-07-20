@@ -10,7 +10,7 @@ STATIC_ROOT = os.path.join(PUBLIC_ROOT, 'static')
 
 MEDIA_ROOT = os.path.join(PUBLIC_ROOT, 'media')
 
-EMAIL_SUBJECT_PREFIX = '[Opendata Prod] '
+EMAIL_SUBJECT_PREFIX = '[Open Data NC Prod] '
 
 # Uncomment if using celery worker configuration
-# BROKER_URL = 'amqp://opendata:%s@127.0.0.1:5672/opendata_production' % os.environ['BROKER_PASSWORD']
+BROKER_URL = 'amqp://opendata:%s@127.0.0.1:5672/opendata_production' % os.environ['BROKER_PASSWORD']
