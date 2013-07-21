@@ -34,14 +34,14 @@ class County(models.Model):
         return self.name
 
 
-class Tag(models.Model):
-    tag_name = models.CharField(max_length=150)
+class Category(models.Model):
+    name = models.CharField(max_length=150)
+
+    class Meta(object):
+        verbose_name_plural = 'Categories'
 
     def __unicode__(self):
-        return '%s' % self.tag_name
-
-    class Meta: 
-        ordering = ['tag_name']
+        return self.name
 
 
 class DataType(models.Model):
@@ -102,9 +102,11 @@ class Resource(models.Model):
     organization = models.CharField(max_length=255)
     division = models.CharField(max_length=255, blank=True)
     usage = models.TextField()
-    tags = models.ManyToManyField(Tag, blank=True, null=True)
+    categories = models.ManyToManyField(Category, blank=True, null=True)
     data_types = models.ManyToManyField(DataType, blank=True, null=True)
-        
+    cities = models.ManyToManyField(City, blank=True, null=True)
+    counties = models.ManyToManyField(County, blank=True, null=True)
+
     # More Info
     description = models.TextField()
     contact_phone = models.CharField(max_length=50, blank=True)

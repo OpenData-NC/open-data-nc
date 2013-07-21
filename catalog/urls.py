@@ -5,7 +5,16 @@ from catalog.views import ResourceCreate, ResearchSearchView
 from catalog.forms import ResourceSearchForm
 
 
-sqs = SearchQuerySet().facet('data_types')
+FACETS = (
+    'cities',
+    'counties',
+    'data_types',
+    'categories',
+)
+
+sqs = SearchQuerySet()
+for facet in FACETS:
+    sqs = sqs.facet(facet)
 
 
 urlpatterns = patterns('',

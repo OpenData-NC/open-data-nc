@@ -35,22 +35,14 @@
                     {% endfor %}
                 </div>
             </form>
-
-
             <ul class="nav nav-list">
             {% for field, facets in facets.fields.items %}
                 {% if facets %}
-                    {% if field == 'creator' %}
-                    <li class="nav-header">By Author</li>
-                    {% elif field == 'pkg_type' %}
-                    <li class="nav-header">By Package Type</li>
-                    {% else %}
                     <li class="nav-header">By {{ field }}</li>
-                    {% endif %}
                     {% for facet in facets %}
-                    {% with path=request.get_full_path %}
-                        <li class="nav-item"><a href="{{ request.get_full_path }}{% if '?q=' not in path %}?q={% endif %}&amp;selected_facets={{ field }}_exact:{{ facet.0|urlencode }}">{{ facet.0|title }} ({{ facet.1 }})</a></li>
-                    {% endwith %}
+                        {% with path=request.get_full_path %}
+                            <li class="nav-item"><a href="{{ request.get_full_path }}{% if '?q=' not in path %}?q={% endif %}&amp;selected_facets={{ field }}_exact:{{ facet.0|urlencode }}">{{ facet.0|title }} ({{ facet.1 }})</a></li>
+                        {% endwith %}
                     {% endfor %}
                 {% endif %}
             {% endfor %}

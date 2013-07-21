@@ -25,7 +25,7 @@ class ResourceAdmin(admin.ModelAdmin):
             ('data_formats', 'area_of_interest'), 'proj_coord_sys', 
             ('created_by', 'created'), ('last_updated_by', 'last_updated'),
             ('coord_sys', 'wkt_geometry'),
-            'metadata_contact','metadata_notes', 'data_types', 'tags', ], 'classes':['wide']})
+            'metadata_contact','metadata_notes', 'data_types', 'categories', 'cities', 'counties'], 'classes':['wide']})
     ]
     readonly_fields = ['created_by', 'created', 'last_updated_by', 'last_updated']
     inlines = [UrlInline,]
@@ -34,8 +34,9 @@ class ResourceAdmin(admin.ModelAdmin):
     verbose_name_plural = 'Resource Urls'
     list_display = ('name', 'organization', 'release_date', 'is_published')
     search_fields = ['name', 'description', 'organization']
-    list_filter = ['tags', 'url__url_type', 'is_published']
+    list_filter = ['categories', 'url__url_type', 'is_published']
     date_heirarchy = 'release_date'
+    filter_horizontal = ('data_types', 'categories', 'cities', 'counties')
 
     def save_model(self, request, obj, form, change):
         if not change:
@@ -62,6 +63,10 @@ class CoordSystemAdmin(admin.ModelAdmin):
     verbose_name_plural = 'Resource Urls'
 
 
+class CategoryAdmin(admin.ModelAdmin):
+    ordering = ('name',)
+
+
 class CityAdmin(admin.ModelAdmin):
     ordering = ('name',)
 
@@ -71,7 +76,7 @@ class CountyAdmin(admin.ModelAdmin):
     filter_horizontal = ('cities',)
 
 
-admin.site.register(Tag)
+admin.site.register(Category, CategoryAdmin)
 admin.site.register(UpdateFrequency)
 admin.site.register(UrlType)
 admin.site.register(CoordSystem, CoordSystemAdmin)
