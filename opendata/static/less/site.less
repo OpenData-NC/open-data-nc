@@ -8,14 +8,77 @@
 /* Includes
 ==================== */
 
-@import "../bootstrap/less/bootstrap";
-@import "../flat-ui/less/flat-ui";
+/**------ Bootstrap ------**/
+
+// Core variables and mixins
+@import "../bootstrap/less/variables"; // Modify this for custom colors, font-sizes, etc
+@import "../bootstrap/less/mixins";
+
+// CSS Reset
+@import "../bootstrap/less/reset";
+
+// Grid system and page structure
+@import "../bootstrap/less/scaffolding";
+@import "../bootstrap/less/grid";
+@import "../bootstrap/less/layouts";
+
+// Base CSS
+@import "../bootstrap/less/type";
+@import "../bootstrap/less/code";
+@import "../bootstrap/less/forms";
+@import "../bootstrap/less/tables";
+
+// Components: common
+@import "../bootstrap/less/sprites";
+@import "../bootstrap/less/close";
+
+// Components: Nav
+@import "../bootstrap/less/navs";
+@import "../bootstrap/less/navbar";
+
+/**------ Flat UI ------**/
+
+// Loading custom fonts
+@import url("https://fonts.googleapis.com/css?family=Lato:400,700,700italic,900,400italic,300");
+@import "../flat-ui/less/icon-font";
+
+// Loading config with variables (changing them leads to changing a color scheme)
+@import "../flat-ui/less/config";
+
+// Utility mixins for greater good
+@import "../flat-ui/less/mixins";
+
+// Modules
+/*@import "../flat-ui/less/modules/demo";*/
+@import "../flat-ui/less/modules/type";
+@import "../flat-ui/less/modules/buttons";
+@import "../flat-ui/less/modules/caret";
+@import "../flat-ui/less/modules/navbar";
+@import "../flat-ui/less/modules/select";
+@import "../flat-ui/less/modules/input";
+/*@import "../flat-ui/less/modules/checkbox-and-radio";*/
+/*@import "../flat-ui/less/modules/tagsinput";*/
+/*@import "../flat-ui/less/modules/progress";*/
+/*@import "../flat-ui/less/modules/ui-slider";*/
+/*@import "../flat-ui/less/modules/pager";*/
+/*@import "../flat-ui/less/modules/pagination";*/
+/*@import "../flat-ui/less/modules/tooltip";*/
+@import "../flat-ui/less/modules/dropdown";
+/*@import "../flat-ui/less/modules/switch";*/
+/*@import "../flat-ui/less/modules/share";*/
+/*@import "../flat-ui/less/modules/palette";*/
+/*@import "../flat-ui/less/modules/tile";*/
+/*@import "../flat-ui/less/modules/todo";*/
+@import "../flat-ui/less/modules/footer";
+/*@import "../flat-ui/less/modules/video";*/
+/*@import "../flat-ui/less/modules/login";*/
+/*@import "../flat-ui/less/spaces";*/
 
 /* Variables
 ==================== */
 
 @base:             @belize-hole;
-@firm:             @peter-river;
+@firm:             @turquoise;
 
 @gray:             @concrete;
 @lightgray:        @silver;
@@ -26,36 +89,44 @@
 @warning:          @sun-flower;
 @info:             @peter-river;
 
-@link-color:       @peter-river;
-@link-hover-color: @emerald;
+@link-color:       @green-sea;
+@link-hover-color: @turquoise;
 
 @inputWidth: 50%;
 @inputHeight: 21px;
 
+/* Bootstrap settings
+ *
+ * Had to override these since we have custom locations for bootstrap resources
+ */
+@iconSpritePath:          "/static/bootstrap/img/glyphicons-halflings.png";
+@iconWhiteSpritePath:     "/static/bootstrap/img/glyphicons-halflings-white.png";
+
 /* Sitewide
 ==================== */
 
-.navbar&.navbar-inverse {
+.navbar {
     .navbar-inner {
         .border-radius(0);
-    }
-    .nav {
-        > li {
-            line-height: 24px;
-            > a {
-                border: none;
+        .nav {
+            > li {
+                > a {
+                    border: none;
+                    i {
+                      font-size: 24px;
+                      margin: 0px 4px 0px 0px;
+                      position: relative;
+                      top: 4px;
+                    }
+                }
             }
         }
-    }
-    .nav.aux {
-        float: right;
-    }
-    .brand {
-        border: none;
-        padding: 14px 15px 11px 0;
-        text-decoration: none;
-        @media (max-width: 767px) {
-            padding-left: 15px;
+        .brand {
+            border: none;
+            text-decoration: none;
+            @media (max-width: 767px) {
+                padding-left: 15px;
+            }
         }
     }
 }

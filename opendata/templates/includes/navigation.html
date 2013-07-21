@@ -14,16 +14,14 @@
             <div class="nav-collapse collapse">
                 <ul class="nav">
                     <li><a href="{% url 'catalog_search' %}">Data Catalog</a></li>
-                </ul>
-                <ul class="nav aux">
                 {% if not user.is_authenticated %}
                     <li><a href="{% url "auth_login" %}">Register/Log In</a></li>
                 {% else %}
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown">
-                            {{ user.username }}
+                    <li>
+                        <a>
+                            <i class="icon-white icon-user"></i> {{ user.username }}
                         </a>
-                        <ul class="dropdown-menu" role="menu">
+                        <ul>
                             {% if user.is_staff %}
                             <li><a href="{% url "admin:index" %}">Admin</a></li>
                             {% endif %}
