@@ -28,8 +28,8 @@
     {% endblock navigation %}
 
     {% block content-outer %}
-    <div id="content" class="container-fluid">
-        <div class="row-fluid">
+    <div id="content" class="container">
+        <div class="row">
             {% block messages-outer %}
             <div id="messages" class="span12">
                 {% block messages %}
@@ -40,7 +40,7 @@
             </div>
             {% endblock messages-outer %}
         </div>
-        <div class="row-fluid">
+        <div class="row">
             <div class="span12">
             {% block content %}{% endblock content %}
             </div>
@@ -55,6 +55,7 @@
     {% block js %}
     <script charset="utf-8" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     {% compress js %}
+    <script charset="utf-8" src="{{ STATIC_URL }}bootstrap/js/bootstrap-collapse.js"></script>
     <script charset="utf-8" src="{{ STATIC_URL }}bootstrap/js/bootstrap-alert.js"></script>
     <script charset="utf-8" src="{{ STATIC_URL }}js/site.js"></script>
     {% endcompress %}
