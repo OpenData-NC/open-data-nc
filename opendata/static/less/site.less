@@ -31,6 +31,7 @@
 // Components: common
 @import "../bootstrap/less/sprites";
 @import "../bootstrap/less/close";
+@import "../bootstrap/less/component-animations";
 
 // Components: Buttons & Alerts
 @import "../bootstrap/less/alerts";
@@ -38,6 +39,13 @@
 // Components: Nav
 @import "../bootstrap/less/navs";
 @import "../bootstrap/less/navbar";
+
+// Components: Responsive
+@import "../bootstrap/less/responsive-utilities";
+@import "../bootstrap/less/responsive-1200px-min";
+@import "../bootstrap/less/responsive-768px-979px";
+@import "../bootstrap/less/responsive-767px-max";
+@import "../bootstrap/less/responsive-navbar";
 
 /**------ Flat UI ------**/
 
@@ -108,9 +116,14 @@
 /* Sitewide
 ==================== */
 
+.container {
+    magrin: 0 auto;
+    max-width: 1170px;
+}
+
 .navbar {
+    margin-top: 20px;
     .navbar-inner {
-        .border-radius(0);
         .nav {
             > li {
                 > a {
@@ -184,7 +197,7 @@ input[type="color"],
         margin-top: 15px;
         margin-bottom: 10px;
         input[type=text] {
-            width: 96%;
+            width: 95%;
         }
     }
 }
