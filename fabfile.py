@@ -29,7 +29,7 @@ def vagrant():
 @task
 def staging():
     env.environment = 'staging'
-    env.hosts = [] # FIXME: Add staging server hosts
+    env.hosts = ['openrual-data-dev.caktusgroup.com'] 
     env.branch = 'master'
     setup_path()
 

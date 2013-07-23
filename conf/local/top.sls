@@ -2,6 +2,7 @@ base:
   '*':
     - base
     - vagrant.user
+    - sudo
     - users.devs
     - sshd
     - sshd.github

@@ -1,4 +1,4 @@
 environment: staging
 
 # FIXME: Change to match staging domain name
-domain: staging.example.com
+domain: openrual-data-dev.caktusgroup.com
