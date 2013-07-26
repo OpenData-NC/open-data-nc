@@ -10,7 +10,7 @@ from suggestions.forms import SearchForm
 
 def list_all(request):
     suggestions = Suggestion.objects.order_by("-rating_score")
-    if request.method == 'get':
+    if request.method == 'GET':
         form = SearchForm(request.GET)
         if form.is_valid():
             query = form.cleaned_data['text']
@@ -44,6 +44,7 @@ def add_suggestion(request):
     suggestions = Suggestion.objects.order_by("rating_score")
     return render_to_response('suggestions/list.html', {'suggestions': suggestions, 'form': form}, context_instance=RequestContext(request))
 
+
 @login_required
 def vote(request, suggestion_id):
     "Vote for a suggestion"
@@ -54,6 +55,7 @@ def vote(request, suggestion_id):
         suggestion.rating.add(score=1, user=request.user,
                               ip_address=request.META['REMOTE_ADDR'])
     return redirect(reverse('suggestion-list'))
+
 
 @login_required
 def remove_vote(request, suggestion_id):
