@@ -3,7 +3,7 @@ from suggestions import views
 
 
 urlpatterns = patterns('',
-   url(r'^$', views.list_all, name="suggestion-list"),
+   url(r'^$', views.list_all, name="suggestions-list"),
    url(r'^create/$', views.add_suggestion, name="suggestion-create"),
    url(r'^(?P<suggestion_id>\d+)/vote/$', views.vote,
        name="suggestion-vote"),
