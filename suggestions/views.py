@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from suggestions.models import *
-from suggestions.forms import SearchForm
+from suggestions.forms import SearchForm, SuggestionForm
 
 
 def list_suggestions(request):
@@ -12,7 +12,7 @@ def list_suggestions(request):
         form = SearchForm(request.GET)
         if form.is_valid():
             query = form.cleaned_data['text']
-            suggestions = suggestions.filter(text__icontains=query)
+            suggestions = suggestions.filter(title__icontains=query)
     else:
         form = SearchForm()
     context = {
@@ -24,23 +24,22 @@ def list_suggestions(request):
 
 @login_required
 def add_suggestion(request):
+    "Add new suggestion"
     if request.method == 'POST':
         form = SuggestionForm(request.POST)
         if form.is_valid():
-
-            sug = Suggestion()
-            sug.suggested_by = request.user
-            sug.text = request.POST.get('text')
-            
-            sug.save()            
-            sug.rating.add(score=1, user=request.user, ip_address=request.META['REMOTE_ADDR'])
-            
-            return HttpResponseRedirect('../?sort=suggested_date&dir=desc&filter=mine')
+            suggestion = form.save(commit=False)
+            suggestion.suggested_by = request.user
+            suggestion.save()
+            suggestion.rating.add(score=1, user=request.user,
+                                  ip_address=request.META['REMOTE_ADDR'])
+            return redirect(reverse('suggestion-list'))
     else: 
         form = SuggestionForm()
-
-    suggestions = Suggestion.objects.order_by("rating_score")
-    return render_to_response('suggestions/list.html', {'suggestions': suggestions, 'form': form}, context_instance=RequestContext(request))
+    context = {
+        'form': form
+    }
+    return render(request, 'suggestions/create_edit.html', context)
 
 
 @login_required
