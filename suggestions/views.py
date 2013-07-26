@@ -1,14 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.template import RequestContext
-from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-
 from suggestions.models import *
 from suggestions.forms import SearchForm
 
 
-def list_all(request):
+def list_suggestions(request):
+    "List current suggestions"
     suggestions = Suggestion.objects.order_by("-rating_score")
     if request.method == 'GET':
         form = SearchForm(request.GET)
