@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.views.decorators.http import require_POST
 from suggestions.models import *
 from suggestions.forms import SearchForm, SuggestionForm
+from djangoratings.exceptions import CannotDeleteVote
 
 
 def list_suggestions(request):
@@ -43,6 +45,7 @@ def add_suggestion(request):
 
 
 @login_required
+@require_POST
 def vote(request, suggestion_id):
     "Vote for a suggestion"
     suggestion = get_object_or_404(Suggestion, pk=suggestion_id)
@@ -55,8 +58,13 @@ def vote(request, suggestion_id):
 
 
 @login_required
+@require_POST
 def remove_vote(request, suggestion_id):
     "Remove pre-existing vote for suggestion"
     suggestion = get_object_or_404(Suggestion, pk=suggestion_id)
-    suggestion.rating.delete(request.user, request.META['REMOTE_ADDR'])
+    try:
+        suggestion.rating.delete(request.user, request.META['REMOTE_ADDR'])
+    except CannotDeleteVote:
+        # vote didn't exist, just move on
+        pass
     return redirect(reverse('suggestion-list'))

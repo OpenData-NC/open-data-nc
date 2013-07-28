@@ -53,11 +53,17 @@
                 {% if user.is_authenticated %}
                     {% if vote %}
                         {% if not suggestion.completed %}
-                            <a id="nom_unvote" href="{% url 'suggestion-remove-vote' suggestion.id %}">Undo vote</a>
+                            <form method='post' action="{% url 'suggestion-remove-vote' suggestion.id %}">
+                                {% csrf_token %}
+                                <input class="btn btn-secondary btn-block" type="submit" value="Remove Vote" />
+                            </form>
                         {% endif %}
                         <div id="nom_voted">YOU VOTED!</div>
                     {% else %}
-                        <a class="nom_voted" href="{% url 'suggestion-vote' suggestion.id %}">VOTE FOR THIS</a>
+                        <form method='post' action="{% url 'suggestion-vote' suggestion.id %}">
+                            {% csrf_token %}
+                            <input class="btn btn-secondary btn-block" type="submit" value="Vote!" />
+                        </form>
                     {% endif %}
                 {% else %}
                     <a class="nom_vote_login" href="{% url 'auth_login' %}?next={{ request.get_full_path }}">Login to vote</a>
