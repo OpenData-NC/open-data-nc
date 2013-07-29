@@ -8,6 +8,7 @@ services: postgresql
 before_install:
  - export DJANGO_SETTINGS_MODULE=opendata.settings.test
  - export PYTHONPATH=$HOME/builds/openrural/open-data-nc
+ - sudo apt-get install libgeos-dev
 
 install:
  - pip install -r requirements/dev.txt --use-mirrors
