@@ -3,6 +3,10 @@ Open Data NC
 
 Public records index for North Carolina.
 
+.. image::
+   https://api.travis-ci.org/openrural/open-data-nc.png?branch=master
+   :alt: Build Status
+   :target: https://travis-ci.org/openrural/open-data-nc
 
 Development Introduction
 ------------------------
