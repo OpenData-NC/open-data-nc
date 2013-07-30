@@ -231,6 +231,12 @@ def load_db_dump(dump_file):
 
 
 @task
+def init_db():
+    """Initial tasks to run after creating the db"""
+    manage_run('import_cities https://gist.github.com/copelco/5995845/raw/f238d1fde1d6cbb7751c482819d6c8b211f03460/gistfile1.txt')
+
+
+@task
 def configure_solr():
     """Update solr configuration."""
     schema_path = os.path.join(env.solr_project_dir, 'solr', 'conf',
