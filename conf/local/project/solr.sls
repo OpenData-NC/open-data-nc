@@ -9,7 +9,7 @@ openjdk-7-jre-headless:
 solr_download:
   file.managed:
     - name: /tmp/apache-solr-{{ version }}.tgz
-    - source: http://mirror.mel.bkb.net.au/pub/apache/lucene/solr/{{ version }}/apache-solr-{{ version }}.tgz
+    - source: http://files.caktusgroup.com/media/apache-solr-{{ version }}.tgz
     - source_hash: md5=e9c51f51265b070062a9d8ed50b84647
 
 solr_extract:
