@@ -9,6 +9,7 @@
     <meta name="author" content="{% block meta-author %}{% endblock %}">
     <meta name="keywords" content="{% block meta-keywords %}{% endblock %}">
     {% block extra-meta %}{% endblock %}
+    {% block ga %}{% endblock %}
     {% if debug %}
     <link rel="stylesheet/less" type="text/css" media="all" href="{{ STATIC_URL }}less/site.less">
     <script src="{{ STATIC_URL }}js/libs/less-1.4.1.min.js"></script>
