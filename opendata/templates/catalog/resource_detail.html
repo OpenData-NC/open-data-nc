@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block title %}{{ resource|title }}{% endblock title %}
+{% block body_id %}resource-detail{% endblock body_id %}
+{% block body_class %}catalog{% endblock body_class %}
+
+
+{% block content %}
+    {{ resource }}
+{% endblock content%}

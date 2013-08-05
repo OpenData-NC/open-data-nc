@@ -46,3 +46,7 @@ class ResearchSearchView(FacetedSearchView):
             kwargs['searchqueryset'] = self.searchqueryset
 
         return self.form_class(data, **kwargs)
+
+
+class ResourceDetail(DetailView):
+    model = Resource
