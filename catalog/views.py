@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
@@ -50,3 +51,9 @@ class ResearchSearchView(FacetedSearchView):
 
 class ResourceDetail(DetailView):
     model = Resource
+
+    def get_context_data(self, **kwargs):
+        context = super(ResourceDetail, self).get_context_data(**kwargs)
+        site_url = getattr(settings, 'SITE_URL', 'http://localhost')
+        context.update({'site_url': site_url})
+        return context
