@@ -5,7 +5,73 @@
 {% block body_id %}resource-detail{% endblock body_id %}
 {% block body_class %}catalog{% endblock body_class %}
 
+{% block extra-meta %}
+
+{% endblock %}
+
 
 {% block content %}
-    {{ resource }}
+    <h1>{{ resource }}</h1>
+    <a href="#"
+  onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;" class="btn btn-primary">
+  <i class="icon-facebook"></i> Share on Facebook
+</a>
+
+    {% if resource.release_date %}
+    <h3>Release Date</h3>
+    {{ resource.release_date }}
+    {% endif %}
+
+    {% with cities=resource.cities.all  %}
+    {% if cities %}
+    <h3>Cities</h3>
+        <ul>
+        {% for city in cities %}
+            <li>{{ city }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+
+    {% if resource.organization %}
+    <h3>Description</h3>
+    {{ resource.organization }}
+    {% endif %}
+
+    {% if resource.usage %}
+    <h3>Usage</h3>
+    {{ resource.usage }}
+    {% endif %}
+
+    {% with categories=resource.categories.all  %}
+    {% if categories %}
+    <h3>Cities</h3>
+        <ul>
+        {% for category in categories %}
+            <li>{{ category }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+
+
+    {% if resource.description %}
+    <h3>Description</h3>
+    {{ resource.description|linebreaks }}
+    {% endif %}
+
+    {% if resource.contact_phone %}
+    <h3>Contact Number</h3>
+    {{ resource.contact_phone }}
+    {% endif %}
+
+    {% if resource.contact_email %}
+    <h3>Contact Email</h3>
+    {{ resource.contact_email }}
+    {% endif %}
 {% endblock content%}
