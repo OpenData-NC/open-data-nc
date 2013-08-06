@@ -60,6 +60,7 @@
     {% compress js %}
     <script charset="utf-8" src="{{ STATIC_URL }}bootstrap/js/bootstrap-collapse.js"></script>
     <script charset="utf-8" src="{{ STATIC_URL }}bootstrap/js/bootstrap-alert.js"></script>
+    {{ form.media }}
     <script charset="utf-8" src="{{ STATIC_URL }}js/site.js"></script>
     {% endcompress %}
     {% endblock js %}
