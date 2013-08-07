@@ -139,6 +139,7 @@ INSTALLED_APPS = (
     # Internal apps
     'catalog',
     'suggestions',
+    'search',
     # External apps
     'south',
     'compressor',
@@ -194,7 +195,7 @@ LOGIN_REDIRECT_URL = reverse_lazy('home')
 SKIP_SOUTH_TESTS = True
 
 COMPRESS_PRECOMPILERS = (
-   ('text/less', 'lessc {infile} {outfile}'),
+    ('text/less', 'lessc {infile} {outfile}'),
 )
 
 # Celery setup
