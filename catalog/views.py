@@ -28,7 +28,7 @@ class ResourceDetail(DetailView):
         context = super(ResourceDetail, self).get_context_data(**kwargs)
         resource = context['object']
         rating_average = math.floor((resource.rating.score or 0) /
-                                    (resource.rating.votes or 0))
+                                    (resource.rating.votes or 1))
         site_url = getattr(settings, 'SITE_URL', 'http://localhost')
         context.update({'site_url': site_url, 'rating_average': rating_average})
         return context
