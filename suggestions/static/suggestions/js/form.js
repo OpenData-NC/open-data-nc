@@ -1,5 +1,4 @@
 $(document).ready(function(){
-    $('.control-group:has(.suggestions-hidden)').addClass("hidden");
 
     $('#id_agency_type').bind('change', HideShowFields);
 
@@ -19,4 +18,6 @@ $(document).ready(function(){
                 break;
         }
     }
+
+    $('#id_agency_type').trigger('change')
 });
