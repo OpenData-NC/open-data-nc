@@ -113,11 +113,6 @@ class FacetedSearchCustomView(FacetedSearchView):
         return facets
 
 
-
-
-
-
-
 def search_listing(request, model, template_name='search/search.html'):
     # Extract the model type from the full path, which should be the plural name
     # of a valid model type (ex: '/users/')
