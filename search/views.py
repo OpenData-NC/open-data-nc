@@ -1,3 +1,5 @@
+import copy
+
 from django.core.paginator import Paginator, InvalidPage
 from django.http import Http404
 from django.shortcuts import redirect, render_to_response
@@ -88,17 +90,32 @@ class FacetedSearchCustomView(FacetedSearchView):
     def extra_context(self):
         extra = super(FacetedSearchCustomView, self).extra_context()
         extra['filters'] = self.clean_filters()
-        if self.results is None:
-            extra['facets'] = self.form.search().facet_counts()
-        else:
-            extra['facets'] = self.results.facet_counts()
-
+        # import pdb; pdb.set_trace()
+        facets = extra['facets']
+        extra['facets'] = self.remove_empty_facets(facets)
+        # import pdb; pdb.set_trace()
         model_type = self.request.path.split('/')[1]
         extra['model_type'] = model_type
 
         if model_type in ['package', 'project']:
             extra['model_create'] = '%s_create' % model_type
         return extra
+
+    @staticmethod
+    def remove_empty_facets(facets):
+        """Return a dict of fields that have filters available."""
+        fields = facets['fields'].keys()
+        for field in fields:
+            filters = facets['fields'].get(field)
+            field_has_filters = any([facet[1] for facet in filters])
+            if not field_has_filters:
+                facets['fields'].pop(field)
+        return facets
+
+
+
+
+
 
 
 def search_listing(request, model, template_name='search/search.html'):
