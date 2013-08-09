@@ -53,6 +53,7 @@ class FacetedSearchCustomView(FacetedSearchView):
         # get distinct facets
         facets = list(set(self.form.selected_facets))
         for facet in facets:
+            print facet
             if ":" not in facet:
                 continue
             field, value = facet.split(":", 1)
