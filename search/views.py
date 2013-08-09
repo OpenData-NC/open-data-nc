@@ -90,10 +90,8 @@ class FacetedSearchCustomView(FacetedSearchView):
     def extra_context(self):
         extra = super(FacetedSearchCustomView, self).extra_context()
         extra['filters'] = self.clean_filters()
-        # import pdb; pdb.set_trace()
-        facets = extra['facets']
+        facets = extra.get('facets', {})
         extra['facets'] = self.remove_empty_facets(facets)
-        # import pdb; pdb.set_trace()
         model_type = self.request.path.split('/')[1]
         extra['model_type'] = model_type
 
@@ -116,7 +114,6 @@ class FacetedSearchCustomView(FacetedSearchView):
 def search_listing(request, model, template_name='search/search.html'):
     # Extract the model type from the full path, which should be the plural name
     # of a valid model type (ex: '/users/')
-    # import pdb; pdb.set_trace()
     if model not in MODEL_FACETS.keys():
         raise Http404
     sqs = SearchQuerySet().models(model, )
