@@ -104,7 +104,7 @@ class FacetedSearchCustomView(FacetedSearchView):
     @staticmethod
     def remove_empty_facets(facets):
         """Return a dict of fields that have filters available."""
-        fields = facets['fields'].keys()
+        fields = facets.get('fields', {}).keys()
         for field in fields:
             filters = facets['fields'].get(field)
             field_has_filters = any([facet[1] for facet in filters])
