@@ -24,3 +24,7 @@ class ResourceFactory(factory.DjangoModelFactory):
     created_by = factory.SubFactory(UserFactory)
     last_updated_by = factory.LazyAttribute(lambda obj: obj.created_by)
     created = timezone.now()
+    description = "Long description"
+    short_description = "Short description"
+    usage = "Usage"
+    organization = "Organization"
