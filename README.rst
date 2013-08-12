@@ -57,6 +57,18 @@ You should now be able to run the development server::
     python manage.py runserver
 
 
+Loading Initial NC Data
+------------------------
+
+You can load initial data by running this command::
+
+    python manage.py loaddata cities counties categories
+
+And to load some random data for testing::
+
+    python manage.py load_dummy_resources 10
+
+
 Deployment
 ------------------------
 
