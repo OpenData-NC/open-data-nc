@@ -137,6 +137,7 @@ INSTALLED_APPS = (
     'opendata.requests',
     'opendata.search',
     'opendata.comments',
+    'opendata.suggestions',
     # External apps
     'south',
     'compressor',

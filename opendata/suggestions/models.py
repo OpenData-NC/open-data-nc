@@ -15,6 +15,7 @@ HELP = {
                        'Registrar of Deeds',
     'agency_type': '',
     'county': '',
+    'url': '',
     'city': 'Which city or town',
     'last_updated': 'NOTE: some data sets may have multiple versions on a '
                     'CD-ROM and a version on the agency\'s web server. Or an '
@@ -83,19 +84,19 @@ class Suggestion(models.Model):
     short_description = models.CharField(u'Brief description', max_length=255,
                                          help_text=HELP['short_description'])
     description = models.TextField(u'Long description', help_text=HELP['description'])
-    url = models.CharField(verbose_name=FIEDLS['url'], max_length=255,
+    url = models.CharField(verbose_name=FIELDS['url'], max_length=255,
                            help_text=HELP['url'])
     data_format = models.CharField(verbose_name=FIELDS['data_format'],
                                    max_length=100, choices=FORMATS)
     other_format = models.CharField(max_length=255, blank=True)
-    agency_name = models.CharField(verbose_name=FIELDS['agancy_name'],
+    agency_name = models.CharField(verbose_name=FIELDS['agency_name'],
                                    help_text=HELP['agency_name'], max_length=255)
     agency_division = models.CharField(max_length=255,
                                        verbose_name=FIELDS['agency_division'],
                                        help_text=HELP['agency_name'])
     agency_type = models.CharField(choices=AGENCY_TYPES, max_length=16,
                                    verbose_name=FIELDS['agency_type'],
-                                   help_text==HELP['agency_type'])
+                                   help_text=HELP['agency_type'])
     city = models.ForeignKey(City, verbose_name=FIELDS['city'], blank=True,
                              related_name='suggestions', null=True,)
     county = models.ForeignKey(County, related_name='suggestions', null=True,
@@ -105,11 +106,11 @@ class Suggestion(models.Model):
     update_frequency = models.CharField(choices=FREQUENCY_TYPES, max_length=16,
                                         verbose_name=FIELDS['update_frequency'],
                                         help_text=HELP['update_frequency'])
-    categories = models.ManyToManyField(Category, related_name="requests",
+    categories = models.ManyToManyField(Category, related_name="suggestions",
                                         null=True, blank=True,
                                         verbose_name=FIELDS['categories'])
     keywords = models.CommaSeparatedIntegerField(max_length=255, blank=True,
-                                                 verbose_name=FEILDS['keywords'],
+                                                 verbose_name=FIELDS['keywords'],
                                                  help_text=HELP['keywords'])
     contact_name = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=30)

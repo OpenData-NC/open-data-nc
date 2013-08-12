@@ -102,7 +102,8 @@ class Resource(models.Model):
     organization = models.CharField(max_length=255)
     division = models.CharField(max_length=255, blank=True)
     usage = models.TextField()
-    categories = models.ManyToManyField(Category, blank=True, null=True)
+    categories = models.ManyToManyField(Category, related_name="resources",
+                                        blank=True, null=True)
     data_types = models.ManyToManyField(DataType, blank=True, null=True)
     cities = models.ManyToManyField(City, blank=True, null=True)
     counties = models.ManyToManyField(County, blank=True, null=True)
