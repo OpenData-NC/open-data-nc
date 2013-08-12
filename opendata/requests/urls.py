@@ -3,7 +3,7 @@ from opendata.requests import views
 
 
 urlpatterns = patterns('',
-   url(r'^$', views.list_requests, name="requests_request_list"),
+   url(r'^$', views.list_requests, name="request-list"),
    url(r'^create/$', views.add_request, name="request-create"),
    url(r'^(?P<request_id>\d+)/vote/$', views.vote,
        name="request-vote"),

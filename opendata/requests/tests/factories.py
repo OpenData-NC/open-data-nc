@@ -2,7 +2,7 @@ import factory
 
 from django.contrib.auth.models import User
 
-from suggestions.models import Request
+from ..models import Request
 
 
 class UserFactory(factory.DjangoModelFactory):
@@ -11,7 +11,8 @@ class UserFactory(factory.DjangoModelFactory):
     username = factory.Sequence(lambda n: 'user%s' % n)
     password = factory.PostGenerationMethodCall('set_password', 'password')
 
-class SuggestionFactory(factory.DjangoModelFactory):
+
+class RequestFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Request
 
     suggested_by = factory.SubFactory(UserFactory)

@@ -1,2 +1,2 @@
-from suggestions.tests.test_voting import *
-from suggestions.tests.test_views import *
+from .test_voting import *
+from .test_views import *

@@ -40,34 +40,34 @@
 {% autosort requests %}
 {% autopaginate requests 6 %}
     <div class="requests row">
-    {% for request in requests %}
-        {% rating_by_request request on request.rating as vote %}
+    {% for object in requests %}
+        {% rating_by_request request on object.rating as vote %}
         <div class="request span12">
-            <h3 class="nom_text">{{ request }}</h3>
+            <h3 class="nom_text">{{ object }}</h3>
             <div class="votes">
-                {{ request.rating_votes }} vote{% if request.rating_votes != 1 %}s{% endif %}
+                {{ object.rating_votes }} vote{% if object.rating_votes != 1 %}s{% endif %}
             </div>
             <div class="nom_byline">
-                By <strong>{{ request.suggested_by }}</strong> on <strong>{{ request.suggested_date|date:"SHORT_DATE_FORMAT" }}</strong>
+                By <strong>{{ object.suggested_by }}</strong> on <strong>{{ object.suggested_date|date:"SHORT_DATE_FORMAT" }}</strong>
             </div>
             {% if not s.completed %}
                 {% if user.is_authenticated %}
                     {% if vote %}
-                        {% if not request.completed %}
-                            <form method='post' action="{% url 'request-remove-vote' request.id %}">
+                        {% if not object.completed %}
+                            <form method='post' action="{% url 'request-remove-vote' object.id %}">
                                 {% csrf_token %}
                                 <input class="btn btn-secondary btn-block" type="submit" value="Remove Vote" />
                             </form>
                         {% endif %}
                         <div id="nom_voted">YOU VOTED!</div>
                     {% else %}
-                        <form method='post' action="{% url 'request-vote' request.id %}">
+                        <form method='post' action="{% url 'request-vote' object.id %}">
                             {% csrf_token %}
                             <input class="btn btn-secondary btn-block" type="submit" value="Vote!" />
                         </form>
                     {% endif %}
                 {% else %}
-                    <a class="nom_vote_login" href="{% url 'auth_login' %}?next={{ request.get_full_path }}">Login to vote</a>
+                    <a class="nom_vote_login" href="{% url 'auth_login' %}?next={{ object.get_full_path }}">Login to vote</a>
                 {% endif %}
             {% else %}
                 <div id="closed">Nomination Closed</div>

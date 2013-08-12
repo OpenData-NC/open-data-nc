@@ -67,9 +67,9 @@ class Request(models.Model):
     url = models.URLField(help_text=HELP['url'])
     agency_type = models.CharField(choices=AGENCY_TYPES,
                                    max_length=16)
-    city = models.ForeignKey(City, related_name='suggestions', null=True,
+    city = models.ForeignKey(City, related_name='requests', null=True,
                              blank=True)
-    county = models.ForeignKey(County, related_name='suggestions', null=True,
+    county = models.ForeignKey(County, related_name='requests', null=True,
                                blank=True)
     agency_name = models.CharField(max_length=255)
     agency_division = models.CharField(max_length=255)
@@ -77,12 +77,12 @@ class Request(models.Model):
                                        max_length=16)
     agency_contact = models.CharField(max_length=255, blank=True)
     categories = models.ManyToManyField(Category,
-                                        related_name="suggestions",
+                                        related_name="requests",
                                         null=True, blank=True)
     other_category = models.CharField(u'Other category', max_length=255, blank=True,
                                       help_text=HELP['other'])
     resources = models.ManyToManyField(Resource,
-                                       related_name="suggestions",
+                                       related_name="requests",
                                        null=True, blank=True)
     rating = RatingField(range=1, allow_delete=True, can_change_vote=True)
 

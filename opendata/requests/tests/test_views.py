@@ -1,50 +1,50 @@
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
-from .factories import SuggestionFactory
+from .factories import RequestFactory
 from ..models import Request
-from tests.base import ViewTestMixin, WebsiteTestBase
-from tests.factories import UserFactory
+from opendata.tests.base import ViewTestMixin, WebsiteTestBase
+from opendata.tests.factories import UserFactory
 
-__all__ = ['ListSuggestionViewTest', 'AddSuggestionViewTest']
+__all__ = ['ListRequestViewTest', 'AddRequestViewTest']
 
 
-class ListSuggestionViewTest(TestCase):
+class ListRequestViewTest(TestCase):
     """Tests for the list_suggestions view"""
 
     def setUp(self):
-        self.url = reverse("suggestion-list")
-        self.suggestion1 = SuggestionFactory.create(title="suggestion")
-        self.suggestion2 = SuggestionFactory.create(title="data request")
+        self.url = reverse("request-list")
+        self.suggestion1 = RequestFactory.create(title="suggestion")
+        self.suggestion2 = RequestFactory.create(title="data request")
 
     def test_get_list_page(self):
         """Tests that landing on suggestions page shows all avaiable
         suggestions."""
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context['suggestions'].count(), 2)
+        self.assertEqual(response.context['requests'].count(), 2)
 
     def test_get_search_terms(self):
         response = self.client.get(self.url, data={"text": "suggestion"})
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context['suggestions'].count(), 1)
+        self.assertEqual(response.context['requests'].count(), 1)
 
     def test_post(self):
         """Tests that accessing the page with a post request returns a list of
         all suggestions and the search form has no data binded"""
         response = self.client.post(self.url, data={"text": "suggestion"})
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context['suggestions'].count(), 2)
+        self.assertEqual(response.context['requests'].count(), 2)
 
 
-class AddSuggestionViewTest(ViewTestMixin, WebsiteTestBase):
+class AddRequestViewTest(ViewTestMixin, WebsiteTestBase):
     """Test for add_suggestion view. Only authenticated users should be able to
     add suggestions."""
 
-    template_name = "suggestions/create_edit.html"
+    template_name = "requests/create_edit.html"
 
     def setUp(self):
-        self.url = reverse("suggestion-create")
+        self.url = reverse("request-create")
 
     def tearDown(self):
         self.client.logout()

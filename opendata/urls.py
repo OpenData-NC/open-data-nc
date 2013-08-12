@@ -25,4 +25,5 @@ urlpatterns = patterns('',
     url(r'^selectable/', include('selectable.urls')),
     url(r'^scribbler/', include('scribbler.urls')),
     url(r'^request-data/', include('opendata.requests.urls')),
+    url(r'^suggest-data/', include('opendata.suggestions.urls')),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
