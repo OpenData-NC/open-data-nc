@@ -29,7 +29,7 @@ def vagrant():
 @task
 def staging():
     env.environment = 'staging'
-    env.hosts = ['openrual-data-dev.caktusgroup.com'] 
+    env.hosts = ['staging.open-nc.org'] 
     env.branch = 'master'
     setup_path()
 
@@ -37,7 +37,7 @@ def staging():
 @task
 def production():
     env.environment = 'production'
-    env.hosts = [] # FIXME: Add production hosts
+    env.hosts = ["open-nc.org"] # FIXME: Add production hosts
     env.branch = 'master'
     setup_path()
 
