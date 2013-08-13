@@ -28,28 +28,38 @@
     <script data-main="{{ STATIC_URL }}scribbler/js/scribbler-min" src="{{ STATIC_URL }}scribbler/libs/require.js"></script>
 </head>
 <body id="{% block body_id %}{% endblock body_id %}" class="{% block body_class %}{% endblock body_class %}">
-    {% block masthead %}{% endblock masthead %}
+    <div class="container">
+        {% block masthead %}{% endblock masthead %}
 
-    {% block navigation %}
-        {% include "includes/navigation.html" %}
-    {% endblock navigation %}
+        <!-- {% block navigation %}
+            {% include "includes/navigation.html" %}
+        {% endblock navigation %} -->
 
-    {% block content-outer %}
-    <div id="content" class="container">
-        <div class="row">
-            {% block messages-outer %}
-            <div id="messages" class="span12">
-                {% block messages %}
-                {% for msg in messages %}
-                    {% include "includes/message.html" with msg=msg %}
-                {% endfor %}
-                {% endblock messages %}
+        {% block header %}
+            {% include "includes/header.html" %}
+        {% endblock header %}
+        
+        {% block content-outer %}
+        <div id="content">
+            <div class="row">
+                {% block messages-outer %}
+                <div id="messages" class="span12">
+                    {% block messages %}
+                    {% for msg in messages %}
+                        {% include "includes/message.html" with msg=msg %}
+                    {% endfor %}
+                    {% endblock messages %}
+                </div>
+                {% endblock messages-outer %}
             </div>
-            {% endblock messages-outer %}
-        </div>
-        <div class="row">
-            <div class="span12">
-            {% block content %}{% endblock content %}
+            <div class="row">
+                <div id="side_nav" class="span4">
+                    <!-- nav sidebar here -->
+                    Nav will be here
+                </div>
+                <div class="span8">
+                {% block content %}{% endblock content %}
+                </div>
             </div>
         </div>
     </div>
