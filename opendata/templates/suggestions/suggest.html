@@ -40,8 +40,11 @@ easily available, visit the Request Data page.
 
 <p>
 Ideally, the data you want to share is already public on a government website.
-If it is, please post here the URL that points directly to the dataset.
-    <input type="text" />
+If it is, please post here the URL that points directly to the dataset.<br>
+    <form action="{% url 'suggest-create' %}" method='get'>
+        {{ form.as_p }}
+        <p></p><input type="submit" value="Submit" class="btn"/></p>
+    </form>
 </p>
 <p>
 If the data is not already online, there are several ways you can help put it
