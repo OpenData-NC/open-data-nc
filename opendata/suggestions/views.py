@@ -1,5 +1,7 @@
+from django.core.urlresolvers import reverse_lazy
 from django.views.generic import TemplateView, CreateView
 
+from opendata.mixins import LoginRequiredMixin
 from .forms import SuggestUrlForm
 from .models import Suggestion
 
@@ -14,8 +16,9 @@ class SuggestPageView(TemplateView):
         return context
 
 
-class SuggestCreateView(CreateView):
+class SuggestCreateView(LoginRequiredMixin, CreateView):
     model = Suggestion
+    success_url = reverse_lazy('home')
 
     def get_initial(self):
         initial = super(SuggestCreateView, self).get_initial()
