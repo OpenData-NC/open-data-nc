@@ -18,13 +18,24 @@ class UrlInline(admin.TabularInline):
 
 
 class ResourceAdmin(admin.ModelAdmin):
+    raw_id_fields = ('department', 'division', )
+    readonly_fields = ['created_by', 'created', 'last_updated_by', 'last_updated']
+    inlines = [UrlInline, ]
+    verbose_name = 'Resource Url'
+    verbose_name_plural = 'Resource Urls'
+    list_display = ('name', 'department', 'release_date', 'is_published')
+    search_fields = ['name', 'description', 'department__name']
+    list_filter = ['categories', 'department', 'division', 'is_published']
+    date_hierarchy = 'release_date'
+    filter_horizontal = ('data_types', 'categories', 'cities', 'counties')
+
     fieldsets = [
         ('Basic Information', {'fields': [('name', 'is_published',), 'short_description',
                                   'keywords', 'description', 'release_date',
                                   'updates', 'time_period', ]}),
-        ('Geography', {'fields': ['agency_type', 'counties',
-                        'cities', 'categories', 'data_formats', 'data_types', ]}),
-        ('Agency Information', {'fields': ['organization', 'division', 'contact_phone',
+        ('Geographies and Types', {'fields': ['agency_type', 'counties',
+                        'cities', 'categories', 'data_types', ]}),
+        ('Agency Information', {'fields': ['department', 'division', 'contact_phone',
                                'contact_email', 'contact_url', ]}),
         ('Data set information', {'fields': [
             'proj_coord_sys', 'coord_sys', 'wkt_geometry', 'metadata_contact',
@@ -32,17 +43,6 @@ class ResourceAdmin(admin.ModelAdmin):
             'last_updated',
         ], 'classes': ['collapse', ]}),
     ]
-    form = ResourceAdminForm
-    readonly_fields = ['created_by', 'created', 'last_updated_by', 'last_updated']
-    inlines = [UrlInline, ]
-
-    verbose_name = 'Resource Url'
-    verbose_name_plural = 'Resource Urls'
-    list_display = ('name', 'organization', 'release_date', 'is_published')
-    search_fields = ['name', 'description', 'organization']
-    list_filter = ['categories', 'url__url_type', 'is_published']
-    date_hierarchy = 'release_date'
-    filter_horizontal = ('data_types', 'categories', 'cities', 'counties')
 
     def save_model(self, request, obj, form, change):
         if not change:
@@ -68,8 +68,8 @@ class UrlImageAdmin(admin.ModelAdmin):
 
 class UrlAdmin(admin.ModelAdmin):
     list_display = ('url_label', 'url_type', 'url')
-    inlines = [UrlImageInline,]
-    list_filter = ['url_type',]
+    inlines = [UrlImageInline, ]
+    list_filter = ['url_type', ]
 
 
 class CoordSystemAdmin(admin.ModelAdmin):
@@ -93,6 +93,18 @@ class CountyAdmin(admin.ModelAdmin):
     filter_horizontal = ('cities',)
 
 
+class DepartmentAdmin(admin.ModelAdmin):
+    search_fields = ['name', ]
+    list_display = ['name', 'type']
+    list_filter = ['type', ]
+
+
+class DivisionAdmin(admin.ModelAdmin):
+    search_fields = ['name', ]
+
+
+admin.site.register(Department, DepartmentAdmin)
+admin.site.register(Division, DivisionAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(UpdateFrequency)
 admin.site.register(UrlType)

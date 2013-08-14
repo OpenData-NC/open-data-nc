@@ -6,13 +6,13 @@ from opendata.fields_info import FIELDS, HELP
 
 class Suggestion(models.Model):
     FORMATS = (
-        ('xls', '.xls'),
-        ('csv', '.csv'),
+        ('xls', 'XLS'),
+        ('csv', 'CSV'),
         ('rss', 'RSS'),
         ('json', 'JSON'),
         ('accb', '.accb or .mdb Microsoft Access file'),
-        ('pdf', '.pdf'),
-        ('doc', '.doc'),
+        ('pdf', 'PDF'),
+        ('doc', 'Word Document'),
         ('oracle', 'Oracle Database'),
         ('txt', '.txt'),
         ('shp', '.shp'),

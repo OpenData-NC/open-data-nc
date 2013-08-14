@@ -123,9 +123,9 @@ class Resource(models.Model):
     short_description = models.CharField(u'Brief description', max_length=255,
                                          help_text=HELP['short_description'])
     description = models.TextField(u'Long description', help_text=HELP['description'])
-    organization = models.ForeignKey(Department, verbose_name=FIELDS['agency_name'],
+    department = models.ForeignKey(Department, verbose_name=FIELDS['agency_name'],
                                     help_text=HELP['agency_name'])
-    division = models.ForeignKey(Division, blank=True,
+    division = models.ForeignKey(Division, blank=True, null=True,
                                 verbose_name=FIELDS['agency_division'],
                                 help_text=HELP['agency_division'])
     agency_type = models.CharField(choices=AGENCY_TYPES, max_length=16,
@@ -176,7 +176,7 @@ class Resource(models.Model):
         
     rating = RatingField(range=5, can_change_vote=True)
 
-    data_formats = models.CharField(max_length=255, blank=True)
+    data_formats = models.CharField(max_length=255, blank=True, editable=False)
     proj_coord_sys = models.CharField(max_length=255, blank=True, verbose_name="Coordinate system")
 
     # CSW specific properties 
