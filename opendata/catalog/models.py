@@ -201,13 +201,13 @@ class Resource(models.Model):
         return urls
     
     def get_first_image(self):
-        images = UrlImage.objects.filter(url__resource=self)
+        images = self.urlimage_set.all()
         if images.count() == 0:
             return None
         return images[0]
     
     def get_images(self):
-        images = UrlImage.objects.filter(url__resource=self)
+        images = self.urlimage_set.all()
         if images.count() == 0:
             return None
         return images
@@ -347,7 +347,7 @@ class UrlImage(models.Model):
         path = os.path.join('url_images', str(instance.url_id), fsplit[0] + '_' + str(extra) + '.' + fsplit[1])
         return path
         
-    url = models.ForeignKey(Url)
+    resource = models.ForeignKey(Resource)
     image = models.ImageField(upload_to=get_image_path, help_text="The site will resize this master image as necessary for page display")
     title = models.CharField(max_length=255, help_text="For image alt tags")
     source = models.CharField(max_length=255, help_text="Source location or person who created the image")

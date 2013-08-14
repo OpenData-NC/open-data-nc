@@ -20,7 +20,7 @@ class UrlInline(admin.TabularInline):
 class ResourceAdmin(admin.ModelAdmin):
     raw_id_fields = ('department', 'division', )
     readonly_fields = ['created_by', 'created', 'last_updated_by', 'last_updated']
-    inlines = [UrlInline, ]
+    inlines = [UrlInline, UrlImageInline]
     verbose_name = 'Resource Url'
     verbose_name_plural = 'Resource Urls'
     list_display = ('name', 'department', 'release_date', 'is_published')
