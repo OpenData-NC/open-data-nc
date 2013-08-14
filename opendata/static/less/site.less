@@ -64,7 +64,7 @@
 @import "../flat-ui/less/modules/type";
 @import "../flat-ui/less/modules/buttons";
 @import "../flat-ui/less/modules/caret";
-@import "../flat-ui/less/modules/navbar";
+/*@import "../flat-ui/less/modules/navbar";*/
 /*@import "../flat-ui/less/modules/select";*/
 @import "../flat-ui/less/modules/input";
 /*@import "../flat-ui/less/modules/checkbox-and-radio";*/
@@ -89,10 +89,10 @@
 ==================== */
 
 @base:             @brownDark;
-@firm:             @turquoise;
+@firm:             @brownDark;
 
-@gray:             @concrete;
-@lightgray:        @silver;
+@gray:             @openGrayDark;
+@lightgray:        @openGray;
 @inverse:          white;
 
 @success:          #2ECC71; // @emerald is undefined.
@@ -100,9 +100,7 @@
 @warning:          @sun-flower;
 @info:             @peter-river;
 
-@link-color:       @green-sea;
-@link-hover-color: @turquoise;
-
+@link-color:       @brownDark;
 
 /*@inputHeight: 25px;
 @baseLineHeight: 25px;*/
@@ -117,6 +115,21 @@
 /* Sitewide
 ==================== */
 
+@font-face {
+    font-family: 'open_sans_condensedbold';
+    src: url('../flat-ui/fonts/OpenSans-CondBold-webfont.eot');
+    src: url('../flat-ui/fonts/OpenSans-CondBold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../flat-ui/fonts/OpenSans-CondBold-webfont.woff') format('woff'),
+         url('../flat-ui/fonts/OpenSans-CondBold-webfont.ttf') format('truetype'),
+         url('../flat-ui/fonts/OpenSans-CondBold-webfont.svg#open_sans_condensedbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'open_sans_condensedbold', Arial, sans-serif;
+}
+
 .container {
     margin: 0 auto;
     max-width: 1170px;
@@ -124,6 +137,12 @@
 
 a { 
     text-decoration: none;
+}
+
+.accent {
+    color: @blue;
+    font-size: @baseFontSize;
+    vertical-align: top;
 }
 
 .navbar {
@@ -157,6 +176,35 @@ a {
     min-height: 1px;
 }
 
+header {
+
+    #logo {
+        background-image:;
+        background-size: contain;
+        color: @brownDark;
+        span {
+            font-size: 4em;
+        }
+    }
+
+    #intro_text {
+        font-size: 1.9em;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    #login {
+        text-align: right;  
+    }
+      
+}
+
+nav {
+    h1 {
+        border-bottom: 2px @blue solid;
+    }
+}
+
 footer {
     margin-top: 20px;
     padding-top: 10px;
@@ -167,22 +215,138 @@ footer {
     }
 }
 
-header {
-    
-    span {
-        color: @brownDark;
-        font-size: 3em;
-    }
-
-    #logo {
-        background-image:;
-        
-    }
-
-    .logo_blue {
-        color: @blue;
-    }    
+/* Ribbon */
+.ribbon {
+    position: relative;
+    width: 100%;
+    margin: 0;
 }
+
+.ribbon:before,
+.ribbon i:before {
+    content: '';
+    position: absolute;
+    bottom: -23px;
+    border: 24px solid #c45045;
+}
+
+.ribbon:before {
+    left: -54px;
+    border-left-color: transparent;
+    -webkit-transform: rotate(-16deg);
+       -moz-transform: rotate(-16deg);
+        -ms-transform: rotate(-16deg);
+         -o-transform: rotate(-16deg);
+            transform: rotate(-16deg);
+}
+.oldie .ribbon:before {
+    left: -48px;
+}
+
+.ribbon i:before {
+    right: -54px;
+    border-right-color: transparent;
+    -webkit-transform: rotate(16deg);
+       -moz-transform: rotate(16deg);
+        -ms-transform: rotate(16deg);
+         -o-transform: rotate(16deg);
+            transform: rotate(16deg);
+    z-index: -1;
+}
+.oldie .ribbon i:before {
+    right: -48px;
+}
+
+.ribbon i:after,
+.ribbon u:after {
+    content: '';
+    position: absolute;
+    border-style: solid;
+    bottom: -16px;
+    z-index: 0;
+}
+
+.ribbon i:after {
+    right: -16px;
+    border-color: transparent transparent transparent #a33d33;
+    border-width: 0 0 16px 16px;
+}
+
+.ribbon u:after {
+    left: 0;
+    border-color: transparent #a33d33 transparent transparent;
+    border-width: 0 16px 16px 0;
+}
+
+.ribbon u {
+    display: block;
+    position: relative;
+    width: 100%;
+    left: -16px;
+    padding: 0 16px 16px;
+    background: #d0726a;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#d0726a), to(#c7574d));
+    background-image: -webkit-linear-gradient(#d0726a, #c7574d);
+    background-image:    -moz-linear-gradient(#d0726a, #c7574d);
+    background-image:     -ms-linear-gradient(#d0726a, #c7574d);
+    background-image:         linear-gradient(#d0726a, #c7574d);
+    -webkit-border-top-left-radius: 50% 16px;
+            border-top-left-radius: 50% 16px;
+    -webkit-border-top-right-radius: 50% 16px;
+            border-top-right-radius: 50% 16px;
+    text-align: center;
+    font: 28px/48px Museo, cursive;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 0 1px 1px rgba(163, 61, 51, .8), 0 2px 1px rgba(163, 61, 51, .6);
+}
+.oldie .ribbon u {
+    padding: 0 16px;
+    *left: 0px;
+    *padding: 0;
+}
+
+.ribbon u {
+    left: 0;
+    margin: 0 -16px;
+    width: auto;
+}
+
+.ribbon u::selection { background-color: #a33d33; }
+.ribbon u::-moz-selection { background-color: #a33d33; }
+
+.ribbon u:before,
+.ribbon:after {
+    content: '';
+    position: absolute;
+    height: 16px;
+    left: 0;
+    bottom: 0;
+    -webkit-border-top-left-radius: 50% 16px;
+            border-top-left-radius: 50% 16px;
+    -webkit-border-top-right-radius: 50% 16px;
+            border-top-right-radius: 50% 16px;
+    box-shadow: inset 0 2px 3px rgba(0, 0, 0, .3);
+}
+.oldie .ribbon u:before,
+.oldie .ribbon:after {
+    content: none;
+}
+
+.ribbon u:before {
+    width: 100%;
+    background: #a33d33;
+}
+
+.ribbon:after {
+    width: 100%;
+    background: #ded8c5;
+    z-index: 1;
+}
+
+
 
 .form-horizontal {
     .control-label {

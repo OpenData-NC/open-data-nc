@@ -28,12 +28,10 @@
     <script data-main="{{ STATIC_URL }}scribbler/js/scribbler-min" src="{{ STATIC_URL }}scribbler/libs/require.js"></script>
 </head>
 <body id="{% block body_id %}{% endblock body_id %}" class="{% block body_class %}{% endblock body_class %}">
-    <div class="container">
+    <div class="container-fluid">
         {% block masthead %}{% endblock masthead %}
 
-        <!-- {% block navigation %}
-            {% include "includes/navigation.html" %}
-        {% endblock navigation %} -->
+        <!--  -->
 
         {% block header %}
             {% include "includes/header.html" %}
@@ -52,12 +50,13 @@
                 </div>
                 {% endblock messages-outer %}
             </div>
-            <div class="row">
-                <div id="side_nav" class="span4">
-                    <!-- nav sidebar here -->
-                    Nav will be here
+            <div class="row-fluid">
+                <div id="side_nav" class="span3">
+                    {% block navigation %}
+                        {% include "includes/navigation.html" %}
+                    {% endblock navigation %}
                 </div>
-                <div class="span8">
+                <div class="span9">
                 {% block content %}{% endblock content %}
                 </div>
             </div>
