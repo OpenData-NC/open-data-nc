@@ -1,7 +1,7 @@
 from django.db import models
 
 from opendata.requests.models import Category, City, County
-from opendata.requests.models import FIELDS, HELP
+from opendata.fields_info import FIELDS, HELP
 
 
 class Suggestion(models.Model):

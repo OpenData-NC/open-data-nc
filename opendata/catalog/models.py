@@ -8,8 +8,9 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
-
 from djangoratings.fields import RatingField
+
+from opendata.fields_info import FIELDS, HELP
 
 
 class City(models.Model):
@@ -38,6 +39,23 @@ class Category(models.Model):
 
     class Meta(object):
         verbose_name_plural = 'Categories'
+
+    def __unicode__(self):
+        return self.name
+
+
+class Division(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __unicode__(self):
+        return self.name
+
+
+class Department(models.Model):
+    TYPES = (('state', 'State'), ('county', 'County'), ('city', 'City'))
+    name = models.CharField(max_length=255)
+    type = models.CharField(max_length=40, choices=TYPES, default='state')
+    divisions = models.ManyToManyField(Division, blank=True, null=True)
 
     def __unicode__(self):
         return self.name
@@ -85,6 +103,12 @@ class CoordSystem(models.Model):
 
 class Resource(models.Model):
 
+    AGENCY_TYPES = (
+        ('state', 'Statewide'),
+        ('county', 'County Agency'),
+        ('city', 'City/town Agency'),
+    )
+
     # def save(self, *args, **kwargs):
     #     if not self.pk:
     #         super(Resource, self).save(*args, **kwargs)
@@ -94,27 +118,50 @@ class Resource(models.Model):
     #     super(Resource, self).save(*args, **kwargs)
 
     # Basic Info
-    name = models.CharField(max_length=255)
-    slug = models.SlugField()
-    short_description = models.CharField(max_length=255)    
-    release_date = models.DateField(blank=True, null=True)
-    time_period = models.CharField(max_length=50, blank=True)
-    organization = models.CharField(max_length=255)
-    division = models.CharField(max_length=255, blank=True)
-    usage = models.TextField()
-    categories = models.ManyToManyField(Category, related_name="resources",
-                                        blank=True, null=True)
-    data_types = models.ManyToManyField(DataType, blank=True, null=True)
+    name = models.CharField(u'Title', max_length=255, help_text=HELP['title'])
+    slug = models.SlugField(editable=False)
+    short_description = models.CharField(u'Brief description', max_length=255,
+                                         help_text=HELP['short_description'])
+    description = models.TextField(u'Long description', help_text=HELP['description'])
+    organization = models.ForeignKey(Department, verbose_name=FIELDS['agency_name'],
+                                    help_text=HELP['agency_name'])
+    division = models.ForeignKey(Division, blank=True,
+                                verbose_name=FIELDS['agency_division'],
+                                help_text=HELP['agency_division'])
+    agency_type = models.CharField(choices=AGENCY_TYPES, max_length=16,
+                                   verbose_name=FIELDS['agency_type'],
+                                   help_text=HELP['agency_type'])
     cities = models.ManyToManyField(City, blank=True, null=True)
     counties = models.ManyToManyField(County, blank=True, null=True)
+    usage = models.TextField(u'Relevance', help_text=HELP['relevance'],
+                             editable=False)
+    release_date = models.DateField(verbose_name=FIELDS['last_updated'],
+                                    blank=True, null=True,
+                                    help_text=HELP['last_updated'])
+
+    updates = models.ForeignKey(UpdateFrequency, null=True, blank=True,
+                                verbose_name=FIELDS['update_frequency'],
+                                help_text=HELP['update_frequency'],
+                                )
+    update_frequency = models.CharField(max_length=255, blank=True,
+                                        verbose_name=FIELDS['update_frequency'],
+                                        help_text=HELP['update_frequency'],
+                                        editable=False)
+
+    categories = models.ManyToManyField(Category, related_name="resources",
+                                        blank=True, null=True)
+    keywords = models.CommaSeparatedIntegerField(max_length=255, blank=True,
+                                                 verbose_name=FIELDS['keywords'],
+                                                 help_text=HELP['keywords'])
+    data_types = models.ManyToManyField(DataType, blank=True, null=True)
 
     # More Info
-    description = models.TextField()
     contact_phone = models.CharField(max_length=50, blank=True)
     contact_email = models.CharField(max_length=255, blank=True)
     contact_url = models.CharField(max_length=255, blank=True)
-    
-    updates = models.ForeignKey(UpdateFrequency, null=True, blank=True)
+
+    time_period = models.CharField(max_length=50, blank=True)
+
     area_of_interest = models.CharField(max_length=255, blank=True)
     is_published = models.BooleanField(default=True, verbose_name="Public")
     
@@ -128,8 +175,7 @@ class Resource(models.Model):
                                        verbose_name="Coordinate system")
         
     rating = RatingField(range=5, can_change_vote=True)
-    
-    update_frequency = models.CharField(max_length=255, blank=True)
+
     data_formats = models.CharField(max_length=255, blank=True)
     proj_coord_sys = models.CharField(max_length=255, blank=True, verbose_name="Coordinate system")
 
