@@ -47,6 +47,9 @@ class Category(models.Model):
 class Division(models.Model):
     name = models.CharField(max_length=255)
 
+    class Meta:
+        ordering = ('name', )
+
     def __unicode__(self):
         return self.name
 
@@ -59,6 +62,9 @@ class Department(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    class Meta:
+        ordering = ('name', )
 
 
 class DataType(models.Model):
@@ -123,31 +129,23 @@ class Resource(models.Model):
     short_description = models.CharField(u'Brief description', max_length=255,
                                          help_text=HELP['short_description'])
     description = models.TextField(u'Long description', help_text=HELP['description'])
-    department = models.ForeignKey(Department, verbose_name=FIELDS['agency_name'],
-                                    help_text=HELP['agency_name'])
+    department = models.ForeignKey(Department, help_text=HELP['agency_name'])
     division = models.ForeignKey(Division, blank=True, null=True,
-                                verbose_name=FIELDS['agency_division'],
                                 help_text=HELP['agency_division'])
     agency_type = models.CharField(choices=AGENCY_TYPES, max_length=16,
-                                   verbose_name=FIELDS['agency_type'],
                                    help_text=HELP['agency_type'])
     cities = models.ManyToManyField(City, blank=True, null=True)
     counties = models.ManyToManyField(County, blank=True, null=True)
     usage = models.TextField(u'Relevance', help_text=HELP['relevance'],
                              editable=False)
-    release_date = models.DateField(verbose_name=FIELDS['last_updated'],
-                                    blank=True, null=True,
+    release_date = models.DateField(blank=True, null=True,
                                     help_text=HELP['last_updated'])
-
     updates = models.ForeignKey(UpdateFrequency, null=True, blank=True,
-                                verbose_name=FIELDS['update_frequency'],
                                 help_text=HELP['update_frequency'],
                                 )
     update_frequency = models.CharField(max_length=255, blank=True,
-                                        verbose_name=FIELDS['update_frequency'],
                                         help_text=HELP['update_frequency'],
                                         editable=False)
-
     categories = models.ManyToManyField(Category, related_name="resources",
                                         blank=True, null=True)
     keywords = models.CommaSeparatedIntegerField(max_length=255, blank=True,
@@ -186,6 +184,9 @@ class Resource(models.Model):
     csw_mdsource = models.CharField(max_length=100, default="local")
     csw_xml = models.TextField(blank=True)
     csw_anytext = models.TextField(blank=True)
+
+    class Meta:
+        ordering = ("-last_updated", )
     
     def get_distinct_url_types(self):
         types = []

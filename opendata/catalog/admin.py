@@ -25,9 +25,10 @@ class ResourceAdmin(admin.ModelAdmin):
     verbose_name_plural = 'Resource Urls'
     list_display = ('name', 'department', 'release_date', 'is_published')
     search_fields = ['name', 'description', 'department__name']
-    list_filter = ['categories', 'department', 'division', 'is_published']
+    list_filter = ['categories', 'agency_type', 'data_types', 'updates']
     date_hierarchy = 'release_date'
     filter_horizontal = ('data_types', 'categories', 'cities', 'counties')
+    form = ResourceAdminForm
 
     fieldsets = [
         ('Basic Information', {'fields': [('name', 'is_published',), 'short_description',
