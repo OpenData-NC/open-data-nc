@@ -47,6 +47,9 @@ class Category(models.Model):
 class Division(models.Model):
     name = models.CharField(max_length=255)
 
+    class Meta:
+        ordering = ('name', )
+
     def __unicode__(self):
         return self.name
 
@@ -59,6 +62,9 @@ class Department(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    class Meta:
+        ordering = ('name', )
 
 
 class DataType(models.Model):
@@ -123,31 +129,23 @@ class Resource(models.Model):
     short_description = models.CharField(u'Brief description', max_length=255,
                                          help_text=HELP['short_description'])
     description = models.TextField(u'Long description', help_text=HELP['description'])
-    organization = models.ForeignKey(Department, verbose_name=FIELDS['agency_name'],
-                                    help_text=HELP['agency_name'])
-    division = models.ForeignKey(Division, blank=True,
-                                verbose_name=FIELDS['agency_division'],
+    department = models.ForeignKey(Department, help_text=HELP['agency_name'])
+    division = models.ForeignKey(Division, blank=True, null=True,
                                 help_text=HELP['agency_division'])
     agency_type = models.CharField(choices=AGENCY_TYPES, max_length=16,
-                                   verbose_name=FIELDS['agency_type'],
                                    help_text=HELP['agency_type'])
     cities = models.ManyToManyField(City, blank=True, null=True)
     counties = models.ManyToManyField(County, blank=True, null=True)
     usage = models.TextField(u'Relevance', help_text=HELP['relevance'],
                              editable=False)
-    release_date = models.DateField(verbose_name=FIELDS['last_updated'],
-                                    blank=True, null=True,
+    release_date = models.DateField(blank=True, null=True,
                                     help_text=HELP['last_updated'])
-
     updates = models.ForeignKey(UpdateFrequency, null=True, blank=True,
-                                verbose_name=FIELDS['update_frequency'],
                                 help_text=HELP['update_frequency'],
                                 )
     update_frequency = models.CharField(max_length=255, blank=True,
-                                        verbose_name=FIELDS['update_frequency'],
                                         help_text=HELP['update_frequency'],
                                         editable=False)
-
     categories = models.ManyToManyField(Category, related_name="resources",
                                         blank=True, null=True)
     keywords = models.CommaSeparatedIntegerField(max_length=255, blank=True,
@@ -176,7 +174,7 @@ class Resource(models.Model):
         
     rating = RatingField(range=5, can_change_vote=True)
 
-    data_formats = models.CharField(max_length=255, blank=True)
+    data_formats = models.CharField(max_length=255, blank=True, editable=False)
     proj_coord_sys = models.CharField(max_length=255, blank=True, verbose_name="Coordinate system")
 
     # CSW specific properties 
@@ -186,6 +184,9 @@ class Resource(models.Model):
     csw_mdsource = models.CharField(max_length=100, default="local")
     csw_xml = models.TextField(blank=True)
     csw_anytext = models.TextField(blank=True)
+
+    class Meta:
+        ordering = ("-last_updated", )
     
     def get_distinct_url_types(self):
         types = []
@@ -201,13 +202,13 @@ class Resource(models.Model):
         return urls
     
     def get_first_image(self):
-        images = UrlImage.objects.filter(url__resource=self)
+        images = self.urlimage_set.all()
         if images.count() == 0:
             return None
         return images[0]
     
     def get_images(self):
-        images = UrlImage.objects.filter(url__resource=self)
+        images = self.urlimage_set.all()
         if images.count() == 0:
             return None
         return images
@@ -347,7 +348,7 @@ class UrlImage(models.Model):
         path = os.path.join('url_images', str(instance.url_id), fsplit[0] + '_' + str(extra) + '.' + fsplit[1])
         return path
         
-    url = models.ForeignKey(Url)
+    resource = models.ForeignKey(Resource)
     image = models.ImageField(upload_to=get_image_path, help_text="The site will resize this master image as necessary for page display")
     title = models.CharField(max_length=255, help_text="For image alt tags")
     source = models.CharField(max_length=255, help_text="Source location or person who created the image")
