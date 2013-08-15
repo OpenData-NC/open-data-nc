@@ -1,6 +1,6 @@
 {% set project = pillar['project_name'] + "-" + pillar['environment'] %}
 {% set root_dir = "/var/www/" + project + "/" %}
-{% set run_dir = "/var/run/" + project + "/" %}
+{% set run_dir = root_dir + "run" + "/" %}
 
 {% macro build_path(root, name) -%}
   {{ root }}{%- if not root.endswith('/') -%}/{%- endif -%}{{ name }}
