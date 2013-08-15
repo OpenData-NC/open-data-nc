@@ -18,6 +18,7 @@ class UrlInline(admin.TabularInline):
 
 
 class ResourceAdmin(admin.ModelAdmin):
+    form = ResourceAdminForm
     raw_id_fields = ('department', 'division', )
     readonly_fields = ['created_by', 'created', 'last_updated_by', 'last_updated']
     inlines = [UrlInline, UrlImageInline]
@@ -28,7 +29,6 @@ class ResourceAdmin(admin.ModelAdmin):
     list_filter = ['categories', 'agency_type', 'data_types', 'updates']
     date_hierarchy = 'release_date'
     filter_horizontal = ('data_types', 'categories', 'cities', 'counties')
-    form = ResourceAdminForm
 
     fieldsets = [
         ('Basic Information', {'fields': [('name', 'is_published',), 'short_description',
