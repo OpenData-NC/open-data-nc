@@ -31,15 +31,13 @@
     <div class="container-fluid">
         {% block masthead %}{% endblock masthead %}
 
-        <!--  -->
-
         {% block header %}
             {% include "includes/header.html" %}
         {% endblock header %}
         
         {% block content-outer %}
         <div id="content">
-            <div class="row">
+            <div class="row-fluid">
                 {% block messages-outer %}
                 <div id="messages" class="span12">
                     {% block messages %}
@@ -58,8 +56,8 @@
                 </div>
                 <div class="span9">
                 {% block content %}{% endblock content %}
-                </div>
-            </div>
+                <!-- </div>
+            </div> -->
         </div>
     </div>
     {% endblock content-outer %}

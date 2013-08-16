@@ -135,6 +135,10 @@ body {
     max-width: 1170px;
 }
 
+p { 
+    margin: 14px 0;
+}
+
 a { 
     text-decoration: none;
 }
@@ -202,151 +206,75 @@ header {
 nav {
     h1 {
         border-bottom: 2px @blue solid;
+        display: inline;
     }
 }
 
 footer {
-    margin-top: 20px;
-    padding-top: 10px;
+    margin-top: 1em;
+    padding: 1.5em;
 
-    ul {
-        list-style: none;
+    .offset4 h4 {
         text-align: right;
+    }
+
+    span{
+        color: @blue;
     }
 }
 
-/* Ribbon */
+/**** Ribbon ****/
 .ribbon {
     position: relative;
-    width: 100%;
-    margin: 0;
+    padding: 5px 10px;
+    background-color: @blue;
+    text-shadow: 0px 1px 2px darker(@brownDark, 20%);
+    -webkit-box-shadow: 0px 2px 4px #888;
+    -moz-box-shadow: 0px 2px 4px #888;
+    box-shadow: 0px 2px 4px #888;
+
+    &:before {
+        content: ' ';
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-style: solid;
+    }
+       
 }
 
-.ribbon:before,
-.ribbon i:before {
-    content: '';
-    position: absolute;
-    bottom: -23px;
-    border: 24px solid #c45045;
+
+.ribbonRight {
+    .ribbon;
+
+    width: 75%;
+    bottom: 2.95em;
+    left: .6em;
+    float:right;
+
+    &:before {
+        right: 0px;
+        top: 100%;
+        border-width: 8px;
+        border-color: @brownDark transparent transparent @brownDark;
+    }
 }
 
-.ribbon:before {
-    left: -54px;
-    border-left-color: transparent;
-    -webkit-transform: rotate(-16deg);
-       -moz-transform: rotate(-16deg);
-        -ms-transform: rotate(-16deg);
-         -o-transform: rotate(-16deg);
-            transform: rotate(-16deg);
-}
-.oldie .ribbon:before {
-    left: -48px;
-}
+.ribbonLeft {
+    .ribbon;
 
-.ribbon i:before {
-    right: -54px;
-    border-right-color: transparent;
-    -webkit-transform: rotate(16deg);
-       -moz-transform: rotate(16deg);
-        -ms-transform: rotate(16deg);
-         -o-transform: rotate(16deg);
-            transform: rotate(16deg);
-    z-index: -1;
-}
-.oldie .ribbon i:before {
-    right: -48px;
-}
-
-.ribbon i:after,
-.ribbon u:after {
-    content: '';
-    position: absolute;
-    border-style: solid;
-    bottom: -16px;
-    z-index: 0;
-}
-
-.ribbon i:after {
-    right: -16px;
-    border-color: transparent transparent transparent #a33d33;
-    border-width: 0 0 16px 16px;
-}
-
-.ribbon u:after {
-    left: 0;
-    border-color: transparent #a33d33 transparent transparent;
-    border-width: 0 16px 16px 0;
-}
-
-.ribbon u {
-    display: block;
-    position: relative;
-    width: 100%;
-    left: -16px;
-    padding: 0 16px 16px;
-    background: #d0726a;
-    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#d0726a), to(#c7574d));
-    background-image: -webkit-linear-gradient(#d0726a, #c7574d);
-    background-image:    -moz-linear-gradient(#d0726a, #c7574d);
-    background-image:     -ms-linear-gradient(#d0726a, #c7574d);
-    background-image:         linear-gradient(#d0726a, #c7574d);
-    -webkit-border-top-left-radius: 50% 16px;
-            border-top-left-radius: 50% 16px;
-    -webkit-border-top-right-radius: 50% 16px;
-            border-top-right-radius: 50% 16px;
-    text-align: center;
-    font: 28px/48px Museo, cursive;
-    font-weight: 700;
-    text-decoration: none;
-    text-transform: uppercase;
-    color: #fff;
-    text-shadow: 0 1px 1px rgba(163, 61, 51, .8), 0 2px 1px rgba(163, 61, 51, .6);
-}
-.oldie .ribbon u {
-    padding: 0 16px;
-    *left: 0px;
-    *padding: 0;
-}
-
-.ribbon u {
-    left: 0;
-    margin: 0 -16px;
     width: auto;
+    float: left;
+    right: .4em;
+    top: .3em;
+
+    &:before {
+        left: 0px;
+        bottom: 100%;
+        border-width: 5px;
+        border-color: transparent @brownDark @brownDark transparent;
+    }
 }
-
-.ribbon u::selection { background-color: #a33d33; }
-.ribbon u::-moz-selection { background-color: #a33d33; }
-
-.ribbon u:before,
-.ribbon:after {
-    content: '';
-    position: absolute;
-    height: 16px;
-    left: 0;
-    bottom: 0;
-    -webkit-border-top-left-radius: 50% 16px;
-            border-top-left-radius: 50% 16px;
-    -webkit-border-top-right-radius: 50% 16px;
-            border-top-right-radius: 50% 16px;
-    box-shadow: inset 0 2px 3px rgba(0, 0, 0, .3);
-}
-.oldie .ribbon u:before,
-.oldie .ribbon:after {
-    content: none;
-}
-
-.ribbon u:before {
-    width: 100%;
-    background: #a33d33;
-}
-
-.ribbon:after {
-    width: 100%;
-    background: #ded8c5;
-    z-index: 1;
-}
-
-
 
 .form-horizontal {
     .control-label {
@@ -356,6 +284,100 @@ footer {
 
 /* Individual pages
 ==================== */
+
+/***** Home *****/
+
+#featured_projects_window {
+    height: 400px;
+    background-image: url('http://images4.fanpop.com/image/photos/14700000/So-cute-puppies-14749028-1600-1200.jpg');
+    background-size: cover;
+}
+
+#latest_resources_title {
+    text-align: right;
+    border-right: 2px @blue solid;
+    padding: 5px;
+
+    @media (max-width: 767px) {
+                text-align: center;
+                border: 2px solid @blue;
+                border-style: solid none;
+            }
+
+}
+
+/** Latest Resources Table **/
+
+table {
+    width: 100%;
+    font-size: 1.2em;
+
+    a {
+        color: @blue;
+    }
+
+    tr:nth-child(even) {
+        background-color: @openGray;
+    }
+}
+
+
+
+thead th {
+   white-space: nowrap;
+   border-bottom: 1px solid #ccc;
+   color: @openGrayDark;
+}
+
+th, td {
+   padding: .5em 1em;
+   text-align: left;
+}
+
+.enhanced th,
+.enhanced td {
+   display: none;
+}
+
+.enhanced th.essential, 
+.enhanced td.essential {
+   display: table-cell;
+}
+
+@media screen and (min-width: 500px) {
+   .enhanced th.optional, 
+   .enhanced td.optional {
+      display: table-cell;
+   }
+}
+
+@media screen and (min-width: 800px) {
+   .enhanced th, 
+   .enhanced td {
+      display: table-cell;
+   }
+}
+
+.table-menu, .table-menu-btn {
+    #latest_resources_title;
+   position: relative;
+   float: right;
+   background-color: #fff;
+   padding: 10px;
+   width: 100%;
+}
+
+.table-menu ul { 
+    list-style: none; 
+    }
+
+.table-menu-hidden {
+   left: -999em;
+   right: auto;
+}
+.table-wrapper {
+   position: relative;
+}
 
 /***** Search *****/
 
