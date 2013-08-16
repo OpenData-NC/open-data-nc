@@ -2,7 +2,7 @@ from django.contrib.admin import widgets
 from django import forms
 from django.contrib.admin import site
 
-from .models import Resource, Department, Division, UpdateFrequency
+from .models import Category, Department, Division, Resource, UpdateFrequency
 from opendata.fields_info import FIELDS
 
 
@@ -13,6 +13,10 @@ class ResourceAdminForm(forms.ModelForm):
                                           site
                                       ),
                                       queryset=Division.objects, required=False)
+    categories = forms.ModelChoiceField(queryset=Category.objects,
+                                        widget=widgets.FilteredSelectMultiple(
+                                            "categories", False)
+                                        )
     department = forms.ModelChoiceField(label=FIELDS['agency_name'],
                                         widget=widgets.ForeignKeyRawIdWidget(
                                             Resource._meta.get_field('department').rel,
