@@ -29,7 +29,7 @@
                 {% if selected_facets %}
                 <strong>Active Filters: </strong><br>
                 {% for field, filter in selected_facets %}
-                    <a class="facet_removal" href="{% remove_facet request filter %}"><i class="icon-remove-sign"></i></a> {{ field }}: {{ filter|title }}<br />
+                    <a class="facet_removal" href="{% remove_facet request filter %}"><i class="icon-remove-sign"></i></a> {{ field|title }}: {{ filter|title }}<br />
                 {% endfor %}
                 <br>
                 <a href="{{ request.path }}{% if query %}?q={{ query }}{% endif %}">Reset Filters</a>
