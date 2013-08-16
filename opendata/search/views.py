@@ -54,13 +54,11 @@ class FacetedSearchCustomView(FacetedSearchView):
         fields = []
         filters = []
         # get distinct facets
-        facets = list(set(self.form.selected_facets))
-        for facet in facets:
+        for facet in self.form.selected_facets:
             if ":" not in facet:
                 continue
             field, filter = facet.split(":", 1)
-            field = field.replace('_', ' ').replace('exact', '')
-            fields.append(field)
+            fields.append(field.replace('_exact', ''))
             filters.append(filter)
         return fields, filters
 
