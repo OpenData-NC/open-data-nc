@@ -49,7 +49,7 @@ class FacetedSearchCustomView(FacetedSearchView):
 
     def get_selected_facets(self):
         """
-            Returns a tuple of two lists ([facets,], [values])
+            Returns a tuple of two lists ([fields,], [values])
         """
         fields = []
         filters = []
