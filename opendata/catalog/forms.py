@@ -14,11 +14,11 @@ class ResourceAdminForm(forms.ModelForm):
                                           site
                                       ),
                                       queryset=Division.objects, required=False)
-    categories = forms.ModelChoiceField(queryset=Category.objects,
+    categories = forms.ModelMultipleChoiceField(queryset=Category.objects,
                                         widget=widgets.FilteredSelectMultiple(
                                             "categories", False)
                                         )
-    data_types = forms.ModelChoiceField(queryset=DataType.objects,
+    data_types = forms.ModelMultipleChoiceField(queryset=DataType.objects,
                                         widget=widgets.FilteredSelectMultiple(
                                             "Data types", False)
                                         )

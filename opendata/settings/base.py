@@ -149,6 +149,7 @@ INSTALLED_APPS = (
     'djangoratings',
     'pagination',
     'django_sorting',
+    'sorl.thumbnail',
 )
 
 # Comments app

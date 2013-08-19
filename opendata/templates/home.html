@@ -1,6 +1,5 @@
 {% extends "base.html" %}
-{% load recent_resources %}
-{% load widget_tweaks facet_tags %}
+{% load widget_tweaks facet_tags thumbnail recent_resources %}
 
 {%block extra-js%}
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
@@ -13,7 +12,13 @@
 		<h3 class="ribbonLeft">
 	    	Featured Projects
 	    </h3>
-	    <div id="featured_projects_window"></div>
+	    <div id="featured_projects_window">
+            {% for img in feature_images %}
+                {% thumbnail img.image "400x250" crop="center" as im %}
+                    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
+                {% endthumbnail %}
+            {% endfor %}
+	    </div>
 		<h2 class="ribbonRight">
 		    Description/Title of Project
 		</h2>
