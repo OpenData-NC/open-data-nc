@@ -54,8 +54,9 @@
                     <nav>
                         <div class="row-fluid">
                             <div class="span12">
+                                <a id="menu-toggle" class="anchor-link" href="#">Menu</a>
                                 <div id="goto_find_data">
-                                    <a href="{% url 'catalog_search' %}"><h1>Find Data <span class="accent"> ></span></h1></a>
+                                    <h1><a href="{% url 'catalog_search' %}">Find Data<span class="accent"> ></span></a></h1>
                                     <p>Want to see what data we have so far? Browse our collection and filter by category or geography.</p>
                                 </div>
                                 {% block catalog_search %}{% endblock %}
@@ -64,7 +65,7 @@
                         <div class="row-fluid">
                             <div class="span12">
                                 <div id="goto_suggest_data">
-                                    <a href="{% url 'suggest-page' %}"><h1>Suggest Data <span class="accent"> ></span></h1></a>
+                                    <a href="{% url 'suggest-page' %}"><h1>Suggest Data<span class="accent"> > </span></h1></a>
                                     <p>Know of some data we don't have? Please suggest it here so we can add it to our collection.</p>
                                 </div>
                             </div>
@@ -72,7 +73,7 @@
                         <div class="row-fluid">
                             <div class="span12">
                                 <div id="goto_request_data">
-                                    <a href="{% url 'request-list' %}"><h1>Request Data <span class="accent"> ></span></h1></a>
+                                    <a href="{% url 'request-list' %}"><h1>Request Data<span class="accent"> > </span></h1></a>
                                     <p>Looking for something we don't have? Request the data here to see if someone else has it or is willing to find and share.</p>
                                 </div>
                             </div>
@@ -80,11 +81,13 @@
                     </nav>
                 </div>
                 <div class="span9">
-                {% block content %}{% endblock content %}
-                <!-- </div>
-            </div> -->
-        </div>
-    </div>
+                    
+
+                    {% block content %}{% endblock content %}
+                    
+            <!-- /span9 & /row-fluid included on each template -->
+        </div> <!-- /#content -->
+    </div> <!-- /container -->
     {% endblock content-outer %}
 
     {% block footer %}

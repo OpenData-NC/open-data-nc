@@ -88,7 +88,7 @@
 /* Variables
 ==================== */
 
-@base:             @brownDark;
+@base:             @grayDark;
 @firm:             @brownDark;
 
 @gray:             @openGrayDark;
@@ -100,7 +100,7 @@
 @warning:          @sun-flower;
 @info:             @peter-river;
 
-@link-color:       @brownDark;
+@link-color:       @grayDark;
 
 /*@inputHeight: 25px;
 @baseLineHeight: 25px;*/
@@ -149,6 +149,20 @@ a {
     vertical-align: top;
 }
 
+.open { 
+    background-color: #F4F4F4;
+    box-shadow: 2px 2px 3px #444444;
+    display: block;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: 5px;
+    top: 40px;
+    width: 70%;
+    z-index: 500; 
+}
+
 .navbar {
     margin-top: 20px;
     .navbar-inner {
@@ -181,36 +195,73 @@ a {
 }
 
 header {
+    margin-top: 15px;
 
     #logo {
-        background-image:;
-        background-size: contain;
-        color: @brownDark;
-        span {
-            font-size: 4em;
+        @media (max-width: 767px) {
+            margin-top: 40px;
         }
     }
 
-    #intro_text {
-        font-size: 1.9em;
+    #header_text {
+        font-size: 1.6em;
         text-align: center;
-        margin-top: 10px;
+        @media (max-width: 767px) {
+            .hidden;
+        }
     }
 
     #login {
-        text-align: right;  
-    }
-      
+        text-align: right;
+
+        h5 {
+            text-transform: none;
+            display: inline;
+        }
+
+        @media (max-width: 767px) {
+            width: 100%;
+            position: fixed;
+            top: 0;
+            right: 0;
+            #translucent.background(@white, .8);
+            z-index: @zindexFixedNavbar;
+
+            h5 {
+                float: left;
+                margin: 0;
+
+                &#logo_text {
+                    position: absolute;
+                    left: 40%;
+                }
+            }
+
+            #about {
+                .hidden;
+            }
+        }
+    }    
 }
 
 nav {
     h1 {
-        border-bottom: 2px @blue solid;
         display: inline;
+        padding-bottom: 5px;
+        border-bottom: 2px solid @blue;
     }
 
     p {
         width: 75%;
+    }
+
+    #menu-toggle {
+        .hidden;
+    }
+
+    @media (max-width: 767px) {
+        text-align: justified;
+        margin: 0 auto;    
     }
 }
 
@@ -218,8 +269,15 @@ footer {
     margin-top: 1em;
     padding: 1.5em;
 
+    @media (max-width: 767px) {
+        text-align: center; 
+    }
+
     .offset4 h4 {
         text-align: right;
+        @media (max-width: 767px) {
+            text-align: center;  
+        }
     }
 
     span{

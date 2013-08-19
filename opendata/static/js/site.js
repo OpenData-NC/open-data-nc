@@ -9,6 +9,26 @@ window.log = function f(){ log.history = log.history || []; log.history.push(arg
 
 // place any jQuery/helper plugins in here, instead of separate, slower script files.
 
+$(document).ready(function(){
+   $('#logo_text').hide();
+
+   $('#menu-toggle').click(function () {
+      $('#menu').toggleClass('open');
+      e.preventDefault();
+    });
+
+   $(window).scroll(function(){
+      // get the height of #wrap
+      var h = $('#logo').height();
+      var x = $(window).width();
+      var y = $(window).scrollTop();
+      if( y > (h+50) && x < 767 ){
+         $('#logo_text').fadeIn('slow');
+      } else {
+         $('#logo_text').fadeOut('slow');
+      }
+   });
+})
 
 //*** HOMEPAGE TABLE ****//
 // add class for scoping styles - cells should be hidden only when JS is on
