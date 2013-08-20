@@ -17,12 +17,28 @@
     <script src="{{ STATIC_URL }}selectable/js/jquery.dj.selectable.js"></script>
     <script src="{{ STATIC_URL }}js/selectable.js"></script>
     <script>
-        if ($('#refine-results').is(':visible')) {
-            $('#goto_find_data p').toggleClass('hidden');
-        } 
+        // if ($('#refine-results').is(':visible')) {
+        //     $('#goto_find_data p').toggleClass('hidden');
+        // } 
     </script>
 {% endblock extra-js %}
 
+{% block form %}
+            
+    <div class="row-fluid hidden-phone">
+        <div class="span12">
+            <form class="form-search" method="get" action=".">
+                <div class="control-group">
+                    {{ form.q|attr:"placeholder:Search the data catalog..." }}
+                    {% for facet in form.selected_facets %}
+                        <input type="hidden" name="selected_facets" value="{{ facet }}" />
+                    {% endfor %}
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock form %}
 
 {% block catalog_search %}
     <div id="refine-results">
@@ -56,6 +72,23 @@
         </div>
     </div>
     {% endblock %}
+
+    {% block form_mobile %} <!-- Moves search bar under nav in mobile environment -->
+            
+    <div class="row-fluid visible-phone">
+        <div class="span8 offset3">
+            <form class="form-search" method="get" action=".">
+                <div class="control-group">
+                    {{ form.q|attr:"placeholder:Search the data catalog..." }}
+                    {% for facet in form.selected_facets %}
+                        <input type="hidden" name="selected_facets" value="{{ facet }}" />
+                    {% endfor %}
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {% endblock form_mobile %}
 
     {% block content %}
     <div class="row-fluid">

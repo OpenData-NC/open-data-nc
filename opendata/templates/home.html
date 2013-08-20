@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load recent_resources %}
-{% load widget_tweaks facet_tags %}
+
 
 {%block extra-js%}
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
@@ -15,7 +15,7 @@
 	    </h3>
 	    <div id="featured_projects_window"></div>
 		<h2 class="ribbonRight">
-		    Description/Title of Project
+		    Data Slug
 		</h2>
 	</div>
 </div>
@@ -35,24 +35,24 @@
 	{% get_latest 10 as latest_resources %}
 	<div class="span9">
 		<div class="table-wrapper">
-			<table cellspacing="0" id="tech-companies">
+			<table class="footable" cellspacing="0" id="latest-resources">
 				<thead>
 					<tr>
-						<th class="persist essential">Date</th>
-						<th class="essential">Item</th>
-						<th class="optional">Location</th>
-						<th class="essential">Format</th>
-						<th class="optional">Type</th>
+						<th data-class="expand">Item</th>
+						<th data-hide="phone, tablet">Date Created</th>
+						<th>County</th>
+						<th>Format</th>
+						<th data-hide="phone, tablet">Type</th>
 					</tr>
 				</thead>
 				<tbody>
 					{% for r in latest_resources%}
 						<tr>
-							<th>{{ r.created|date:"F j" }}</th>  <!-- Shows full month and date without leading zero -->
 							<td><a href="#">{{ r.name }}</a></td>
+							<td>{{ r.created|date:"F j" }}</td>
 							<td>{{ r.counties.all.0.name }}</td>
 							<td>{{ r.url_types.all.0.name }}</td>
-							<td>{{ r.data_types.all.0.name }}</td>
+							<td>{{ r.data_types.all.0.name|lower|capfirst }}</td>
 						</tr>
 					{% endfor %}
 				</tbody>

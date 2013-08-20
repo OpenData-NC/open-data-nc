@@ -89,7 +89,7 @@
 ==================== */
 
 @base:             @grayDark;
-@firm:             @brownDark;
+@firm:             @grayDark;
 
 @gray:             @openGrayDark;
 @lightgray:        @openGray;
@@ -128,11 +128,17 @@
 
 body {
     font-family: 'open_sans_condensedbold', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
-.container {
+.container-fluid {
     margin: 0 auto;
     max-width: 1170px;
+
+    @media (max-width: 767px) {
+        padding: 5px;
+    }
 }
 
 p { 
@@ -206,6 +212,7 @@ header {
     #header_text {
         font-size: 1.6em;
         text-align: center;
+        padding-left: 5%;
         @media (max-width: 767px) {
             .hidden;
         }
@@ -236,10 +243,6 @@ header {
                     left: 40%;
                 }
             }
-
-            #about {
-                .hidden;
-            }
         }
     }    
 }
@@ -247,7 +250,7 @@ header {
 nav {
     h1 {
         display: inline;
-        padding-bottom: 5px;
+        padding: 0 15px 5px 0;
         border-bottom: 2px solid @blue;
     }
 
@@ -260,18 +263,36 @@ nav {
     }
 
     @media (max-width: 767px) {
-        text-align: justified;
-        margin: 0 auto;    
+
+        text-align: center;
+        margin-top: 25px;
+
+        div[id^="goto"] {
+            display: inline;
+        }
+
+        h1 {
+            color: @openGrayDark;
+            display: inline;
+            text-align: center;
+            border: none;
+            font-size: 1.15em;
+            padding: 0 5px;
+
+            &.mobile_border {
+                border-right: 2px solid @blue;
+            }
+        }    
+
+        p, .accent {
+            .hidden;
+        }
     }
 }
 
 footer {
     margin-top: 1em;
     padding: 1.5em;
-
-    @media (max-width: 767px) {
-        text-align: center; 
-    }
 
     .offset4 h4 {
         text-align: right;
@@ -282,6 +303,10 @@ footer {
 
     span{
         color: @blue;
+    }
+
+    @media (max-width: 767px) {
+        text-align: center; 
     }
 }
 
@@ -302,9 +327,17 @@ footer {
         height: 0;
         border-style: solid;
     }
-       
-}
 
+    @media (max-width: 767px) {
+        padding: 0 25px;
+        bottom: 2.2em;
+        left: 0;
+
+        &:before {
+            .hidden;
+        }
+    }  
+}
 
 .ribbonRight {
     .ribbon;
@@ -353,6 +386,10 @@ footer {
     height: 400px;
     background-image: url('http://images4.fanpop.com/image/photos/14700000/So-cute-puppies-14749028-1600-1200.jpg');
     background-size: cover;
+
+    @media (max-width: 767px) {
+        height: 200px;
+    }
 }
 
 #latest_resources_title {
@@ -361,85 +398,107 @@ footer {
     padding: 5px;
 
     @media (max-width: 767px) {
-                text-align: center;
-                border: 2px solid @blue;
-                border-style: solid none;
-            }
+
+        border: 2px solid @blue;
+        border-style: solid none;
+        text-align: center;
+
+        h1 {
+            display: inline;
+            padding: 0;
+        }
+    }
 
 }
 
-/** Latest Resources Table **/
+@charMinus: "\e001";
+@charPlus: "\e000";
+@charCircleArrowUp: "\e002";
+@charCircleArrowDown: "\e003";
+@charCircleMinus: "\e005";
+@charCirclePlus: "\e004";
+@charArrowUp: "\e007";
+@charArrowDown: "\e008";
+@charArrowUpDown: "\e006";
 
-table {
+@colorDarkGrey: #333;
+
+
+.footable {
     width: 100%;
     font-size: 1.2em;
+    line-height: 36px;
 
     a {
         color: @blue;
     }
 
-    tr:nth-child(even) {
-        background-color: @openGray;
+    > thead > tr > th {
+        text-align: left;
+    }
+
+
+    &.breakpoint {
+        > tbody > tr {
+            border-bottom: 1px solid @openGray;
+
+            &:hover{
+
+            }
+            
+
+            &.footable-detail-show > td {
+                border-bottom:none;
+            }
+
+            &:hover:not(.footable-row-detail) {
+              cursor: pointer;
+              background-color: lighten(@blue, 45%);
+            }
+
+            > td.footable-cell-detail {
+                border-top:none;
+            }
+
+            > td > span.footable-toggle {
+                display: inline-block;
+                text-transform: none;
+                -webkit-font-smoothing: antialiased;
+                color: @grayDark;
+            }
+        }
     }
 }
 
-
-
-thead th {
-   white-space: nowrap;
-   border-bottom: 1px solid #ccc;
-   color: @openGrayDark;
+tr.footable-row-detail {
+    background-color: @openGray;
+    padding-left: 2em;
 }
 
-th, td {
-   padding: .5em 1em;
-   text-align: left;
+.footable-row-detail-inner {
+    display:table;
 }
 
-.enhanced th,
-.enhanced td {
-   display: none;
+.footable-row-detail-row {
+    display: table-row;
+    line-height: 1.5em;
 }
 
-.enhanced th.essential, 
-.enhanced td.essential {
-   display: table-cell;
+.footable-row-detail-group  {
+    display: block;
+    line-height: 2em;
 }
 
-@media screen and (min-width: 500px) {
-   .enhanced th.optional, 
-   .enhanced td.optional {
-      display: table-cell;
-   }
+.footable-row-detail-name {
+    display: table-cell;
+    padding-right: 0.5em;
 }
 
-@media screen and (min-width: 800px) {
-   .enhanced th, 
-   .enhanced td {
-      display: table-cell;
-   }
+.footable-row-detail-value {
+    display: table-cell;
 }
 
-.table-menu, .table-menu-btn {
-    #latest_resources_title;
-   position: relative;
-   float: right;
-   background-color: #fff;
-   padding: 10px;
-   width: 100%;
-}
 
-.table-menu ul { 
-    list-style: none; 
-    }
-
-.table-menu-hidden {
-   left: -999em;
-   right: auto;
-}
-.table-wrapper {
-   position: relative;
-}
 
 /***** Search *****/
 
@@ -447,11 +506,25 @@ th, td {
     padding: 10px;
     border-radius: 6px;
     form {
-        margin-top: 15px;
-        margin-bottom: 10px;
+        margin: 15px 0 10px;
         input[type=text] {
             width: 95%;
         }
+    }
+}
+
+.row-fluid input[type="text"] {
+    background-color: @openGray;
+    height: auto;
+    width: 95%;
+    margin: 20px 10px 0;
+
+    &:focus, &:hover {
+        border-color: @blue;
+    }
+
+    @media (max-width: 767px) {
+        width: 90%;
     }
 }
 
