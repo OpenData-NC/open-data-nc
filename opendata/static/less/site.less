@@ -395,7 +395,6 @@ footer {
             background-color: @openGray;
             height: auto;
             width: 95%;
-            margin: 20px 10px 0;
 
             &:focus, &:hover {
                 border-color: @blue;
@@ -403,11 +402,23 @@ footer {
 
             @media (max-width: 767px) {
                 width: 90%;
+                margin: 20px 10px 0;
             }
         }
 
         .btn {
             background-color: @grayDark;
+
+            &:hover {
+                    background-color: @blue;
+                }
+
+            @media (max-width: 767px) {
+                width: 50%;
+                position: relative;
+                left: 25%;
+                margin: 20px 0 0;
+            }
 
             &.btn-primary {
                 .btn;
@@ -428,6 +439,7 @@ footer {
     text-align: center;
     border-bottom: 2px solid @blue;
     padding-bottom: 5px;
+    margin-top: 0;
 
     @media (max-width: 767px) {
         border-top: 2px solid @blue;
@@ -437,8 +449,6 @@ footer {
 
 #featured_projects_window {
     height: 400px;
-    background-image: url('http://images4.fanpop.com/image/photos/14700000/So-cute-puppies-14749028-1600-1200.jpg');
-    background-size: cover;
 
     @media (max-width: 767px) {
         height: 200px;
@@ -611,5 +621,31 @@ body.registration {
         }
     }
 }
+
+/****** Suggest Data ******/
+
+    #suggest_form {
+        @media (min-width: 767px) {
+            input {
+                vertical-align: top;
+            
+                &:not(.btn) {
+                    width: 75%;
+                }
+
+                &.btn {
+                    margin-left: 25px;
+                }
+            }
+        }
+    }
+
+    .sharing_tools {
+        h3 {
+            display: inline-block;
+            border-right: 2px solid @blue;
+            text-align: left;
+        }
+    }
 
 /****** Resource Detail ******/
