@@ -27,8 +27,9 @@
         <div class="control-group">
             <input class="btn btn-primary btn-large btn-block" type="submit" value="Log In" />
         </div>
-        <a class="login-link" href="{% url 'auth_password_reset' %}">Lost your password?</a>
-        <a class="login-link" href="{% url 'registration_register' %}">Register for an Account</a>
+        <a class="login-link" href="{% url 'auth_password_reset' %}">Reset password</a>
+        <span class="accent"> | </span>
+        <a class="login-link" href="{% url 'registration_register' %}">Register</a>
     </form>
 </div>
 {% endblock content %}

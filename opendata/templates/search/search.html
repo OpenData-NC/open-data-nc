@@ -17,12 +17,28 @@
     <script src="{{ STATIC_URL }}selectable/js/jquery.dj.selectable.js"></script>
     <script src="{{ STATIC_URL }}js/selectable.js"></script>
     <script>
-        if ($('#refine-results').is(':visible')) {
-            $('#goto_find_data p').toggleClass('hidden');
-        } 
+        // if ($('#refine-results').is(':visible')) {
+        //     $('#goto_find_data p').toggleClass('hidden');
+        // } 
     </script>
 {% endblock extra-js %}
 
+{% block form %}
+            
+    <div class="row-fluid hidden-phone">
+        <div class="span10">
+            <form class="form-search" method="get" action=".">
+                <div class="control-group">
+                    {{ form.q|attr:"placeholder:Search the data catalog..." }}
+                    {% for facet in form.selected_facets %}
+                        <input type="hidden" name="selected_facets" value="{{ facet }}" />
+                    {% endfor %}
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock form %}
 
 {% block catalog_search %}
     <div id="refine-results">
@@ -65,12 +81,38 @@
     </div>
     {% endblock %}
 
+    {% block form_mobile %} <!-- Moves search bar under nav in mobile environment -->
+            
+    <div class="row-fluid visible-phone">
+        <div class="span8 offset3">
+            <form class="form-search" method="get" action=".">
+                <div class="control-group">
+                    {{ form.q|attr:"placeholder:Search the data catalog..." }}
+                    {% for facet in form.selected_facets %}
+                        <input type="hidden" name="selected_facets" value="{{ facet }}" />
+                    {% endfor %}
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {% endblock form_mobile %}
+
     {% block content %}
     <div class="row-fluid">
         <div class="span10 search-results">
             {% for result in page.object_list %}
-                {{ result.text|safe }}
-            {% if not forloop.last %}<hr />{% endif %}
+                <div class="row-fluid search_item">
+                    <div class="span3 resource_image"><div id="rating"><h4>star ratings</h4></div></div>
+                    <div class="span6">
+                    <h1>{{ result.name|safe }}</h1>
+                    <h4>{{ result.short_description|safe }}</h4>
+                    </div>
+                </div>
+                <h2 class="ribbonRight">
+                    <a href="#">View</a> <!-- Need variables -->
+                </h2>
+            {% if not forloop.last %}<br />{% endif %}
             {% empty %}
             <p>No results found.</p>
             {% endfor %}
