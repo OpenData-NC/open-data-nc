@@ -147,6 +147,16 @@ p {
 
 a { 
     text-decoration: none;
+    color: @openGrayDark;
+
+    &:hover {
+        color: @grayDark;
+    }
+}
+
+hr {
+    border-color: @openGray;
+    border-size: 2px;
 }
 
 .accent {
@@ -263,6 +273,10 @@ nav {
         border-bottom: 2px solid @blue;
     }
 
+    a {
+        color: @grayDark;
+    }
+
     p {
         width: 75%;
     }
@@ -286,10 +300,6 @@ nav {
 
             &.mobile_border {
                 border-right: 2px solid @blue;
-            }
-
-            &:hover {
-                color: @grayDark;
             }
         }    
 
@@ -611,14 +621,6 @@ body.registration {
         input[type='password'] {
             width: 80%;
         }
-
-        a {
-            color: @openGrayDark;
-
-            &:hover {
-                color: @grayDark;
-            }
-        }
     }
 }
 
@@ -642,9 +644,12 @@ body.registration {
 
     .sharing_tools {
         h3 {
-            display: inline-block;
-            border-right: 2px solid @blue;
-            text-align: left;
+            #latest_resources_title;
+        }
+
+        @media (max-width: 767px) {
+            h3 { display: inline-block; margin-top: 25px; }
+            hr { .hidden; }
         }
     }
 
