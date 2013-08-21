@@ -1,6 +1,6 @@
 import os
-from lxml import etree
-from shapely.wkt import loads
+# from lxml import etree
+# from shapely.wkt import loads
 
 from operator import attrgetter
 from django.db import models
@@ -11,6 +11,7 @@ from django.template.defaultfilters import slugify
 from djangoratings.fields import RatingField
 
 from opendata.fields_info import FIELDS, HELP
+from .managers import ImageManager
 
 
 class City(models.Model):
@@ -341,11 +342,12 @@ class UrlImage(models.Model):
     def get_image_path(instance, filename):
         fsplit = filename.split('.')
         extra = 1
-        test_path = os.path.join(settings.MEDIA_ROOT, 'url_images', str(instance.url_id), fsplit[0] + '_' + str(extra) + '.' + fsplit[1])
+        id = instance.resource.id
+        test_path = os.path.join(settings.MEDIA_ROOT, 'url_images', str(instance.id), fsplit[0] + '_' + str(extra) + '.' + fsplit[1])
         while os.path.exists(test_path):
            extra += 1
-           test_path = os.path.join(settings.MEDIA_ROOT, 'url_images', str(instance.url_id), fsplit[0] + '_' + str(extra) + '.' +  fsplit[1])
-        path = os.path.join('url_images', str(instance.url_id), fsplit[0] + '_' + str(extra) + '.' + fsplit[1])
+           test_path = os.path.join(settings.MEDIA_ROOT, 'url_images', str(instance.id), fsplit[0] + '_' + str(extra) + '.' +  fsplit[1])
+        path = os.path.join('url_images', str(id), fsplit[0] + '_' + str(extra) + '.' + fsplit[1])
         return path
         
     resource = models.ForeignKey(Resource)
@@ -353,6 +355,7 @@ class UrlImage(models.Model):
     title = models.CharField(max_length=255, help_text="For image alt tags")
     source = models.CharField(max_length=255, help_text="Source location or person who created the image")
     source_url = models.CharField(max_length=255, blank=True)
+    objects = ImageManager()
     
     def __unicode__(self):
         return '%s' % (self.image)
