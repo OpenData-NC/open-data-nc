@@ -139,8 +139,9 @@ class Resource(models.Model):
     counties = models.ManyToManyField(County, blank=True, null=True)
     usage = models.TextField(u'Relevance', help_text=HELP['relevance'],
                              editable=False)
-    release_date = models.DateField(blank=True, null=True,
-                                    help_text=HELP['last_updated'])
+    newest_record = models.DateField(blank=True, null=True)
+    oldest_record = models.DateField(blank=True, null=True)
+
     updates = models.ForeignKey(UpdateFrequency, null=True, blank=True,
                                 help_text=HELP['update_frequency'],
                                 )
@@ -158,8 +159,6 @@ class Resource(models.Model):
     contact_phone = models.CharField(max_length=50, blank=True)
     contact_email = models.CharField(max_length=255, blank=True)
     contact_url = models.CharField(max_length=255, blank=True)
-
-    time_period = models.CharField(max_length=50, blank=True)
 
     area_of_interest = models.CharField(max_length=255, blank=True)
     is_published = models.BooleanField(default=True, verbose_name="Public")
@@ -185,6 +184,12 @@ class Resource(models.Model):
     csw_mdsource = models.CharField(max_length=100, default="local")
     csw_xml = models.TextField(blank=True)
     csw_anytext = models.TextField(blank=True)
+
+    # No longer used fields
+    release_date = models.DateField(blank=True, null=True,
+                                    help_text=HELP['last_updated'],
+                                    editable=False)
+    time_period = models.CharField(max_length=50, blank=True)
 
     class Meta:
         ordering = ("-last_updated", )

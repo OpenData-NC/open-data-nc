@@ -32,8 +32,8 @@ class ResourceAdmin(admin.ModelAdmin):
 
     fieldsets = [
         ('Basic Information', {'fields': [('name', 'is_published',), 'short_description',
-                                  'keywords', 'description', 'release_date',
-                                  'updates', 'time_period', ]}),
+                                  'keywords', 'description', 'newest_record',
+                                  'oldest_record', 'updates', ]}),
         ('Geographies and Types', {'fields': ['agency_type', 'counties',
                         'cities', 'categories', 'data_types', ]}),
         ('Agency Information', {'fields': ['department', 'division', 'contact_phone',

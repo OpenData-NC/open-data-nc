@@ -4,7 +4,7 @@ from django.contrib.admin import site
 
 from .models import (Category, DataType, Department, Division, Resource,
                      UpdateFrequency)
-from opendata.fields_info import FIELDS
+from opendata.fields_info import FIELDS, HELP
 
 
 class ResourceAdminForm(forms.ModelForm):
@@ -30,7 +30,10 @@ class ResourceAdminForm(forms.ModelForm):
                                         queryset=Department.objects)
     agency_type = forms.ChoiceField(choices=Resource.AGENCY_TYPES,
                                     label=FIELDS['agency_type'])
-    release_date = forms.DateField(label=FIELDS['last_updated'], required=False)
+    newest_record = forms.DateField(label=FIELDS['newest_updated'], required=False,
+                                    widget=widgets.AdminDateWidget)
+    oldest_record = forms.DateField(label=FIELDS['oldest_record'], required=False,
+                                    widget=widgets.AdminDateWidget)
     updates = forms.ModelChoiceField(label=FIELDS['update_frequency'],
                                     queryset=UpdateFrequency.objects,
                                     required=False)
