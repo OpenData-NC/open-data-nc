@@ -3,7 +3,7 @@
 
 
 {%block extra-js%}
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 {% endblock extra-js %}
 
 {% block content %}
@@ -24,8 +24,6 @@
 
 <div class="row-fluid">
 	<div id="latest_resources_sidebar" class="span3">
-
-	<!-- <a class="twitter-timeline" href="https://twitter.com/twitterapi" data-widget-id="258664344257167360">Tweets by @twitterapi</a> -->
 		<div id="latest_resources_title">
 			<h1>Latest</h1>
 			<h1> Resources</h1>
@@ -33,7 +31,7 @@
 	</div>
 
 	{% get_latest 10 as latest_resources %}
-	<div class="span9">
+	<div class="span6">
 		<div class="table-wrapper">
 			<table class="footable" cellspacing="0" id="latest-resources">
 				<thead>
@@ -58,6 +56,10 @@
 				</tbody>
 			</table>
 		</div><!-- /table-wrapper -->
+	</div>
+	<div class="span3">
+		<h1 class="twitter_header">Twitten by OpenNC</h1>
+		<a class="twitter-timeline" href="https://twitter.com/_MattHayes" data-widget-id="269466275074424832" data-theme="light" data-link-color="#29abe2" data-chrome="noscrollbar noborders noheader nofooter" data-related="twitterapi,twitter" data-aria-polite="assertive" width="100%" height="400" lang="EN">Tweets by @_MattHayes</a>
 	</div>
 </div>
 {% endblock %}

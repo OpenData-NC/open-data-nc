@@ -127,7 +127,7 @@
 }
 
 body {
-    font-family: 'open_sans_condensedbold', Arial, sans-serif;
+    font-family: 'open_sans_condensedbold', Helvetica, sans-serif;
     margin: 0;
     padding: 0;
 }
@@ -226,6 +226,14 @@ header {
             display: inline;
         }
 
+        a:not(.accent) {
+            color: @openGrayDark;
+
+            &:hover {
+                color: @grayDark;
+            }
+        }
+
         @media (max-width: 767px) {
             width: 100%;
             position: fixed;
@@ -239,6 +247,7 @@ header {
                 margin: 0;
 
                 &#logo_text {
+                    color: @grayDark;
                     position: absolute;
                     left: 40%;
                 }
@@ -256,10 +265,6 @@ nav {
 
     p {
         width: 75%;
-    }
-
-    #menu-toggle {
-        .hidden;
     }
 
     @media (max-width: 767px) {
@@ -282,6 +287,10 @@ nav {
             &.mobile_border {
                 border-right: 2px solid @blue;
             }
+
+            &:hover {
+                color: @grayDark;
+            }
         }    
 
         p, .accent {
@@ -293,6 +302,8 @@ nav {
 footer {
     margin-top: 1em;
     padding: 1.5em;
+    position: relative;
+    bottom: 0;
 
     .offset4 h4 {
         text-align: right;
@@ -378,10 +389,51 @@ footer {
         }
     }
 
+/**** Input forms, buttons, site-wide ****/
+    .row-fluid { 
+        input[type="text"], input[type='password']  {
+            background-color: @openGray;
+            height: auto;
+            width: 95%;
+            margin: 20px 10px 0;
+
+            &:focus, &:hover {
+                border-color: @blue;
+            }
+
+            @media (max-width: 767px) {
+                width: 90%;
+            }
+        }
+
+        .btn {
+            background-color: @grayDark;
+
+            &.btn-primary {
+                .btn;
+                
+                &:hover {
+                    background-color: @blue;
+                }
+            }
+        }
+    }
+
 /* Individual pages
 ==================== */
 
 /***** Home *****/
+
+.twitter_header {
+    text-align: center;
+    border-bottom: 2px solid @blue;
+    padding-bottom: 5px;
+
+    @media (max-width: 767px) {
+        border-top: 2px solid @blue;
+        margin: 25px 0;
+    }
+}
 
 #featured_projects_window {
     height: 400px;
@@ -399,18 +451,18 @@ footer {
     padding: 5px;
 
     @media (max-width: 767px) {
-
         border: 2px solid @blue;
         border-style: solid none;
         text-align: center;
+        margin-bottom: 25px;
 
         h1 {
             display: inline;
             padding: 0;
         }
     }
-
 }
+
 /**** Latest Resources Table ****/
     .footable {
         width: 100%;
@@ -427,6 +479,10 @@ footer {
 
         > tbody > tr {
             border-bottom: 1px solid @openGray;
+
+            &:last-child {
+                border: none;
+            }
         }
 
 
@@ -497,21 +553,6 @@ footer {
     }
 }
 
-.row-fluid input[type="text"] {
-    background-color: @openGray;
-    height: auto;
-    width: 95%;
-    margin: 20px 10px 0;
-
-    &:focus, &:hover {
-        border-color: @blue;
-    }
-
-    @media (max-width: 767px) {
-        width: 90%;
-    }
-}
-
 .search-results {
     
     h1, h4 {
@@ -554,14 +595,19 @@ footer {
 
 body.registration {
     div.floating-box {
-        margin-top: 5%;
-        margin-bottom: 10%;
+        margin: 5% auto 10% 2%;
         width: 30em;
-        margin-left: auto;
-        margin-right: auto;
         input[type='text'],
         input[type='password'] {
             width: 80%;
+        }
+
+        a {
+            color: @openGrayDark;
+
+            &:hover {
+                color: @grayDark;
+            }
         }
     }
 }
