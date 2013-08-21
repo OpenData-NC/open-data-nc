@@ -94,16 +94,7 @@
     <div class="row-fluid">
         <div class="span10 search-results">
             {% for result in page.object_list %}
-                <div class="row-fluid search_item">
-                    <div class="span3 resource_image"><div id="rating"><h4>star ratings</h4></div></div>
-                    <div class="span6">
-                    <h1>{{ result.name|safe }}</h1>
-                    <h4>{{ result.short_description|safe }}</h4>
-                    </div>
-                </div>
-                <h2 class="ribbonRight">
-                    <a href="#">View</a> <!-- Need variables -->
-                </h2>
+                {{result.text|safe}}
             {% if not forloop.last %}<br />{% endif %}
             {% empty %}
             <p>No results found.</p>
