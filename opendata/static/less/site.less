@@ -146,6 +146,12 @@ hr {
     border-size: 2px;
 }
 
+h1 {
+    @media (max-width: 767px) {
+        text-align: center;
+    }
+}
+
 p { 
     margin: 14px 0;
 }
@@ -155,7 +161,11 @@ a {
     color: @openGrayDark;
 
     &:hover {
-        color: @grayDark;
+        color: @blue;
+    }
+
+    &.btn.btn-primary.btn-large.btn-block:hover {
+        background-color: @blue;
     }
 }
 
@@ -196,6 +206,10 @@ a {
             width: 0;
             height: 0;
             border-style: solid;
+        }
+
+        > a:hover {
+            color: @grayDark;
         }
 
         @media (max-width: 767px) {
@@ -366,7 +380,6 @@ nav {
         h1 {
             color: @openGrayDark;
             display: inline;
-            text-align: center;
             border: none;
             font-size: 1.15em;
             padding: 0 5px;
@@ -391,7 +404,7 @@ footer {
     .offset4 h4 {
         text-align: right;
         @media (max-width: 767px) {
-            text-align: center;  
+            text-align: center;
         }
     }
 
@@ -618,14 +631,6 @@ footer {
     }
 }
 
-#refine-results {
-    > h3 {
-        @media (max-width: 767px){
-            text-align: center;
-        }
-    }
-}
-
 .search-results {
 
     > .ribbonRight {
@@ -687,6 +692,16 @@ body.registration {
 
 /***** About ******/
 
+#about h3 {
+    > a {
+        color: @blue;
+
+        &:hover{
+            color: @blue;
+        }
+    }
+}
+
 #partners, #awards {
     .ribbonRight {
         width: 15%;
@@ -695,17 +710,45 @@ body.registration {
 
 /****** Useful Links *****/
 
-#useful_links_list {
-
-    > li {
-        font-size: 14px;
+#useful_links {
+    h3 {
+        @media (max-width: 767px) {
+            text-align: left;
+        }
     }
 
-    > a {
+    ul{
+        display: inline-table;
+    }
+
+    li {
+        font-size: 14px;
+        list-style: none;
+    }
+
+    a {
         color: @blue;
         &:hover {
             color: @blue;
         }
+    }
+}
+
+/***** FAQ *****/
+
+#FAQ {
+    ul {
+        display: inline-table;
+        list-style: none;
+        margin:0 15px 15px 0;
+    }
+
+    > p {
+        margin: 0 0 25px 15px;
+    }
+
+    a[href="#FAQ"] {
+        float: right;
     }
 }
 
