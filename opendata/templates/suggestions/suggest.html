@@ -13,6 +13,14 @@
 <meta property="og:site_name" content="Open Data NC"/>
 {% endblock %}
 
+{% block extra-js %}
+<script> 
+	if($('#suggest_form').is(':visible')) {
+		$('.form-search').hide();
+	} 
+</script>
+{% endblock %}
+
 {% block extra-css %}
     <link rel="stylesheet" type="text/less" media="all" href="{{ STATIC_URL }}rating/jquery.rating.css">
 {% endblock %}
@@ -40,12 +48,16 @@ easily available, visit the Request Data page.
 
 <p>
 Ideally, the data you want to share is already public on a government website.
-If it is, please post here the URL that points directly to the dataset.<br>
-    <form action="{% url 'suggest-create' %}" method='get'>
-        {{ form.as_p }}
-        <p></p><input type="submit" value="Submit" class="btn"/></p>
-    </form>
+If it is, please post here the URL that points directly to the dataset.
 </p>
+
+<br />
+
+<form id="suggest_form" action="{% url 'suggest-create' %}" method='get'>
+    {{ form.url|attr:'placeholder:URL...' }}
+    <input type="submit" value="Submit" class="btn"/>
+</form>
+
 <p>
 If the data is not already online, there are several ways you can help put it
 online. Remember, though, that the more disconnected data becomes from its
@@ -55,38 +67,68 @@ the acquisition and publication processes aren't transparent will not be
 included in the catalog.
 </p>
 
-<h3>Tools for Sharing Public Data</h3>
+<h2>Tools for Sharing Public Data</h2>
 
-<h4>Socrata | http://opendata.socrata.com</h4>
-If you have a single file in the .csv, .tsv, .xls, or .xlsx formats, you can upload it to Socrata, where users will be able to download it or access it with an API. Note that there's a 200MB limit to the size of the file you can upload.
-Sign up for Socrata
-Upload a file
-Upload data via the API
-Once you have your data in Socrata, return to this page and paste the URL in the form above.
+<br>
 
-<h4>OutWit | http://www.outwit.com/products/hub/pro</h4>
-<p>OutWit is an application called a scraper that you download to your PC or Macintosh computer. It helps you "scrape" data from government websites when they don't make it available in a fielded file format. After scraping a website, you will have a data file on your local computer that you would need to upload to a site such as Socrata.
-Download OutWit (free or paid versions available)
-Write your first scraper
-Scraping for Journalists</p>
+<div class="sharing_tools">
 
-<h4>ScraperWiki | http://www.scraperwiki.com</h4>
-<p>If you know a programming language such as Python or Ruby, you can use it to write very complex scrapers and make the data available via API on ScraperWiki. ScraperWiki offers a limited free service as well as robust professional subscription plans.
-Scraping for Journalists ebook by Paul Bradshaw
-ScraperWiki Tutorials
-ProPublica's "Scraping for Journalists"</p>
+	<div class="row-fluid">
+		<h3 class="span2"><a href="http://opendata.socrata.com">Socrata</a></h3>
+		<div class="span10">If you have a single file in the .csv, .tsv, .xls, or .xlsx formats, you can upload it to Socrata, where users will be able to download it or access it with an API. Note that there's a 200MB limit to the size of the file you can upload.
+		Sign up for Socrata
+		Upload a file
+		Upload data via the API
+		Once you have your data in Socrata, return to this page and paste the URL in the form above.
+		</div>
+	</div>
 
-<h4>DocumentCloud | https://www.documentcloud.org</h4>
-<p>In cases where important public information isn't recorded or available in a structured data format, journalists can use DocumentCloud to upload PDFs and then annotate and publish them. Once documents are online, they can later be turned into data using a variety of techniques and tools. DocumentCloud is a project of an organization called Investigative Reporters and Editors, and use of the site requires their permission.
-Sign up for DocumentCloud</p>
+	<hr>
 
-<h4>DocHive | https://www.documentcloud.org/home</h4>
-<p>Founded by the non-profit Raleigh Public Record, DocHive is an open-source Java application that takes PDF versions of paper forms and turns them into structured data. The result is a CSV file that can be uploaded and shared via Socrata.
-Download DocHive</p>
+	<div class="row-fluid">
+		<h3 class="span2"><a href="http://www.outwit.com/products/hub/pro">OutWit</a></h3>
+		<div class="span10">OutWit is an application called a scraper that you download to your PC or Macintosh computer. It helps you "scrape" data from government websites when they don't make it available in a fielded file format. After scraping a website, you will have a data file on your local computer that you would need to upload to a site such as Socrata.
+		Download OutWit (free or paid versions available)
+		Write your first scraper
+		Scraping for Journalists
+		</div>
+	</div>
 
-<h4>MuckRock | https://www.muckrock.com/</h4>
-<p>Many public records remain offline and available only by writing a public records request. Public records requests are a very specific type of request governed by North Carolina state law. And requests don't always yield the results you want or on a reasonable deadline. MuckRock's online service helps you track your records requests and make the disclosure process more transparent. Once digital public data are made available to you either online or on a CD-ROM, you may still need to use one or more of the other tools to share them here.
-Register for MuckRock
-FAQ on North Carolina public records law, from the N.C. Open Government Coalition
-North Carolina Media Law Handbook (PDF), by Cathy Packer, Hugh Stevens and C. Amanda Martin.</p>
+	<hr>
+
+	<div class="row-fluid">
+		<h3 class="span2"><a href="http://www.scraperwiki.com">Scraper<br class="visible-desktop">Wiki</a></h3>
+		<div class="span10">If you know a programming language such as Python or Ruby, you can use it to write very complex scrapers and make the data available via API on ScraperWiki. ScraperWiki offers a limited free service as well as robust professional subscription plans.
+		Scraping for Journalists ebook by Paul Bradshaw
+		ScraperWiki Tutorials
+		ProPublica's "Scraping for Journalists"</div>
+	</div>
+
+	<hr>
+
+	<div class="row-fluid">
+		<h3 class="span2"><a href="https://www.documentcloud.org">Document<br class="visible-desktop">Cloud</a></h3>
+		<div class="span10">In cases where important public information isn't recorded or available in a structured data format, journalists can use DocumentCloud to upload PDFs and then annotate and publish them. Once documents are online, they can later be turned into data using a variety of techniques and tools. DocumentCloud is a project of an organization called Investigative Reporters and Editors, and use of the site requires their permission.
+		Sign up for DocumentCloud
+		</div>
+	</div>
+
+	<hr>
+
+	<div class="row-fluid">
+		<h3 class="span2"><a href="http://raleighpublicrecord.org/tag/dochive/">DocHive</a></h3>
+		<div class="span10">Founded by the non-profit Raleigh Public Record, DocHive is an open-source Java application that takes PDF versions of paper forms and turns them into structured data. The result is a CSV file that can be uploaded and shared via Socrata.
+		Download DocHive</div>
+	</div>
+
+	<hr>
+
+	<div class="row-fluid">
+		<h3 class="span2"><a href="https://www.muckrock.com">MuckRock</a></h3>
+		<div class="span10">Many public records remain offline and available only by writing a public records request. Public records requests are a very specific type of request governed by North Carolina state law. And requests don't always yield the results you want or on a reasonable deadline. MuckRock's online service helps you track your records requests and make the disclosure process more transparent. Once digital public data are made available to you either online or on a CD-ROM, you may still need to use one or more of the other tools to share them here.
+		Register for MuckRock
+		FAQ on North Carolina public records law, from the N.C. Open Government Coalition
+		North Carolina Media Law Handbook (PDF), by Cathy Packer, Hugh Stevens and C. Amanda Martin.</div>
+	</div>
+</div>
 {% endblock %}
