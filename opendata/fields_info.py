@@ -44,7 +44,7 @@ FIELDS = {
     'newest_updated': 'What (if any) is the date of the most recent record in '
                     'this particular version of the data set? (yyyy-mm-dd)',
     'oldest_record': 'What is the date of the oldest recent record in this '
-                     'particular version of the data set? (mm/dd/yyyy, yyyy-mm-dd)',
+                     'particular version of the data set? (yyyy-mm-dd)',
     'update_frequency': 'How often has this version of the data set been '
                         'updated in the last 12 months?',
     'categories': 'Pick one or more categories for this data set.',
