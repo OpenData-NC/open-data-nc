@@ -11,7 +11,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Victor Rocha', 'vrocha@caktusgroup.com'),
 )
 
 MANAGERS = ADMINS
@@ -106,6 +106,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'pagination.middleware.PaginationMiddleware',
     'django_sorting.middleware.SortingMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 )
 
 ROOT_URLCONF = 'opendata.urls'
@@ -215,3 +216,12 @@ HAYSTACK_CONNECTIONS = {
 HAYSTACK_SIGNAL_PROCESSOR = 'opendata.search.index_processors.M2MRealtimeSignalProcessor'
 
 ACCOUNT_ACTIVATION_DAYS = 7
+
+# DATEFORMAT
+DATE_INPUT_FORMATS = (
+    '%m/%d/%Y', '%m/%d/%y', '%Y-%m-%d', # '2006-10-25', '10/25/2006', '10/25/06'
+    # '%b %d %Y', '%b %d, %Y',            # 'Oct 25 2006', 'Oct 25, 2006'
+    # '%d %b %Y', '%d %b, %Y',            # '25 Oct 2006', '25 Oct, 2006'
+    # '%B %d %Y', '%B %d, %Y',            # 'October 25 2006', 'October 25, 2006'
+    # '%d %B %Y', '%d %B, %Y',            # '25 October 2006', '25 October, 2006'
+)
