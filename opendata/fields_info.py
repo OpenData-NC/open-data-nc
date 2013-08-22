@@ -40,7 +40,8 @@ FIELDS = {
     'county': 'Which county',
     'city': 'Which city or town',
     'last_updated': 'What (if any) is the date of the most recent record in '
-                    'this particular version of the data set? (mm/dd/yyy)',
+                    'this particular version of the data set? (mm/dd/yyy,'
+                    ')',
     'update_frequency': 'How often has this version of the data set been '
                         'updated in the last 12 months?',
     'categories': 'Pick one or more categories for this data set.',
