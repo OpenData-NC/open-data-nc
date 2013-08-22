@@ -19,7 +19,7 @@
 
 {% block content %}
     <h2>Suggest Data</h2>
-    <form action="{% url 'suggest-create' %}" method="POST">
+    <form id="suggest_data_form" action="{% url 'suggest-create' %}" method="POST">
         {% csrf_token %}
         {{ form.as_p }}
         <p><input type="submit" value="Submit" class="btn"/></p>
