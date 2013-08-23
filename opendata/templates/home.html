@@ -19,12 +19,12 @@
                 {% thumbnail img.image "400x250" crop="center" as im %}
                     <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
                 {% endthumbnail %}
-            
-			    </div>
+
 				<h2 class="ribbonRight">
 				    {{ img.resource.name }}
 				</h2>
 			{% endfor %}
+        </div>
 	</div>
 </div>
 

@@ -145,9 +145,6 @@ class Resource(models.Model):
     updates = models.ForeignKey(UpdateFrequency, null=True, blank=True,
                                 help_text=HELP['update_frequency'],
                                 )
-    update_frequency = models.CharField(max_length=255, blank=True,
-                                        help_text=HELP['update_frequency'],
-                                        editable=False)
     categories = models.ManyToManyField(Category, related_name="resources",
                                         blank=True, null=True)
     keywords = models.CommaSeparatedIntegerField(max_length=255, blank=True,
@@ -190,6 +187,9 @@ class Resource(models.Model):
                                     help_text=HELP['last_updated'],
                                     editable=False)
     time_period = models.CharField(max_length=50, blank=True)
+    update_frequency = models.CharField(max_length=255, blank=True,
+                                        help_text=HELP['update_frequency'],
+                                        editable=False)
 
     class Meta:
         ordering = ("-last_updated", )
