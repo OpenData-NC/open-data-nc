@@ -164,8 +164,9 @@ a {
         color: @blue;
     }
 
-    &.btn.btn-primary.btn-large.btn-block:hover {
+    &.btn {
         background-color: @blue;
+        margin: 15px 0;
     }
 }
 
@@ -263,6 +264,7 @@ a {
 
 .gray-banner {
     background-color: @openGray;
+    border-radius: 4px;
 
     h1, h4 {
         margin-left: 5px;
@@ -434,7 +436,7 @@ footer {
 
 /**** Input forms, buttons, site-wide ****/
     .row-fluid { 
-        input[type="text"], input[type='password']  {
+        input[type="text"], input[type='password'], textarea, select  {
             background-color: @openGray;
             height: auto;
             width: 95%;
@@ -444,7 +446,7 @@ footer {
             }
 
             @media (max-width: 767px) {
-                width: 90%;
+                width: 90% !important;
                 margin: 20px 10px 0;
             }
         }
@@ -469,6 +471,12 @@ footer {
                 &:hover {
                     background-color: @blue;
                 }
+            }
+        }
+
+        @media (max-width: 767px) {
+            > .span2 label {
+                text-align: center;
             }
         }
     }
@@ -688,6 +696,27 @@ body.registration {
 
 /****** Resource Detail ******/
 
+#content_resource {
+    padding: 10px 0 25px 10px;
+    margin-bottom: 15px;
+
+    .resource-image {
+        position: relative;
+        border: 2px solid @grayDark;
+        width: 250px;
+        height: 250px;
+    }
+
+    .ribbonRight {
+        width: 50%;
+        left: -.1em;
+    }
+
+}
+
+.user-form {
+    margin-bottom: 15px;
+}
 
 
 /***** About ******/
