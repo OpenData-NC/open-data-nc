@@ -356,9 +356,12 @@ class UrlImage(models.Model):
         return path
         
     resource = models.ForeignKey(Resource)
-    image = models.ImageField(upload_to=get_image_path, help_text="The site will resize this master image as necessary for page display")
-    title = models.CharField(max_length=255, help_text="For image alt tags")
-    source = models.CharField(max_length=255, help_text="Source location or person who created the image")
+    image = models.ImageField(upload_to=get_image_path,
+        help_text="The site will resize this master image as necessary for page display")
+    title = models.CharField(max_length=255, help_text="For image alt tags",
+        blank=True)
+    source = models.CharField(max_length=255, blank=True,
+        help_text="Source location or person who created the image")
     source_url = models.CharField(max_length=255, blank=True)
     objects = ImageManager()
     
