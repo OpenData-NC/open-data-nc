@@ -12,9 +12,9 @@
     <meta name="keywords" content="{% block meta-keywords %}{% endblock %}">
     {% block extra-meta %}{% endblock %}
     {% block ga %}{% endblock %}
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/base/jquery-ui.css" type="text/css">
     {% compress css %}
     {{ form.media.css }}
-    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/base/jquery-ui.css" type="text/css">
     <link rel="stylesheet" href="{{ STATIC_URL }}scribbler/css/scribbler.css">
     {% endcompress %}
 
