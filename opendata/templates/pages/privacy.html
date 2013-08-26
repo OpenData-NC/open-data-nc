@@ -1,8 +1,14 @@
 {% extends "base.html" %}
+{% load scribbler_tags %}
+
+
+{% block title %}Privacy{% endblock %}
+{% block body_id %}privacy-page{% endblock body_id %}
 
 {% block content %}
     <h1>Privacy</h1>
     <div id="privacy" class="gray-card">
+        {% scribble "privacy-page" %}
     	<p>
     	Open-NC.org takes the privacy of you -- our site visitors and community members -- seriously. Please read this policy closely so you understand our practices. If you have any questions, please address them to privacy@open-nc.org. Our goal is to sustain a vibrant community while protecting your privacy. This policy may be updated from time to time, so we encourage you to visit this page often and become familiar with any changes. By using our website, you consent to information practices outlined in our <a href="{% url 'terms' %}">Terms of Use</a> and Privacy Policy.
     	</p>
@@ -51,5 +57,6 @@
 		<p>
 		Material on this website may link to independently run websites outside of the www.open-nc.org domain. Open-NC.org is not responsible for the privacy practices or content of such websites. We encourage you to read the privacy policies of any websites you visit from this website.
 		</p>
+        {% endscribble %}
     </div> 
 {% endblock %}

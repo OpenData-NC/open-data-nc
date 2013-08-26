@@ -1,8 +1,13 @@
 {% extends "base.html" %}
+{% load scribbler_tags %}
+
+{% block title %}Terms of Use{% endblock %}
+{% block body_id %}terms-page{% endblock body_id %}
 
 {% block content %}
     <h1>Terms of Use</h1>
     <div id="terms" class="gray-card">
+        {% scribble "terms-page" %}
     	<p>
     	By accessing or using data made available on Open-NC.org, the user agrees to all the terms and conditions stated below.
     	</p>
@@ -34,5 +39,6 @@
 		<p>
 		Open-NC.org editors reserve the right to edit or delete any comments for any reason we deem appropriate. We reserve the right to disable the account of any user who repeatedly violates the terms of use. Participation in the comment area is at your own risk. By submitting or responding to a comment, you agree to be bound by these terms and agree that Open-NC.org retains the right to edit or remove any comments.
 		</p>
+        {% endscribble %}
     </div>
 {% endblock %}

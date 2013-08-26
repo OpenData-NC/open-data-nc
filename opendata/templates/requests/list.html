@@ -24,9 +24,10 @@
 
     <p>In the meanwhile, let us know what you're looking for. Other citizens are probably looking for the same thing. Once we approve each request we will make them public so that we can help connect you with other people looking for similar information in their hometowns.</p>
 
+    {% endscribble %}
+
     <a href="{% url 'request-create' %}" class="btn">Request Data</a>
 
-    {% endscribble %}
     <h2>Current Requests</h2>
     <div id="search-requests" class="search">
         <form method='GET' action='.'>
