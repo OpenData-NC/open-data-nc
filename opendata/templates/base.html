@@ -12,17 +12,19 @@
     <meta name="keywords" content="{% block meta-keywords %}{% endblock %}">
     {% block extra-meta %}{% endblock %}
     {% block ga %}{% endblock %}
-    {% if debug %}
+    {% compress css %}
     {{ form.media.css }}
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/base/jquery-ui.css" type="text/css">
     <link rel="stylesheet" href="{{ STATIC_URL }}scribbler/css/scribbler.css">
-    <link rel="stylesheet/less" type="text/css" media="all" href="{{ STATIC_URL }}less/site.less">
-    <script src="{{ STATIC_URL }}js/libs/less-1.4.1.min.js"></script>
-
-    {% else %}
-    {% compress css %}
-    <link rel="stylesheet" type="text/less" media="all" href="{{ STATIC_URL }}less/site.less">
     {% endcompress %}
+
+    {% if debug %}
+        <link rel="stylesheet/less" type="text/css" media="all" href="{{ STATIC_URL }}less/site.less">
+        <script src="{{ STATIC_URL }}js/libs/less-1.4.1.min.js"></script>
+    {% else %}
+        {% compress css %}
+        <link rel="stylesheet" type="text/less" media="all" href="{{ STATIC_URL }}less/site.less">
+        {% endcompress %}
     {% endif %}
     {% block extra-css %}{% endblock %}
     <script src="{{ STATIC_URL }}js/libs/modernizr-2.5.3.js"></script>
