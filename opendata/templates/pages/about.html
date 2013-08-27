@@ -1,8 +1,13 @@
 {% extends "base.html" %}
+{% load scribbler_tags %}
+
+{% block title %}About OpenNC{% endblock %}
+{% block body_id %}about-page{% endblock body_id %}
 
 {% block content %}
     <h1>About OpenNC</h1>
     <div id="about" class="gray-card">
+        {% scribble "about-page" %}
     	<p>
     	Open-NC.org is a catalog of digital public data created by state and local governments in North Carolina. It was created by Ryan Thornburg, an Associate Professor in the School of Journalism and Mass Communication at the University of North Carolina at Chapel Hill with funding from a John S. & James L. Knight Foundation News Challenge grant.
     	</p>
@@ -22,6 +27,7 @@
 		<p>
 		The John S. and James L. Knight Foundation is a 501(c)3 tax-exempt private foundation that supports transformational ideas that promote quality journalism, advance media innovation, engage communities and foster the arts.
 		</p>
+        {% endscribble %}
     </div>
 
     <!-- **** Uncomment the below code to add partners or awards to the about page **** -->

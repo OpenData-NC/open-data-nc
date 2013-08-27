@@ -1,8 +1,13 @@
 {% extends "base.html" %}
+{% load scribbler_tags %}
+
+{% block title %}FAQ{% endblock %}
+{% block body_id %}faq-page{% endblock body_id %}
 
 {% block content %}
     <h1>FAQ</h1>
     <div id="FAQ" class="gray-card">
+        {% scribble "faq-page" %}
 	    <ul>
 	    	<li><a href="#q1">Why was Open-NC.org created?</a></li>
 	    	<li><a href="#q2">Who Created Open-NC.org?</a></li>
@@ -89,5 +94,6 @@
 		<br><br>
 		<a href="#FAQ">Back to Top</a>
 		</p>
+        {% endscribble %}
     </div>
 {% endblock %}

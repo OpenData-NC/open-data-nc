@@ -16,7 +16,7 @@ class RequestForm(forms.ModelForm):
         required=False,
         widget=AutoCompleteSelectWidget(
             lookup_class=CountyLookup,
-            attrs={"class": "suggestions-hidden suggestions-county suggestions-city"},
+            attrs={"class": "suggestions-hidden suggestions-county"},
         )
     )
     city = AutoCompleteSelectField(

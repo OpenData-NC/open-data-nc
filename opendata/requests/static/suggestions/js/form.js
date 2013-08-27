@@ -12,9 +12,10 @@ $(document).ready(function(){
                 break;
             case "city":
                 $(".control-group:has(.suggestions-city)").removeClass("hidden");
+                $(".control-group:has(.suggestions-county)").addClass("hidden");
                 break;
             default:
-                $('.control-group:has(.suggestions-hidden)').addClass("hidden");
+                $(".control-group:has(.suggestions-city)").addClass("hidden");
                 break;
         }
     }

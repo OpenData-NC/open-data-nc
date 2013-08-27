@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load widget_tweaks comments %}
+{% load widget_tweaks comments scribbler_tags %}
 
 {% block title %}{{ object|title }}{% endblock title %}
 {% block body_id %}resource-detail{% endblock body_id %}
@@ -28,6 +28,9 @@
 {% block content %}
 <h1>Share Public Data</h1>
 
+
+    {% scribble "share-page-1" %}
+
 <div class="gray-card">
 	<p>We realize that we haven't listed every North Carolina-based government data
 	 set in the Open N.C. catalog. If you have a specific data set that you've found
@@ -50,6 +53,7 @@
 	Ideally, the data you want to share is already public on a government website.
 	If it is, please post here the URL that points directly to the dataset.
 	</p>
+    {% endscribble %}
 
 	<br />
 
@@ -58,6 +62,7 @@
 	    <input type="submit" value="Submit" class="btn"/>
 	</form>
 
+    {% scribble "share-page-2" %}
 	<p>
 	If the data is not already online, there are several ways you can help put it
 	online. Remember, though, that the more disconnected data becomes from its
@@ -66,8 +71,10 @@
 	the acquisition and publication processes aren't transparent will not be
 	included in the catalog.
 	</p>
+    {% endscribble %}
 </div>
 
+{% scribble "share-page-2" %}
 <h2>Tools for Sharing Public Data</h2>
 
 <br>
@@ -131,4 +138,5 @@
 		North Carolina Media Law Handbook (PDF), by Cathy Packer, Hugh Stevens and C. Amanda Martin.</div>
 	</div>
 </div>
+{% endscribble %}
 {% endblock %}

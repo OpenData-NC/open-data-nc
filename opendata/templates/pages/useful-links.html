@@ -1,8 +1,13 @@
 {% extends "base.html" %}
+{% load scribbler_tags %}
+
+{% block title %}Useful links{% endblock %}
+{% block body_id %}links-page{% endblock body_id %}
 
 {% block content %}
 <h1>Useful Tools & Links</h1>
 <div id="useful_links" class="gray-card">
+    {% scribble "links-page" %}
 	<p>This page is intended to help you either use data or find additional data sets not included in Open-NC.org.</p>
 
 	<h3>Bring Open N.C. to Your State</h3>
@@ -87,6 +92,7 @@
 		<li><a href="http://www.w3schools.com/" target="_blank">W3Schools</a></li>
 		<li><a href="http://www.codecademy.com/" target="_blank">Code Academy</a></li>
 	</ul>
+    {% endscribble %}
 </div>
 
 {% endblock %}

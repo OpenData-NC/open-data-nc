@@ -30,7 +30,7 @@ FIELDS = {
            'available on any government website? If the data is not available '
            'on any government websites, please type "None',
     'relevance': 'Why is this data interesting and important?',
-    'data_format': 'In what format if this data?',
+    'data_format': 'In what format is this data?',
     'agency_name': 'What is the name of the agency that created the record?',
     'agency_division': 'What is the name of the division or department that '
                        'created the record?',

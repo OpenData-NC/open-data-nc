@@ -24,9 +24,19 @@
 
         <p>In the meanwhile, let us know what you're looking for. Other citizens are probably looking for the same thing. Once we approve each request we will make them public so that we can help connect you with other people looking for similar information in their hometowns.</p>
 
-        <p><a href="{% url 'request-create' %}" class="btn">Request Data</a></p>
+        <a href="{% url 'request-create' %}" class="btn">Request Data</a>
     </div>
     {% endscribble %}
+
+    <p>Maybe you've seen a data set, but not in a format that follows the <a href="http://www.opengovdata.org/home/8principles">8 Principles of Open Government Data</a>. Or maybe you think an agency must be collecting and storing data on a topic, but you've not been able to get a copy of it. The best way to help make North Carolina government data more useful is to <a href="http://www.elon.edu/e-web/academics/communications/ncopengov/seekers/faq.xhtml">ask the government agency for help</a> and then <a href="http://open-nc.org/opendata/submit/">submit the data to our catalog</a> after you receive it. </p>
+
+    <p>In the meanwhile, let us know what you're looking for. Other citizens are probably looking for the same thing. Once we approve each request we will make them public so that we can help connect you with other people looking for similar information in their hometowns.</p>
+
+    {% endscribble %}
+
+    <a href="{% url 'request-create' %}" class="btn">Request Data</a>
+
+>>>>>>> master
     <h2>Current Requests</h2>
     <div id="search-requests" class="search">
         <form method='GET' action='.'>

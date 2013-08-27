@@ -145,9 +145,6 @@ class Resource(models.Model):
     updates = models.ForeignKey(UpdateFrequency, null=True, blank=True,
                                 help_text=HELP['update_frequency'],
                                 )
-    update_frequency = models.CharField(max_length=255, blank=True,
-                                        help_text=HELP['update_frequency'],
-                                        editable=False)
     categories = models.ManyToManyField(Category, related_name="resources",
                                         blank=True, null=True)
     keywords = models.CommaSeparatedIntegerField(max_length=255, blank=True,
@@ -190,6 +187,9 @@ class Resource(models.Model):
                                     help_text=HELP['last_updated'],
                                     editable=False)
     time_period = models.CharField(max_length=50, blank=True)
+    update_frequency = models.CharField(max_length=255, blank=True,
+                                        help_text=HELP['update_frequency'],
+                                        editable=False)
 
     class Meta:
         ordering = ("-last_updated", )
@@ -356,9 +356,12 @@ class UrlImage(models.Model):
         return path
         
     resource = models.ForeignKey(Resource)
-    image = models.ImageField(upload_to=get_image_path, help_text="The site will resize this master image as necessary for page display")
-    title = models.CharField(max_length=255, help_text="For image alt tags")
-    source = models.CharField(max_length=255, help_text="Source location or person who created the image")
+    image = models.ImageField(upload_to=get_image_path,
+        help_text="The site will resize this master image as necessary for page display")
+    title = models.CharField(max_length=255, help_text="For image alt tags",
+        blank=True)
+    source = models.CharField(max_length=255, blank=True,
+        help_text="Source location or person who created the image")
     source_url = models.CharField(max_length=255, blank=True)
     objects = ImageManager()
     

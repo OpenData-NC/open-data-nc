@@ -2,7 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 
 from djangoratings.fields import RatingField
-from opendata.catalog.models import Resource, City, County, Category
+from opendata.catalog.models import Resource, City, County, Category, \
+    UpdateFrequency
 from opendata.fields_info import FIELDS, HELP
 
 
@@ -11,13 +12,6 @@ class Request(models.Model):
         ('state', 'Statewide'),
         ('county', 'County Agency'),
         ('city', 'City/town Agency'),
-    )
-    FREQUENCY_TYPES = (
-        ('daily', 'At least once a day'),
-        ('weekly', 'At least once a week'),
-        ('monthly', 'At least once a month'),
-        ('yearly', 'At least once a year'),
-        ('never', "It is not updated after it's created."),
     )
 
     creation_date = models.DateTimeField(auto_now_add=True)
@@ -35,8 +29,9 @@ class Request(models.Model):
                                blank=True)
     agency_name = models.CharField(max_length=255, blank=True)
     agency_division = models.CharField(max_length=255, blank=True)
-    update_frequency = models.CharField(choices=FREQUENCY_TYPES,
-                                       max_length=16)
+    updates = models.ForeignKey(UpdateFrequency, null=True, blank=True,
+                                help_text=HELP['update_frequency'],
+                                )
     agency_contact = models.CharField(max_length=255, blank=True)
     categories = models.ManyToManyField(Category,
                                         related_name="requests",

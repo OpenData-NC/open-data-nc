@@ -1,23 +1,11 @@
 from django.db import models
 
+from opendata.catalog.models import UrlType, UpdateFrequency
 from opendata.requests.models import Category, City, County
 from opendata.fields_info import FIELDS, HELP
 
 
 class Suggestion(models.Model):
-    FORMATS = (
-        ('xls', 'XLS'),
-        ('csv', 'CSV'),
-        ('rss', 'RSS'),
-        ('json', 'JSON'),
-        ('accb', '.accb or .mdb Microsoft Access file'),
-        ('pdf', 'PDF'),
-        ('doc', 'Word Document'),
-        ('oracle', 'Oracle Database'),
-        ('txt', '.txt'),
-        ('shp', '.shp'),
-        ('web', 'Web page [HTML, ASP, etc]'),
-    )
     AGENCY_TYPES = (
         ('state', 'Statewide'),
         ('county', 'County Agency'),
@@ -39,8 +27,8 @@ class Suggestion(models.Model):
     description = models.TextField(u'Long description', help_text=HELP['description'])
     url = models.CharField(verbose_name=FIELDS['url'], max_length=255,
                            help_text=HELP['url'])
-    data_format = models.CharField(verbose_name=FIELDS['data_format'],
-                                   max_length=100, choices=FORMATS)
+    data_format = models.ForeignKey(UrlType, verbose_name=FIELDS['data_format'],
+                                    blank=True, null=True)
     other_format = models.CharField(max_length=255, blank=True)
     agency_name = models.CharField(verbose_name=FIELDS['agency_name'],
                                    help_text=HELP['agency_name'], max_length=255)
@@ -56,9 +44,10 @@ class Suggestion(models.Model):
                                blank=True, verbose_name=FIELDS['county'])
     last_updated = models.DateField(verbose_name=FIELDS['last_updated'],
                                     blank=True, null=True)
-    update_frequency = models.CharField(choices=FREQUENCY_TYPES, max_length=16,
-                                        verbose_name=FIELDS['update_frequency'],
-                                        help_text=HELP['update_frequency'])
+    updates = models.ForeignKey(UpdateFrequency, null=True, blank=True,
+                                verbose_name=FIELDS['update_frequency'],
+                                help_text=HELP['update_frequency'],
+                                )
     categories = models.ManyToManyField(Category, related_name="suggestions",
                                         null=True, blank=True,
                                         verbose_name=FIELDS['categories'])
