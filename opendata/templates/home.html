@@ -20,7 +20,7 @@
                 {% endthumbnail %}
 
                     <h2 class="ribbonRight">
-                        {{ img.resource.name }}
+                        <a href="{{ img.get_absolute_url }}">{{ img.resource.name }}</a>
                     </h2>
                 </div>
 			{% endfor %}
@@ -54,7 +54,7 @@
 				<tbody>
 					{% for r in latest_resources%}
 						<tr>
-							<td><a href="#">{{ r.name }}</a></td>
+							<td><a href="{{ r.get_absolute_url }}">{{ r.name }}</a></td>
 							<td>{{ r.created|date:"F j" }}</td>
 							<td>{{ r.counties.all.0.name }}</td>
 							<td>{{ r.url_types.all.0.name }}</td>
