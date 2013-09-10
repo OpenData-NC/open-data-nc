@@ -13,18 +13,16 @@
 		<h3 class="ribbonLeft">
 	    	Featured Projects
 	    </h3>
-	    <div id="featured_projects_window">
-            {% for img in feature_images %}
-                <div class="{% if not forloop.first %}hide{% endif %}">
-                	{% thumbnail img.image "600x400" crop="center" as im %}
-                    	<img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
-                	{% endthumbnail %}
-                    <h2 class="ribbonRight">
-                        <a href="{{ img.resource.get_absolute_url }}">{{ img.resource.name }}</a>
-                    </h2>
-                </div>
-			{% endfor %}
-        </div>
+        {% for img in feature_images %}
+            <div class="{% if not forloop.first %}hide{% endif %}">
+            	{% thumbnail img.image "600x400" crop="center" as im %}
+                	<img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
+            	{% endthumbnail %}
+                <h2 class="ribbonRight">
+                    <a href="{{ img.resource.get_absolute_url }}">{{ img.resource.name }}</a>
+                </h2>
+            </div>
+		{% endfor %}
 	</div>
 </div>
 

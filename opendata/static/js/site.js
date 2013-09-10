@@ -13,8 +13,6 @@ $(document).ready(function(){
 
    $('.footable').footable();
 
-   $('#logo_text').hide();
-
    if(!($('#user').is(':visible'))) {
       $('#logo_text').css('left', '2%');
    };
@@ -24,6 +22,14 @@ $(document).ready(function(){
          $(this).find('h1').css('color', '#333');
       };
    });
+
+   var noShow = ['#login', '#logout', '#registration', '#search-requests', '#url-suggest-form', '#request-form', '#submit-form']
+
+   for(var i=0; i<noShow.length; i++) {
+      if($(noShow[i]).is(':visible')) {
+           $('.form-search').hide();
+       }; 
+    };
 });
 
 //displays logo text on scroll in mobile
