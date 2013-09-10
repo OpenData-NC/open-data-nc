@@ -13,14 +13,6 @@
 <meta property="og:site_name" content="Open Data NC"/>
 {% endblock %}
 
-{% block extra-js %}
-<script> 
-	if($('#url_suggest_form').is(':visible')) {
-		$('.form-search').hide();
-	} 
-</script>
-{% endblock %}
-
 {% block extra-css %}
     <link rel="stylesheet" type="text/less" media="all" href="{{ STATIC_URL }}rating/jquery.rating.css">
 {% endblock %}
@@ -58,7 +50,7 @@
 	<br>
 
 	
-	<form id="url_suggest_form" action="{% url 'suggest-create' %}" method='get'>
+	<form id="url-suggest-form" action="{% url 'suggest-create' %}" method='get'>
 		<div class="input-append">
 		    {{ form.url|attr:'placeholder:URL...' }}
 		    <button class="btn">Go</button>

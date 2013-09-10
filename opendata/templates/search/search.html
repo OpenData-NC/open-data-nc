@@ -70,7 +70,6 @@
             <form class="form-search" method="get" action=".">
                 <div class="control-group input-append">
                     {{ form.q|attr:"placeholder:Search the data catalog..." }}
-                    {% regroup form.selected_facets by facet as facet_list %}
                     {% for facet in facet_list %}
                         <input type="hidden" name="selected_facets" value="{{ facet }}" />
                     {% endfor %}

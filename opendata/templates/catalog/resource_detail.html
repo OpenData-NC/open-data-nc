@@ -20,13 +20,6 @@
 {% block extra-js %}
     <script charset="utf-8" src="{{ STATIC_URL }}rating/jquery.rating.pack.js"></script>
     <script charset="utf-8" src="{{ STATIC_URL }}js/comment_form.js"></script>
-    <script>
-      $('#social-widgets').addClass('hidden');
-
-      $('#share-data').click(function(){
-        $('#social-widgets').toggleClass('hidden');
-      })
-    </script>
 {% endblock extra-js %}
 
 {% block content %}

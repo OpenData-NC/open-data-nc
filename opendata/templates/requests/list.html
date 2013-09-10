@@ -6,14 +6,6 @@
 {% block body_id %}requests-list{% endblock body_id %}
 {% block body_class %}requests{% endblock body_class %}
 
-{% block extra-js %}
-<script> 
-    if($('#search-requests').is(':visible')) {
-        $('.form-search').hide();
-    } 
-</script>
-{% endblock %}
-
 {% block content %}
     <h1>Request Public Data</h1>
     <div class="gray-card">
@@ -24,7 +16,9 @@
 
         <p>In the meanwhile, let us know what you're looking for. Other citizens are probably looking for the same thing. Once we approve each request we will make them public so that we can help connect you with other people looking for similar information in their hometowns.</p>
         {% endscribble %}
-        <a href="{% url 'request-create' %}" class="btn">Request Data</a>
+        <form id="url-suggest-form" action="{% url 'request-create' %}" method='get'> 
+            <button class="btn">Request Data</button>
+        </form>
     </div>
 
 

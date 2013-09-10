@@ -41,6 +41,8 @@
 @import "../bootstrap/less/navs";
 @import "../bootstrap/less/navbar";
 
+@import "../bootstrap/less/utilities";
+
 // Components: Responsive
 @import "../bootstrap/less/responsive-utilities";
 @import "../bootstrap/less/responsive-1200px-min";
@@ -130,7 +132,7 @@
 }
 
 body {
-    font-family: 'open_sans_condensedbold', Helvetica, sans-serif;
+    font-family: Lato, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
 }
@@ -149,8 +151,8 @@ body {
 }
 
 hr {
-    border-color: @openGray;
-    border-size: 2px;
+    border-color: @blue;
+    border-size: 1px;
 }
 
 h1, h4 {
@@ -165,7 +167,7 @@ p {
 
 a { 
     text-decoration: none;
-    color: @openGrayDark;
+    color: @blue;
 
     &:hover {
         color: @blue;
@@ -283,17 +285,16 @@ a {
         width: 100px;
         height: 100px;
         margin: 10px;
+        position: relative;
         border: 2px solid #000;
         display: inline-block;
         text-align: center;
 
         > div#rating {
-            display: inline-block;
             width: 100%;
             height: 25px;
-            position: relative;
+            position: absolute;
             top: 70%;
-            color: @blue;
             #translucent.background(@grayDark, .8);
         }
 
@@ -332,6 +333,10 @@ header {
         h5 {
             text-transform: none;
             display: inline;
+
+            &.logo_text {
+                .hide;
+            }
         }
 
         a:not(.accent) {
@@ -354,7 +359,7 @@ header {
                 float: left;
                 margin: 0;
 
-                &#logo_text {
+                &.logo_text {
                     color: @grayDark;
                     position: absolute;
                     left: 40%;
@@ -365,17 +370,26 @@ header {
 }
 
 nav {
-    h1 {
+    margin-top: 32px;
+
+    h3 {
         display: inline;
-        padding: 0 15px 5px 0;
-        border-bottom: 2px solid @blue;
     }
 
     a {
         color: @grayDark;
+
+        &:hover {
+            + p {
+                .show;
+            }
+        }
     }
 
     p {
+        .hide;
+
+        margin: 0;
         width: 75%;
     }
 
@@ -388,7 +402,7 @@ nav {
             display: inline;
         }
 
-        h1 {
+        h3 {
             color: @openGrayDark;
             display: inline;
             border: none;
@@ -400,7 +414,7 @@ nav {
             }
         }    
 
-        p, .accent {
+        hr, p, .accent {
             .hidden;
         }
     }
