@@ -41,23 +41,8 @@
 	easily available, visit the Request Data page.
 	</p>
 
-	<p>
-	Ideally, the data you want to share is already public on a government website.
-	If it is, please post here the URL that points directly to the dataset.
-	</p>
-    {% endscribble %}
-
-	<br>
-
 	
-	<form id="url-suggest-form" action="{% url 'suggest-create' %}" method='get'>
-		<div class="input-append">
-		    {{ form.url|attr:'placeholder:URL...' }}
-		    <button class="btn">Go</button>
-	    </div>
-	</form>
 
-    {% scribble "share-page-2" %}
 	<p>
 	If the data is not already online, there are several ways you can help put it
 	online. Remember, though, that the more disconnected data becomes from its
@@ -67,6 +52,23 @@
 	included in the catalog.
 	</p>
     {% endscribble %}
+
+	<br>
+
+	{% scribble "share-page-2" %}
+	<p>
+	Ideally, the data you want to share is already public on a government website.
+	If it is, please post here the URL that points directly to the dataset.
+	</p>
+	{% endscribble %}
+	
+	<form id="url-suggest-form" action="{% url 'suggest-create' %}" method='get'>
+		<div class="input-append">
+		    {{ form.url|attr:'placeholder:URL...' }}
+		    <button class="btn">Go</button>
+	    </div>
+	</form>
+    
 </div>
 
 {% scribble "share-page-2" %}
