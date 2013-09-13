@@ -10,7 +10,7 @@
 <meta property="og:url" content="{{ site_url }}{{ object.get_absolute_url }}"/>
 <meta property="og:image" content=""/>
 <meta property="og:locale" content="en_US" />
-<meta property="og:site_name" content="Open Data NC"/>
+<meta property="og:site_name" content="Open N.C."/>
 {% endblock %}
 
 {% block extra-css %}
@@ -38,9 +38,13 @@
       js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=1406142562935221";
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
+
+    <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://open-nc.org{{ object.get_absolute_url }}" data-text="Check out this public data that @openNC helped make public: {{ object.name|safe }} #opengov #ddj">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+      
    
-    <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en">Tweet</a>
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+  
     <div class="fb-like" data-href="{{ request.location }}" data-width="450" data-show-faces="true" data-send="true"></div>
 </div>
 
@@ -53,10 +57,9 @@
             {% thumbnail resource.get_first_image.image "254x254" crop="center" as im %}
                 <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
             {% empty %}
-                Default image needs to go here.
+                <h1 class="no-image">No Image</h1>
             {% endthumbnail %}
           </div>
-          <h2 class="ribbonRight"><a id="share-data">Share data</a></h2>
       </div>
       <div class="span8">
         <!-- {% if perms.opendata.change_resource %}
@@ -191,7 +194,10 @@
 
     </div> <!-- /row -->
     <div class="row-fluid">
-      <div class="span12">
+      <div class="span4 pull-right">
+        <!-- Empty div used to match margin from row above -->
+      </div>
+      <div class="span8">
         <div class="info_label">Description: </div>
         <div class="info_data">{{resource.description|safe}}</div>
       </div>
