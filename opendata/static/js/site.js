@@ -11,8 +11,6 @@ window.log = function f(){ log.history = log.history || []; log.history.push(arg
 
 $(document).ready(function(){
 
-  $('.footable').footable(); //plugin to make home page table collapse on mobile
-
     if(!($('#user').is(':visible'))) {
         $('#logo_mobile').css('left', '2%');
     };

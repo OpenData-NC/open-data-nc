@@ -6,6 +6,12 @@
 {%block extra-js%}
 	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
+	<script>
+		$(document).ready(function(){
+			$('.footable').footable(); //plugin to make home page table collapse on mobile
+		});
+	</script>
+
 {% endblock extra-js %}
 
 {% block content %}
@@ -15,16 +21,7 @@
 		<h3 class="ribbonLeft">
 	    	Featured Projects
 	    </h3>
-	    {% for img in feature_images %}
-            <div class="{% if not forloop.first %}hide{% endif %}">
-            	{% thumbnail img.image "869x450" crop="center" as im %}
-                	<img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
-            	{% endthumbnail %}
-                <h2 class="ribbonRight">
-                    <a href="{{ img.resource.get_absolute_url }}">{{ img.resource.name }}</a>
-                </h2>
-            </div>
-		{% endfor %}
+	    
 	</div>
 </div>
 
@@ -70,6 +67,7 @@
 		<h1 class="twitter_header">Open N.C. Tweets</h1>
 		<a class="twitter-timeline" href="https://twitter.com/OpenNC" data-widget-id="373147868539805696" data-theme="light" data-link-color="#29abe2" data-chrome="noborders noheader nofooter">Tweets by @OpenNC</a>
 	</div>
+	
 </div>
 {% endblock %}
 
