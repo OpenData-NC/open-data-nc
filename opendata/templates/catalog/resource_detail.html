@@ -128,7 +128,7 @@
               <div class="info_label">Resources</div>
               <div class="info_data">
                 {% for url in resource.url_set.all %}
-                  {{url.url_label}} (<a href="{{url.url}}" title="{{ url.url }}">Download</a>)<br>
+                  <a href="{{url.url}}" title="{{ url.url }}">{{url.url_label}}</a><br>
                 {% endfor %}
               </div>
               <br>
