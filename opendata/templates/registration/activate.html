@@ -8,10 +8,12 @@
 {% block content %}
 <div class="">
     {% scribble "about-page" %}
-        Used if account activation fails. With the default setup, has the following context:
-
-        activation_key
-        The activation key used during the activation attempt.
+        <h2>Activation problem occurred</h2>
+        <p><strong>Sorry, a problem occured.</strong></p>
+        <p>Either you have already activated this account, your activation link
+            in the url was incorrect/incomplete, or the activation key for your
+            account has expired. Activation keys are only valid for 7 days after
+            registration.</p>
     {% endscribble %}
 </div>
 {% endblock content %}
