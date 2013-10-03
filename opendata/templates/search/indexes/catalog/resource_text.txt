@@ -5,18 +5,18 @@
         {% thumbnail object.get_first_image.image "96x96" crop="center" as im %}
             <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
         {% empty %}
-            No image for data set
+            <h3 class="no-image">No Image</h3>
         {% endthumbnail %}
-	    <div id="rating">
-			<input name="star_resource" type="radio" class="star star_resource" disabled="disabled" {% if object.get_rating == 1 %}checked{% endif %}/>
-			<input name="star_resource" type="radio" class="star star_resource" disabled="disabled" {% if object.get_rating == 2 %}checked{% endif %}/>
-			<input name="star_resource" type="radio" class="star star_resource" disabled="disabled" {% if object.get_rating == 3 %}checked{% endif %}/>
-			<input name="star_resource" type="radio" class="star star_resource" disabled="disabled" {% if object.get_rating == 4 %}checked{% endif %}/>
-			<input name="star_resource" type="radio" class="star star_resource" disabled="disabled" {% if object.get_rating == 5 %}checked{% endif %}/>
+	    <div class="rating clearfix">
+			<input name="star{{ object.id }}" type="radio" class="star star_resource" disabled="disabled" {% if object.get_rating == 1 %}checked{% endif %}/>
+			<input name="star{{ object.id }}" type="radio" class="star star_resource" disabled="disabled" {% if object.get_rating == 2 %}checked{% endif %}/>
+			<input name="star{{ object.id }}" type="radio" class="star star_resource" disabled="disabled" {% if object.get_rating == 3 %}checked{% endif %}/>
+			<input name="star{{ object.id }}" type="radio" class="star star_resource" disabled="disabled" {% if object.get_rating == 4 %}checked{% endif %}/>
+			<input name="star{{ object.id }}" type="radio" class="star star_resource" disabled="disabled" {% if object.get_rating == 5 %}checked{% endif %}/>
 	    </div>
     </div>
     <div class="span6">
-	    <h1><a href="{{ object.get_absolute_url }}">{{ object.name|safe }}</a></h1>
+	    <h3><a href="{{ object.get_absolute_url }}">{{ object.name|safe }}</a></h3>
 	    <h4>{{ object.short_description|safe }}</h4>
     </div>
 </div>

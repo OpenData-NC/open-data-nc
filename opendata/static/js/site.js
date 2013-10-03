@@ -11,24 +11,35 @@ window.log = function f(){ log.history = log.history || []; log.history.push(arg
 
 $(document).ready(function(){
 
-   $('.footable').footable();
+    if(!($('#user').is(':visible'))) {
+        $('#logo_mobile').css('left', '2%');
+    };
 
-   if(!($('#user').is(':visible'))) {
-      $('#logo_text').css('left', '2%');
-   };
-
-   $('nav a').each(function(){
+    $('nav a').each(function(){
       if ($(this).attr('href') == window.location.pathname){
          $(this).find('h3').css('color', '#333');
       };
-   });
+    });
 
-   var noShow = ['#login', '#logout', '#registration', '#search-requests', '#url-suggest-form', '#request-form', '#submit-form'];
+    var x = $(window).width();
+    if( x>769 ) {
+        $('nav a').hover(function(){
+            if ($(this).next('p').is(':hidden')){
+                $(this).next('p').slideDown(300);
+            } else {
+                $(this).next('p').slideUp(300);
+            }
+        });
+    }
 
-   for(var i=0; i<noShow.length; i++) {
+    var noShow = ['#login', '#logout', '#registration', '#search-requests', '#url-suggest-form', '#request-form', '#submit-form'];
+
+    for(var i=0; i<noShow.length; i++) {
       if($(noShow[i]).is(':visible')) {
-           $('.form-search').hide();
-       }; 
+        $('.form-search').hide();
+      } else {
+        return false;
+      } 
     };
 });
 
@@ -38,9 +49,9 @@ $(window).scroll(function(){
    var x = $(window).width();
    var y = $(window).scrollTop();
    if( y > (h+50) && x < 767 ){
-      $('#logo_text').fadeIn('slow');
+      $('#logo_mobile').fadeIn('slow');
    } else {
-      $('#logo_text').fadeOut('slow');
+      $('#logo_mobile').fadeOut('slow');
    }
 });
 

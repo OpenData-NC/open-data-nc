@@ -57,7 +57,7 @@
             <div class="span6 request-details">
                 <h3 class="nom_text">{{ object }}</h3>
                 <div class="nom_byline">
-                    By <strong>{{ object.suggested_by }}</strong> on <strong>{{ object.date }}</strong>
+                    By <strong>{{ object.suggested_by }}</strong> on <strong>{{ object.creation_date|date:"M. j, Y" }}</strong>
                 </div>
             </div>
             <div class="span3 vote-or-login">
@@ -91,5 +91,4 @@
     {% endfor %}
     </div>
     <div id="pager">{% paginate %}</div>
-</div></div> <!-- /span9 & /row-fluid from base -->
 {% endblock %}

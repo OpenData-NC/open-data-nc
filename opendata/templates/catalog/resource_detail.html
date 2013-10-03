@@ -13,12 +13,8 @@
 <meta property="og:site_name" content="Open N.C."/>
 {% endblock %}
 
-{% block extra-css %}
-    <link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}rating/jquery.rating.css">
-{% endblock %}
 
 {% block extra-js %}
-    <script charset="utf-8" src="{{ STATIC_URL }}rating/jquery.rating.pack.js"></script>
     <script charset="utf-8" src="{{ STATIC_URL }}js/comment_form.js"></script>
 {% endblock extra-js %}
 
@@ -57,7 +53,7 @@
             {% thumbnail resource.get_first_image.image "254x254" crop="center" as im %}
                 <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
             {% empty %}
-                <h1 class="no-image">No Image</h1>
+                <h1 class="no-image hidden-phone">No Image</h1>
             {% endthumbnail %}
           </div>
       </div>
@@ -85,7 +81,7 @@
             <div class="info_label">Valid Time PeriodL <span class="info_data">{{resource.time_period}}</span></div>
             {% endif %}
             {% if resource.data_types.all.count > 0 %}
-            <div class="info_label">Data Types: 
+            <div class="info_label">Data Types:
               <span class="info_data">
               	{% for dt in resource.data_types.all %}
       		    	 {{dt}}{% if not forloop.last %}, {% endif %}
@@ -93,14 +89,14 @@
               </span>
             </div>
             {% endif %}
-            <div class="info_label">Categories: 
+            <div class="info_label">Categories:
             <span class="info_data">
               {% for tag in resource.tags.all %}
                 <a href="{{SITE_ROOT}}/opendata/tag/{{tag.id}}/?sort=name&dir=asc" onclick="odp.trackEvent('Search Link', 'Resource Tag', 'Tag', '{{tag}}')">{{tag}}</a>{% if not forloop.last %}, {% endif %}
               {% endfor %}
               </span>
             </div>
-        
+
       </div>
       <div class="clear"></div>
     </div> -->
@@ -120,7 +116,7 @@
             {% endif %}
             {% if resource.release_date %}
               <div class="info_label">Release Date</div>
-              <div class="info_data">{{ resource.release_date }}</a></div>
+              <div class="info_data">{{resource.release_date}}</div>
               <br>
             {% endif %}
             {% if resource.time_period %}
@@ -128,7 +124,16 @@
               <div class="info_data">{{resource.time_period}}</div>
               <br>
             {% endif %}
-            {% if resource.data_types.all.count > 0 %}
+            {% if resource.url_set.all %}
+              <div class="info_label">Resources</div>
+              <div class="info_data">
+                {% for url in resource.url_set.all %}
+                  <a href="{{url.url}}" title="{{ url.url }}">{{url.url_label}}</a><br>
+                {% endfor %}
+              </div>
+              <br>
+            {% endif %}
+            {% if resource.data_types.all %}
               <div class="info_label">Data Types</div>
               <div class="info_data">
                 {% for dt in resource.data_types.all %}
@@ -137,13 +142,15 @@
               </div>
               <br>
             {% endif %}
-            <div class="info_label">Categories</div>
-            <div class="info_data">
-              {% for tag in resource.tags.all %}
-                <a href="{{SITE_ROOT}}/opendata/tag/{{tag.id}}" onclick="odp.trackEvent('Search Link', 'Resource Tag', 'Tag', '{{tag}}')">{{tag}}</a>{% if not forloop.last %}, {% endif %}
-              {% endfor %}
-            </div>
-            <br>
+            {% if resource.categories.all %}
+              <div class="info_label">Categories</div>
+              <div class="info_data">
+                {% for category in resource.categories.all %}
+                  <a href="{% url 'catalog_search' %}?q=&selected_facets=categories_exact:{{ category }}">{{category}}</a><br>
+                {% endfor %}
+              </div>
+              <br>
+            {% endif %}
             {% if resource.usage %}
               <div class="info_label">Usage</div>
               <div class="info_data">{{resource.usage}}</div>
@@ -158,7 +165,7 @@
               <div class="info_data">{{resource.area_of_interest}}</div>
               <br>
             {% endif %}
-            {% if resource.coord_sys.all.count > 0 %}
+            {% if resource.coord_sys.all %}
               <div class="info_label">Coordinate Systems</div>
               <div class="info_data">
                 {% for cs in resource.coord_sys.all %}
@@ -187,11 +194,20 @@
             <br>
             <div class="info_label">Last Update</div>
             <div class="info_data">{{resource.last_updated}}</div>
+            <br>
+            <div id="avg_rating" class="info_label">Average Rating</div>
+            <div id="detail_rating">
+              <span>{{resource.rating_votes|default:"0"}} Votes</span>
+              <input name="star_resource" type="radio" class="star star_resource" disabled="disabled" {% if average_rating == 1 %}checked{% endif %}/>
+              <input name="star_resource" type="radio" class="star star_resource" disabled="disabled" {% if average_rating == 2 %}checked{% endif %}/>
+              <input name="star_resource" type="radio" class="star star_resource" disabled="disabled" {% if average_rating == 3 %}checked{% endif %}/>
+              <input name="star_resource" type="radio" class="star star_resource" disabled="disabled" {% if average_rating == 4 %}checked{% endif %}/>
+              <input name="star_resource" type="radio" class="star star_resource" disabled="disabled" {% if average_rating == 5 %}checked{% endif %}/>
+            </div>
           </div>
         <!-- <div class="clear_left"></div> -->
         </div> <!-- /tab_data -->
       </div> <!-- /span8 -->
-
     </div> <!-- /row -->
     <div class="row-fluid">
       <div class="span4 pull-right">
@@ -269,17 +285,7 @@
 
   <div class="tab_container" id="content_ratings">
     <div class="tab_body" id="ratings-tab">
-      <div id="social_meta">
-        <h3 id="avg_rating">Average Rating</h3>
-        <div id="detail_rating">
-          <span>{{resource.rating_votes|default:"0"}} Votes</span>
-          <input name="star_resource" type="radio" class="star star_resource" disabled="disabled" {% if average_rating == 1 %}checked{% endif %}/>
-          <input name="star_resource" type="radio" class="star star_resource" disabled="disabled" {% if average_rating == 2 %}checked{% endif %}/>
-          <input name="star_resource" type="radio" class="star star_resource" disabled="disabled" {% if average_rating == 3 %}checked{% endif %}/>
-          <input name="star_resource" type="radio" class="star star_resource" disabled="disabled" {% if average_rating == 4 %}checked{% endif %}/>
-          <input name="star_resource" type="radio" class="star star_resource" disabled="disabled" {% if average_rating == 5 %}checked{% endif %}/>
-        </div>
-      </div>
+      <h3>Comments</h3>
       <div id="comment_form">
         <div>
           {% if user.is_authenticated %}
@@ -308,6 +314,7 @@
               {% endif %}
               {% endfor %}
               <div class="clear"></div>
+              <br><br>
               <div class="submit">
                 <input type="submit" name="post" class="btn" value="Post" />
               </div>
@@ -317,13 +324,14 @@
           {% endif %}
         </div>
       </div>
-      <div id="comment_list">
-        <div id="comment_header">Comments</div>
-
+      
+      <h4 id="comment_header">Recent Comments</h4>
+      <div id="comment_list" class="gray-card">
         {% get_comment_list for resource as comment_list %}
         {% for comment in comment_list %}
           <div class="comment_item">
             <div class="comment_head">
+              <div class="comment_user">{{ comment.user.username }}</div>
               <div class="comment_rating">
                 <input name="star_{{comment.id}}" type="radio" class="star star_{{comment.id}}" disabled="disabled" {% if comment.rating == 1 %}checked{% endif %}/>
                 <input name="star_{{comment.id}}" type="radio" class="star star_{{comment.id}}" disabled="disabled" {% if comment.rating == 2 %}checked{% endif %}/>
@@ -331,7 +339,6 @@
                 <input name="star_{{comment.id}}" type="radio" class="star star_{{comment.id}}" disabled="disabled" {% if comment.rating == 4 %}checked{% endif %}/>
                 <input name="star_{{comment.id}}" type="radio" class="star star_{{comment.id}}" disabled="disabled" {% if comment.rating == 5 %}checked{% endif %}/>
               </div>
-              <div class="comment_user">{{ comment.user.username }}</div>
               <div class="comment_date">{{ comment.submit_date|date:"m/d/Y"}}</div>
             </div>
             <div class="comment_body">
