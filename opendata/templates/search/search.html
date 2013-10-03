@@ -32,7 +32,12 @@
             $('ul').not($(this).parent('ul')).each(function(){
                   $(this).children('li:gt(4)').hide();
             });
-            $(this).text($(this).text() == "Show Less" ? "Show More..." : "Show Less");
+            console.log($(this).text())
+            if ($(this).text() == "Show Less..."){
+                $(this).html("Show More...");
+            } else {
+                $(this).html("Show Less...");
+            }
         });
     </script>
 {% endblock extra-js %}
