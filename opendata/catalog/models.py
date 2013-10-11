@@ -20,6 +20,7 @@ class City(models.Model):
 
     class Meta(object):
         verbose_name_plural = 'Cities'
+        ordering = ("name", )
 
     def __unicode__(self):
         return self.name
@@ -31,6 +32,7 @@ class County(models.Model):
 
     class Meta(object):
         verbose_name_plural = 'Counties'
+        ordering = ("name", )
 
     def __unicode__(self):
         return self.name
