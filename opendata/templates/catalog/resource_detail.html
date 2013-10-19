@@ -62,12 +62,12 @@
           <div>
             {% if resource.department %}
               <div class="info_label">Department</div>
-              <div class="info_data"><a href="{{SITE_ROOT}}/opendata/search/?qs={{resource.organization}}" onclick="odp.trackEvent('Search Link', 'Resource Organization', 'Resource', {{resource.id}})">{{resource.department}}</a></div>
+              <div class="info_data">{{resource.department}}</div>
               <br>
             {% endif %}
             {% if resource.division %}
               <div class="info_label">Division</div>
-              <div class="info_data"><a href="{{SITE_ROOT}}/opendata/search/?qs={{resource.division}}" onclick="odp.trackEvent('Search Link', 'Resource Division', 'Resource', {{resource.id}})">{{resource.division}}</a></div>
+              <div class="info_data">{{resource.division}}</div>
               <br>
             {% endif %}
             {% if resource.release_date %}
