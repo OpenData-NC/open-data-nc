@@ -28,7 +28,7 @@ class City(models.Model):
 
 class County(models.Model):
     name = models.CharField(max_length=50)
-    cities = models.ManyToManyField(City, related_name='counties')
+    cities = models.ManyToManyField(City, related_name='counties', null=True, blank=True)
 
     class Meta(object):
         verbose_name_plural = 'Counties'
