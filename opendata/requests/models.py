@@ -31,6 +31,11 @@ class Request(models.Model):
     url = models.URLField(verbose_name=FIELDS['url'], blank=True)
     agency_type = models.CharField(verbose_name=FIELDS['agency_type'],
                                   choices=AGENCY_TYPES, max_length=16)
+    # More Info
+    contact_phone = models.CharField(max_length=50, blank=True)
+    contact_email = models.CharField(max_length=255, blank=True)
+    contact_url = models.CharField(max_length=255, blank=True)
+
     city = models.ForeignKey(City, related_name='requests', null=True,
                              blank=True)
     county = models.ForeignKey(County, related_name='requests', null=True,
