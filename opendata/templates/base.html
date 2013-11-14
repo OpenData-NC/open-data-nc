@@ -34,6 +34,7 @@
         {{ form.media.css }}
         <link rel="stylesheet" href="{{ STATIC_URL }}scribbler/css/scribbler.css">
         <link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}rating/jquery.rating.css">
+        <link rel="stylesheet/less" type="text/css" media="all" href="{{ STATIC_URL }}font-awesome/css/font-awesome.min.css">
 
     {% if debug %}
         <link rel="stylesheet/less" type="text/css" media="all" href="{{ STATIC_URL }}less/site.less">
@@ -83,7 +84,7 @@
                                 <form class="form-search" method="get" action="{% url 'catalog_search' %}">
                                     <div class="control-group input-append">
                                         <input id="id_q" name="q" placeholder="Search the data catalog..." type="text">
-                                        <button class="btn"><i class="icon-search icon-white"></i></button>
+                                        <button class="btn btn-success"><i class="icon-search icon-white"></i></button>
                                     </div>
                                 </form>
                             </div>
@@ -93,7 +94,7 @@
                                 <form class="form-search" method="get" action="{% url 'catalog_search' %}">
                                     <div class="control-group input-append">
                                         <input id="id_q" name="q" placeholder="Search the data catalog..." type="text">
-                                        <button class="btn"><i class="icon-search icon-white"></i></button>
+                                        <button class="btn btn-info"><i class="icon-search icon-white"></i></button>
                                     </div>
                                 </form>
                             </div>
