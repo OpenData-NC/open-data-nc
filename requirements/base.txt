@@ -25,3 +25,4 @@ django-selectable==0.7.0
 django-celery==3.0.17
 django-registration==1.0.0
 factory_boy==2.1.1
+django-secure-input==0.9.1

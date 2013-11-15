@@ -2,12 +2,15 @@ from django.contrib.admin import widgets
 from django import forms
 from django.contrib.admin import site
 
+from secure_input.fields import WYSIWYGField
+
 from .models import (Category, DataType, Department, Division, Resource,
                      UpdateFrequency)
 from opendata.fields_info import FIELDS, HELP
 
 
 class ResourceAdminForm(forms.ModelForm):
+    description = WYSIWYGField()
     division = forms.ModelChoiceField(label=FIELDS['agency_division'],
                                       widget=widgets.ForeignKeyRawIdWidget(
                                           Resource._meta.get_field('division').rel,
@@ -40,3 +43,6 @@ class ResourceAdminForm(forms.ModelForm):
 
     class Meta:
         model = Resource
+
+    class Media:
+        js = ("js/wysiwyg.js", )

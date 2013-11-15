@@ -153,6 +153,7 @@ INSTALLED_APPS = (
     'django_sorting',
     'registration',
     'sorl.thumbnail',
+    'secure_input',
 )
 
 # Comments app
