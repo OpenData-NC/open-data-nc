@@ -72,8 +72,7 @@ class ResourceDetailTest(ViewTestMixin, WebsiteTestBase):
     def test_get_unauthenticated(self):
         """Authenticated users can view resources."""
         response = self._get(url=self.url)
-        self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, self.template_name)
+        self.assertEquals(response.status_code, 301)
 
 
 class ResourceSearchView(BasicGetTest):
