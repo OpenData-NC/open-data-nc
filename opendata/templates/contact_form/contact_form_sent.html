@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load scribbler_tags %}
+
+{% block title %}Email Sent{% endblock title %}
+{% block body_id %}email-sent{% endblock body_id %}
+{% block body_class %}email-sent{% endblock %}
+
+{% block content %}
+<div class="">
+    {% scribble "email-sent" %}
+
+    <h2>Thanks for contacting us!</h2>
+
+    <div class="well">
+        <div class="alert">
+            An email has been sent to the administrators.
+        </div>
+    </div>
+    {% endscribble %}
+</div>
+{% endblock content %}
