@@ -1,6 +1,7 @@
-from django.contrib.admin import widgets
 from django import forms
 from django.contrib.admin import site
+from django.contrib.admin import widgets
+from django.template.defaultfilters import slugify
 
 from .models import (Category, DataType, Department, Division, Resource,
                      UpdateFrequency)
@@ -37,6 +38,15 @@ class ResourceAdminForm(forms.ModelForm):
     updates = forms.ModelChoiceField(label=FIELDS['update_frequency'],
                                     queryset=UpdateFrequency.objects,
                                     required=False)
+
+    def clean_name(self):
+        name = self.cleaned_data['name']
+        if not self.instance.pk:
+            slug = slugify(name)
+            resources = Resource.objects.filter(slug=slug)
+            if resources:
+                raise forms.ValidationError("Resource with this name already exists.")
+        return name
 
     class Meta:
         model = Resource
