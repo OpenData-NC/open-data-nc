@@ -93,11 +93,11 @@
                                    {% if not facet.0 in filters %}
                                        {% if request.GET %}
                                             <a href="{{ request.get_full_path }}&amp;selected_facets={{ field }}_exact:{{ facet.0|urlencode }}">
-                                                {{ facet.0|title }} ({{ facet.1 }})
+                                                {{ facet.0 }} ({{ facet.1 }})
                                             </a>
                                        {% else %}
                                             <a href="{{ request.get_full_path }}?selected_facets={{ field }}_exact:{{ facet.0|urlencode }}">
-                                                {{ facet.0|title }} ({{ facet.1 }})
+                                                {{ facet.0 }} ({{ facet.1 }})
                                             </a>
                                        {% endif %}
                                     {% else %}
