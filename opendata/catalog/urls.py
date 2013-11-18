@@ -11,5 +11,5 @@ urlpatterns = patterns('',
     url(r'^(?P<slug>[-\w]+)/$', ResourceDetail.as_view(),
         name='catalog_resource_detail'),
     url(r'^(?P<slug>[-\w]+)/(?P<pk>[\d]+)/$', ResourceRedirectView.as_view(),
-        name='catalog_resource_detail')
+        name='catalog_resource_pk_detail')
 )

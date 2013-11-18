@@ -5,7 +5,7 @@ from django.template.defaultfilters import slugify
 
 from .models import (Category, DataType, Department, Division, Resource,
                      UpdateFrequency)
-from opendata.fields_info import FIELDS, HELP
+from opendata.fields_info import FIELDS
 
 
 class ResourceAdminForm(forms.ModelForm):

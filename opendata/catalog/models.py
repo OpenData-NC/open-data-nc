@@ -324,18 +324,10 @@ class Resource(models.Model):
         xml = etree.fromstring(self.csw_xml)
         return ' '.join([value.strip() for value in xml.xpath('//text()')])
 
-    def generate_unique_slug(self):
-        """Generates a unique slug for resource"""
-        slug = slugify(self.name)
-        resources = Resource.objects.filter(slug=slug)
-        if resources:
-            return "{slug}-{num}".format(slug=slug, num=resources.count())
-        return slug
-
     def save(self, *args, **kwargs):
         """Sets slug for resource."""
         if not self.id:
-            self.slug = self.generate_unique_slug()
+            self.slug = slugify(self.name)
         super(Resource, self).save(*args, **kwargs)
 
 
