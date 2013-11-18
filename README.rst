@@ -102,3 +102,10 @@ is not given, it will use the default branch defined for this environment in
 
 New requirements or South migrations are detected by parsing the VCS changes and
 will be installed/run automatically.
+
+Running the tests
+-----------------
+
+You can run the tests via::
+
+    python manage.py test requests catalog suggestions
