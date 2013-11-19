@@ -1,13 +1,17 @@
-import math
-
 from django.conf import settings
-from django.views.generic import CreateView, DetailView
+from django.views.generic import CreateView, DetailView, RedirectView
 from opendata.mixins import LoginRequiredMixin
 from .models import Resource
 
 
 class ResourceCreate(LoginRequiredMixin, CreateView):
     model = Resource
+
+
+class ResourceRedirectView(RedirectView):
+    def get_redirect_url(self, **kwargs):
+        resource = Resource.objects.get(pk=self.kwargs['pk'])
+        return resource.get_absolute_url()
 
 
 class ResourceDetail(DetailView):

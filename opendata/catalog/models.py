@@ -119,17 +119,9 @@ class Resource(models.Model):
         ('city', 'City/town Agency'),
     )
 
-    # def save(self, *args, **kwargs):
-    #     if not self.pk:
-    #         super(Resource, self).save(*args, **kwargs)
-
-    #     self.csw_xml = self.gen_csw_xml()
-    #     self.csw_anytext = self.gen_csw_anytext()
-    #     super(Resource, self).save(*args, **kwargs)
-
     # Basic Info
     name = models.CharField(u'Title', max_length=255, help_text=HELP['title'])
-    slug = models.SlugField(editable=False)
+    slug = models.SlugField(editable=False, unique=True)
     short_description = models.CharField(u'Brief description', max_length=255,
                                          help_text=HELP['short_description'])
     description = models.TextField(u'Long description', help_text=HELP['description'])
@@ -223,8 +215,7 @@ class Resource(models.Model):
         return images
     
     def get_absolute_url(self):
-        return reverse('catalog_resource_detail', kwargs={'pk': self.id, 'slug':
-            self.slug})
+        return reverse('catalog_resource_detail', kwargs={'slug': self.slug})
 
     def get_rating(self):
         """Return instance raiting as an intiger"""

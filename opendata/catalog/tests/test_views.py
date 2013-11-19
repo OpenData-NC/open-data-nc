@@ -64,16 +64,27 @@ class ResourceDetailTest(ViewTestMixin, WebsiteTestBase):
 
     def setUp(self):
         self.resource = ResourceFactory.create()
-        self.url = reverse(
-            "catalog_resource_detail",
+        self.old_url = reverse(
+            "catalog_resource_pk_detail",
             kwargs={"slug": self.resource, "pk": self.resource.id}
         )
 
     def test_get_unauthenticated(self):
-        """Authenticated users can view resources."""
-        response = self._get(url=self.url)
+        """Unathorized users can view resources"""
+        response = self._get(url=self.resource.get_absolute_url())
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, self.template_name)
+
+    def test_old_absolute_urls(self):
+        """
+            Resources' URL with a pk in their URL should redirect to the new
+            style url.
+        """
+        response = self._get(url=self.old_url)
+        self.assertEquals(response.status_code, 301)
+        self.assertEqual(
+            response.get('location'),
+            "{base}{url}".format(base="http://testserver", url=self.resource.get_absolute_url())
+        )
 
 
 class ResourceSearchView(BasicGetTest):
