@@ -64,17 +64,18 @@ open-nc.org utilizes `Solr <http://lucene.apache.org/solr/>`_  for the search
 backend. In order to utilize search locally, you will need to install and configure
 Solr::
 
-    ./scripts/solr-install.sh
+    scripts/solr-install.sh
 
 This will install Solr in the root of the repository. To run Solr::
 
-    ./scripts/solr-run.sh
+    scripts/solr-run.sh
 
-If you make changes to the `Haystack <http://haystacksearch.org/>`_ indices, you
-will need to rebuild the Solr schema. Due to an existing Haystack `issue <https://github.com/toastdriven/django-haystack/pull/706>`_, there
+If you make changes to the `Haystack <http://haystacksearch.org/>`_ indices after
+you ran the solr-install.sh script, you will need to rebuild the Solr schema.
+Due to an existing Haystack `issue <https://github.com/toastdriven/django-haystack/pull/706>`_, there
 is a helper script to do this as well::
 
-    ./scripts/solr-rebuild-schema.sh
+    scripts/solr-rebuild-schema.sh
 
 After running the script, you will need to restart Solr.
 
