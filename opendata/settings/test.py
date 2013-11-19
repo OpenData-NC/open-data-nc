@@ -1,3 +1,3 @@
 from opendata.settings.dev import *
 
-# Override settings here
+RECAPTCHA_PRIVATE_KEY = "no-secret-only-for-testing"
