@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block title %}Contact Us{% endblock title %}
+{% block body_id %}contact{% endblock body_id %}
+{% block body_class %}contact{% endblock %}
+
+{% block content %}
+<div id="contact" class="floating-box">
+    <h1>Contact us</h1>
+
+    <form method="post" action="{% url "contact_form" %}">
+    {% csrf_token %}
+    {% for field in form %}
+      <span class="control-group{% if field.errors %} error{% endif %}">
+          <label class="control-label" for="{{ field.id_for_label }}">
+              {{ field.label }}
+          </label>
+      </span>
+
+      <span class="controls" id="controls_{{ field.html_name }}">
+          {{ field }}
+          {% if field.errors %}
+          <span class="help-block error">{{ field.errors|safe }}</span>
+          {% endif %}
+          {% if field.help_text %}
+          <span class="help-block">{{ field.help_text|safe }}</span>
+          {% endif %}
+      </span>
+    {% endfor %}
+    <div class="control-group">
+        <input class="btn btn-primary btn-large btn-block" type="submit" value="Send Email" />
+    </div>
+    </form>
+</div>
+{% endblock content %}
