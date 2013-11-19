@@ -46,27 +46,48 @@ Exit the virtualenv and reactivate it to activate the settings just changed::
     deactivate
     workon open-data-nc
 
-Create the Postgres database and run the initial syncdb/migrate::
+
+Create the Postgres database and load initial data::
 
     createdb -E UTF-8 opendata
-    python manage.py syncdb
-    python manage.py migrate
+    psql opendata < dev.sql
+
 
 You should now be able to run the development server::
 
     python manage.py runserver
 
+Solr Install & Configuration
+-----------------------------
 
-Loading Initial NC Data
+open-nc.org utilizes `Solr <http://lucene.apache.org/solr/>`_  for the search
+backend. In order to utilize search locally, you will need to install and configure
+Solr::
+
+    scripts/solr-install.sh
+
+This will install Solr in the root of the repository. To run Solr::
+
+    scripts/solr-run.sh
+
+If you make changes to the `Haystack <http://haystacksearch.org/>`_ indices after
+you ran the solr-install.sh script, you will need to rebuild the Solr schema.
+Due to an existing Haystack `issue <https://github.com/toastdriven/django-haystack/pull/706>`_, there
+is a helper script to do this as well::
+
+    scripts/solr-rebuild-schema.sh
+
+After running the script, you will need to restart Solr.
+
+Lastly, you will need to build the initial search index::
+
+    python manage.py rebuild_index
+
+
+Initial NC Data
 ------------------------
 
-You can load initial data by running this command::
-
-    python manage.py loaddata cities counties categories
-
-And to load some random data for testing::
-
-    python manage.py load_dummy_resources 10
+The repo comes with a small database for local development.
 
 
 Deployment
@@ -82,3 +103,10 @@ is not given, it will use the default branch defined for this environment in
 
 New requirements or South migrations are detected by parsing the VCS changes and
 will be installed/run automatically.
+
+Running the tests
+-----------------
+
+You can run the tests via::
+
+    python manage.py test requests catalog suggestions
