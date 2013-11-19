@@ -33,8 +33,9 @@ class Request(models.Model):
                                   choices=AGENCY_TYPES, max_length=16)
     # More Info
     contact_phone = models.CharField(max_length=50, blank=True)
-    contact_email = models.CharField(max_length=255, blank=True)
-    contact_url = models.CharField(max_length=255, blank=True)
+    contact_email = models.EmailField(max_length=255, blank=True)
+    contact_url = models.URLField(max_length=255, blank=True,
+                                  help_text="http://www.open-nc.org")
 
     city = models.ForeignKey(City, related_name='requests', null=True,
                              blank=True)
