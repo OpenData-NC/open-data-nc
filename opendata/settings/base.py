@@ -231,5 +231,5 @@ DATE_INPUT_FORMATS = (
     # '%d %B %Y', '%d %B, %Y',            # '25 October 2006', '25 October, 2006'
 )
 
-RECAPTCHA_PUBLIC_KEY = '6LcxOOgSAAAAAL_PmCWgtT2no9PRTOzEeL077ITC'
+RECAPTCHA_PUBLIC_KEY = '6LcyhuoSAAAAAPHpTGWpqvIZvO5rBttlZisQl2q3'
 RECAPTCHA_USE_SSL = True
