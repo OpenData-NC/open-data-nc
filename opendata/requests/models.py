@@ -29,29 +29,31 @@ class Request(models.Model):
     description = models.TextField(help_text=HELP['description'])
     relevance = models.TextField(help_text=HELP['relevance'])
     url = models.URLField(verbose_name=FIELDS['url'], blank=True)
-    agency_type = models.CharField(verbose_name=FIELDS['agency_type'],
-                                  choices=AGENCY_TYPES, max_length=16)
-    # More Info
-    contact_phone = models.CharField(max_length=50, blank=True)
-    contact_email = models.EmailField(max_length=255, blank=True)
-    contact_url = models.URLField(max_length=255, blank=True,
-                                  help_text="http://www.open-nc.org")
 
+    updates = models.ForeignKey(UpdateFrequency, null=True, blank=True,
+                                help_text=HELP['update_frequency'],
+                                )
     city = models.ForeignKey(City, related_name='requests', null=True,
                              blank=True)
     county = models.ForeignKey(County, related_name='requests', null=True,
                                blank=True)
-    agency_name = models.CharField(max_length=255, blank=True)
-    agency_division = models.CharField(max_length=255, blank=True)
-    updates = models.ForeignKey(UpdateFrequency, null=True, blank=True,
-                                help_text=HELP['update_frequency'],
-                                )
-    agency_contact = models.CharField(max_length=255, blank=True)
     categories = models.ManyToManyField(Category,
                                         related_name="requests",
                                         null=True, blank=True)
     other_category = models.CharField(u'Other category', max_length=255, blank=True,
                                       help_text=HELP['other'])
+    agency_type = models.CharField(verbose_name=FIELDS['agency_type'],
+                                  choices=AGENCY_TYPES, max_length=16)
+    agency_name = models.CharField(max_length=255, blank=True)
+    agency_division = models.CharField(max_length=255, blank=True)
+
+    agency_contact = models.CharField(max_length=255, blank=True)
+    # More Info
+    contact_phone = models.CharField(max_length=20, blank=True)
+    contact_email = models.EmailField(max_length=255, blank=True)
+    contact_url = models.URLField(max_length=255, blank=True,
+                                  help_text="http://www.open-nc.org")
+
     resources = models.ManyToManyField(Resource,
                                        related_name="requests",
                                        null=True, blank=True)

@@ -10,7 +10,7 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         # Adding field 'Request.contact_phone'
         db.add_column(u'requests_request', 'contact_phone',
-                      self.gf('django.db.models.fields.CharField')(default='', max_length=50, blank=True),
+                      self.gf('django.db.models.fields.CharField')(default='', max_length=20, blank=True),
                       keep_default=False)
 
         # Adding field 'Request.contact_email'
@@ -171,7 +171,7 @@ class Migration(SchemaMigration):
             'categories': ('django.db.models.fields.related.ManyToManyField', [], {'blank': 'True', 'related_name': "'requests'", 'null': 'True', 'symmetrical': 'False', 'to': u"orm['catalog.Category']"}),
             'city': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'requests'", 'null': 'True', 'to': u"orm['catalog.City']"}),
             'contact_email': ('django.db.models.fields.EmailField', [], {'max_length': '255', 'blank': 'True'}),
-            'contact_phone': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
+            'contact_phone': ('django.db.models.fields.CharField', [], {'max_length': '20', 'blank': 'True'}),
             'contact_url': ('django.db.models.fields.URLField', [], {'max_length': '255', 'blank': 'True'}),
             'county': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'requests'", 'null': 'True', 'to': u"orm['catalog.County']"}),
             'creation_date': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
