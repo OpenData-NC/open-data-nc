@@ -36,6 +36,7 @@ SITE_URL = "http//localhost"
 
 # Special test settings
 if 'test' in sys.argv:
+    RECAPTCHA_PRIVATE_KEY = "no-secret-only-for-testing"
     CELERY_ALWAYS_EAGER = True
 
     COMPRESS_ENABLED = False
