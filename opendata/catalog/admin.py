@@ -31,13 +31,17 @@ class ResourceAdmin(admin.ModelAdmin):
     filter_horizontal = ('data_types', 'categories', 'cities', 'counties')
 
     fieldsets = [
-        ('Basic Information', {'fields': [('name', 'is_published',), 'short_description',
-                                  'keywords', 'description', 'newest_record',
-                                  'oldest_record', 'updates', ]}),
-        ('Geographies and Types', {'fields': ['agency_type', 'counties',
-                        'cities', 'categories', 'data_types', ]}),
-        ('Agency Information', {'fields': ['department', 'division', 'contact_phone',
-                               'contact_email', 'contact_url', ]}),
+        ('Basic Information', {'fields': [
+            ('name', 'is_published'), 'short_description', 'keywords',
+            'description', 'newest_record', 'oldest_record', 'updates',
+        ]}),
+        ('Geographies and Types', {'fields': [
+            'agency_type', 'counties', 'cities', 'categories', 'data_types',
+        ]}),
+        ('Agency Information', {'fields': [
+            'department', 'division', 'contact_name','contact_phone',
+            'contact_email', 'contact_url',
+        ]}),
         ('Data set information', {'fields': [
             'proj_coord_sys', 'coord_sys', 'wkt_geometry', 'metadata_contact',
             'metadata_notes', 'created_by', 'created', 'last_updated_by',

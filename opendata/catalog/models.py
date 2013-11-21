@@ -1,14 +1,13 @@
 import math
-import os
-# from lxml import etree
-# from shapely.wkt import loads
-
 from operator import attrgetter
-from django.db import models
+import os
+
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from django.db import models
 from django.template.defaultfilters import slugify
+
 from djangoratings.fields import RatingField
 
 from opendata.fields_info import FIELDS, HELP
@@ -148,13 +147,14 @@ class Resource(models.Model):
     data_types = models.ManyToManyField(DataType, blank=True, null=True)
 
     # More Info
+    contact_name = models.CharField(max_length=255, blank=True)
     contact_phone = models.CharField(max_length=50, blank=True)
     contact_email = models.CharField(max_length=255, blank=True)
     contact_url = models.CharField(max_length=255, blank=True)
 
     area_of_interest = models.CharField(max_length=255, blank=True)
     is_published = models.BooleanField(default=True, verbose_name="Public")
-    
+
     created_by = models.ForeignKey(User, related_name='created_by')
     last_updated_by = models.ForeignKey(User, related_name='updated_by')
     created = models.DateTimeField()
@@ -163,7 +163,7 @@ class Resource(models.Model):
     metadata_notes = models.TextField(blank=True)
     coord_sys = models.ManyToManyField(CoordSystem, blank=True, null=True,
                                        verbose_name="Coordinate system")
-        
+
     rating = RatingField(range=5, can_change_vote=True)
 
     data_formats = models.CharField(max_length=255, blank=True, editable=False)
@@ -188,32 +188,32 @@ class Resource(models.Model):
 
     class Meta:
         ordering = ("-last_updated", )
-    
+
     def get_distinct_url_types(self):
         types = []
         for url in self.url_set.all():
             if url.url_type not in types:
                 types.append(url.url_type)
         return sorted(types, key=attrgetter('url_type'))
-    
+
     def get_grouped_urls(self):
         urls = {}
         for utype in UrlType.objects.all():
             urls[utype.url_type] = self.url_set.filter(url_type=utype)            
         return urls
-    
+
     def get_first_image(self):
         images = self.urlimage_set.all()
         if images.count() == 0:
             return None
         return images[0]
-    
+
     def get_images(self):
         images = self.urlimage_set.all()
         if images.count() == 0:
             return None
         return images
-    
+
     def get_absolute_url(self):
         return reverse('catalog_resource_detail', kwargs={'slug': self.slug})
 
@@ -352,7 +352,7 @@ class UrlImage(models.Model):
            test_path = os.path.join(settings.MEDIA_ROOT, 'url_images', str(instance.id), fsplit[0] + '_' + str(extra) + '.' +  fsplit[1])
         path = os.path.join('url_images', str(id), fsplit[0] + '_' + str(extra) + '.' + fsplit[1])
         return path
-        
+
     resource = models.ForeignKey(Resource)
     image = models.ImageField(upload_to=get_image_path,
         help_text="The site will resize this master image as necessary for page display")
@@ -362,7 +362,7 @@ class UrlImage(models.Model):
         help_text="Source location or person who created the image")
     source_url = models.CharField(max_length=255, blank=True)
     objects = ImageManager()
-    
+
     def __unicode__(self):
         return '%s' % (self.image)
 
