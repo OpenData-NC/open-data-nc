@@ -2,23 +2,23 @@
 <div class="row-fluid">
 
     <div class="span5">
-      <div class="img img-polaroid">
+      <div class="img">
         {% thumbnail resource.get_first_image.image "327x254" crop="center" as im %}
-            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
+            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/><br>
         {% empty %}
             <h1 class="no-image hidden-phone">No Image</h1>
         {% endthumbnail %}
+        <div class="alert alert-default" style="max-width: 277px;">
+          <span>{{resource.rating_votes|default:0}} Vote{{resource.rating_votes|pluralize}}</span>
+          <input name="star_resource" type="radio" class="star star_resource" disabled="disabled" {% if average_rating == 1 %}checked{% endif %}/>
+          <input name="star_resource" type="radio" class="star star_resource" disabled="disabled" {% if average_rating == 2 %}checked{% endif %}/>
+          <input name="star_resource" type="radio" class="star star_resource" disabled="disabled" {% if average_rating == 3 %}checked{% endif %}/>
+          <input name="star_resource" type="radio" class="star star_resource" disabled="disabled" {% if average_rating == 4 %}checked{% endif %}/>
+          <input name="star_resource" type="radio" class="star star_resource" disabled="disabled" {% if average_rating == 5 %}checked{% endif %}/>
+        </div>
       </div>
 
-      <div class="alert alert-default">
-        <span>{{resource.rating_votes|default:0}} Vote{{resource.rating_votes|pluralize}}</span>
-        <input name="star_resource" type="radio" class="star star_resource" disabled="disabled" {% if average_rating == 1 %}checked{% endif %}/>
-        <input name="star_resource" type="radio" class="star star_resource" disabled="disabled" {% if average_rating == 2 %}checked{% endif %}/>
-        <input name="star_resource" type="radio" class="star star_resource" disabled="disabled" {% if average_rating == 3 %}checked{% endif %}/>
-        <input name="star_resource" type="radio" class="star star_resource" disabled="disabled" {% if average_rating == 4 %}checked{% endif %}/>
-        <input name="star_resource" type="radio" class="star star_resource" disabled="disabled" {% if average_rating == 5 %}checked{% endif %}/>
-      </div>
-
+      <br>
       <ul class="unstyled">
         {% if resource.department %}
           <li><strong>Department</strong>: {{resource.department}}</li>
