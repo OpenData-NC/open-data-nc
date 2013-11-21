@@ -51,7 +51,7 @@ class Request(models.Model):
     # More Info
     contact_phone = models.CharField(max_length=20, blank=True)
     contact_email = models.EmailField(max_length=255, blank=True)
-    contact_url = models.URLField(max_length=255, blank=True,
+    contact_url = models.URLField(max_length=255, blank=True, verbose_name="Contact URL",
                                   help_text="http://www.open-nc.org")
 
     resources = models.ManyToManyField(Resource,
