@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load widget_tweaks comments thumbnail %}
+{% load widget_tweaks comments %}
 
 {% block title %}{{ object|title }}{% endblock title %}
 {% block body_id %}resource-detail{% endblock body_id %}
@@ -46,136 +46,10 @@
 
 <!-- end social widgets -->
 
-  <div id="content_resource" class="tab_container gray-card">
-    <div class="row-fluid">
-      <div class="span4 pull-right">
-          <div class="resource-image">
-            {% thumbnail resource.get_first_image.image "254x254" crop="center" as im %}
-                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
-            {% empty %}
-                <h1 class="no-image hidden-phone">No Image</h1>
-            {% endthumbnail %}
-          </div>
-      </div>
-      <div class="span8">
-        <div class="tab_body" id="tab_extra_info">
-          <div>
-            {% if resource.department %}
-              <div class="info_label">Department</div>
-              <div class="info_data">{{resource.department}}</div>
-              <br>
-            {% endif %}
-            {% if resource.division %}
-              <div class="info_label">Division</div>
-              <div class="info_data">{{resource.division}}</div>
-              <br>
-            {% endif %}
-            {% if resource.release_date %}
-              <div class="info_label">Release Date</div>
-              <div class="info_data">{{resource.release_date}}</div>
-              <br>
-            {% endif %}
-            {% if resource.time_period %}
-              <div class="info_label">Valid Time Period</div>
-              <div class="info_data">{{resource.time_period}}</div>
-              <br>
-            {% endif %}
-            {% if resource.url_set.all %}
-              <div class="info_label">Resources</div>
-              <div class="info_data">
-                {% for url in resource.url_set.all %}
-                  <a href="{{url.url}}" title="{{ url.url }}">{{url.url_label}}</a><br>
-                {% endfor %}
-              </div>
-              <br>
-            {% endif %}
-            {% if resource.data_types.all %}
-              <div class="info_label">Data Types</div>
-              <div class="info_data">
-                {% for dt in resource.data_types.all %}
-                  {{dt}}{% if not forloop.last %}, {% endif %}
-                {% endfor %}
-              </div>
-              <br>
-            {% endif %}
-            {% if resource.categories.all %}
-              <div class="info_label">Categories</div>
-              <div class="info_data">
-                {% for category in resource.categories.all %}
-                  <a href="{% url 'catalog_search' %}?q=&selected_facets=categories_exact:{{ category }}">{{category}}</a><br>
-                {% endfor %}
-              </div>
-              <br>
-            {% endif %}
-            {% if resource.usage %}
-              <div class="info_label">Usage</div>
-              <div class="info_data">{{resource.usage}}</div>
-            {% endif %}
-            {% if resource.updates %}
-              <div class="info_label">Update Frequency</div>
-              <div class="info_data">{{resource.updates}}</div>
-              <br>
-            {% endif %}
-            {% if resource.area_of_interest %}
-              <div class="info_label">Area of Interest</div>
-              <div class="info_data">{{resource.area_of_interest}}</div>
-              <br>
-            {% endif %}
-            {% if resource.coord_sys.all %}
-              <div class="info_label">Coordinate Systems</div>
-              <div class="info_data">
-                {% for cs in resource.coord_sys.all %}
-                  {{cs}}{% if not forloop.last %}, {% endif %}
-                {% endfor %}
-              </div>
-              <br>
-            {% endif %}
-            {% if resource.contact_phone %}
-              <div class="info_label">Contact Phone</div>
-              <div class="info_data">{{resource.contact_phone}}</div>
-              <br>
-            {% endif %}
-            {% if resource.contact_email %}
-              <div class="info_label">Contact Email</div>
-              <div class="info_data"><a href="mailto:{{resource.contact_email}}" target="_blank" onclick="odp.trackEvent('External Link', 'Resource Email', 'Email', '{{resource.contact_email}}')">{{resource.contact_email}}</a></div>
-              <br>
-            {% endif %}
-            {% if resource.contact_url %}
-              <div class="info_label">Contact Url</div>
-              <div class="info_data"><a href="{{resource.contact_url}}" target="_blank" onclick="odp.trackEvent('External Link', 'Resource Contact Url', 'Url', '{{resource.contact_url}}')">{{resource.contact_url}}</a></div>
-              <br>
-            {% endif %}
-            <div class="info_label">Date Added</div>
-            <div class="info_data">{{resource.created}}</div>
-            <br>
-            <div class="info_label">Last Update</div>
-            <div class="info_data">{{resource.last_updated}}</div>
-            <br>
-            <div id="avg_rating" class="info_label">Average Rating</div>
-            <div id="detail_rating">
-              <span>{{resource.rating_votes|default:0}} Vote{{resource.rating_votes|pluralize}}</span>
-              <input name="star_resource" type="radio" class="star star_resource" disabled="disabled" {% if average_rating == 1 %}checked{% endif %}/>
-              <input name="star_resource" type="radio" class="star star_resource" disabled="disabled" {% if average_rating == 2 %}checked{% endif %}/>
-              <input name="star_resource" type="radio" class="star star_resource" disabled="disabled" {% if average_rating == 3 %}checked{% endif %}/>
-              <input name="star_resource" type="radio" class="star star_resource" disabled="disabled" {% if average_rating == 4 %}checked{% endif %}/>
-              <input name="star_resource" type="radio" class="star star_resource" disabled="disabled" {% if average_rating == 5 %}checked{% endif %}/>
-            </div>
-          </div>
-        </div> <!-- /tab_data -->
-      </div> <!-- /span8 -->
-    </div> <!-- /row -->
-    <div class="row-fluid">
-      <div class="span4 pull-right">
-        <!-- Empty div used to match margin from row above -->
-      </div>
-      <div class="span8">
-        <div class="info_label">Description: </div>
-        <div class="info_data">{{resource.description|safe}}</div>
-      </div>
-    </div>
+  <div class="gray-card">
+  {% include "catalog/resource.html" %}
 
-    </div>
-
+  </div>
 
   <div class="tab_container" id="content_data">
     <!-- <ul class="tab_header">
