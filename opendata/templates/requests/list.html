@@ -17,7 +17,7 @@
         <p>In the meanwhile, let us know what you're looking for. Other citizens are probably looking for the same thing. Once we approve each request we will make them public so that we can help connect you with other people looking for similar information in their hometowns.</p>
         {% endscribble %}
         <form id="url-suggest-form" action="{% url 'request-create' %}" method='get'> 
-            <button class="btn">Request Data</button>
+            <button class="btn btn-info">Request Data</button>
         </form>
     </div>
 
@@ -55,7 +55,7 @@
                 <span>{{ object.rating_votes }}</span><br><span>vote{{object.rating_votes|pluralize}}</span>
             </div>
             <div class="span6 request-details">
-                <h3 class="nom_text">{{ object }}</h3>
+                <h3 class="nom_text"><a href="{{ object.get_absolute_url }}">{{ object }}</a></h3>
                 <div class="nom_byline">
                     By <strong>{{ object.suggested_by }}</strong> on <strong>{{ object.creation_date|date:"M. j, Y" }}</strong>
                 </div>
@@ -67,14 +67,14 @@
                         {% if not object.completed %}
                             <form method='post' action="{% url 'request-remove-vote' object.id %}">
                                 {% csrf_token %}
-                                <input class="btn btn-secondary btn-block" type="submit" value="Remove Vote" />
+                                <input class="btn btn-info" type="submit" value="Remove Vote" />
                             </form>
                         {% endif %}
                         <div id="nom_voted">YOU VOTED!</div>
                     {% else %}
                         <form method='post' action="{% url 'request-vote' object.id %}">
                             {% csrf_token %}
-                            <input class="btn btn-secondary btn-block" type="submit" value="Vote!" />
+                            <input class="btn btn-info" type="submit" value="Vote!" />
                         </form>
                     {% endif %}
                 {% else %}
