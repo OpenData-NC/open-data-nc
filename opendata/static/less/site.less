@@ -123,8 +123,12 @@ body {
     font-family: Lato, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
+    word-wrap: break-word;
 }
 
+.errorlist{
+  color: #b94a48;
+}
 .container-fluid {
     margin: 0 auto;
     max-width: 1170px;
@@ -174,20 +178,6 @@ a {
     font-size: @baseFontSize;
     vertical-align: top;
 }
-
-// .open { 
-//    background-color: #F4F4F4;
-//    box-shadow: 2px 2px 3px #444444;
-//    display: block;
-//    list-style: none outside none;
-//    margin: 0;
-//    padding: 0;
-//    position: absolute;
-//    right: 5px;
-//    top: 40px;
-//    width: 70%;
-//    z-index: 500; 
-// }
 
 /**** Ribbon for featured projects and catalog resources ****/
 
@@ -304,6 +294,7 @@ header {
     margin-top: 15px;
 
     #logo {
+        margin-left: 0px;
         @media (max-width: 767px) {
             margin-top: 40px;
         }
@@ -460,22 +451,6 @@ footer {
             }
         }
 
-        .btn {
-            background-color: @grayDark;
-            padding-bottom: 9px;
-
-            &:hover {
-                    background-color: @blue;
-                }
-
-            @media (max-width: 767px) {
-                width: 50%;
-                position: relative;
-                //left: 25%;
-                margin: 20px 0 0;
-            }
-        }
-
         .input-append {
             width: 95%;
             
@@ -492,18 +467,9 @@ footer {
                     position: initial;
                     width: initial;
                 }
-
-                > input {
-                    margin: 20px auto 0;
-                }
             }
         }
 
-        //@media (max-width: 767px) {
-          //  > .span2 label {
-            //    text-align: center;
-           // }
-       // }
     }
 
     .sidebar-title {
@@ -658,6 +624,7 @@ footer {
         margin: 15px 0 10px;
         input[type=text] {
             width: 95%;
+            margin-top: 0px;
         }
     }
 
@@ -793,9 +760,6 @@ body.registration {
 
     .resource-image {
         position: relative;
-        //border: 2px solid @grayDark;
-        //width: 250px;
-        //height: 250px;
 
         > h1.no-image {
             color: @lightgray;

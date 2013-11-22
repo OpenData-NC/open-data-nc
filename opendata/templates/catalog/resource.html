@@ -1,0 +1,106 @@
+{% load thumbnail %}
+<div class="row-fluid">
+
+    <div class="span5">
+      <div class="img">
+        {% thumbnail resource.get_first_image.image "327x254" crop="center" as im %}
+            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/><br>
+        {% empty %}
+            <h1 class="no-image hidden-phone">No Image</h1>
+        {% endthumbnail %}
+        <div class="alert alert-default" style="max-width: 277px;">
+          <span>{{resource.rating_votes|default:0}} Vote{{resource.rating_votes|pluralize}}</span>
+          <input name="star_resource" type="radio" class="star star_resource" disabled="disabled" {% if average_rating == 1 %}checked{% endif %}/>
+          <input name="star_resource" type="radio" class="star star_resource" disabled="disabled" {% if average_rating == 2 %}checked{% endif %}/>
+          <input name="star_resource" type="radio" class="star star_resource" disabled="disabled" {% if average_rating == 3 %}checked{% endif %}/>
+          <input name="star_resource" type="radio" class="star star_resource" disabled="disabled" {% if average_rating == 4 %}checked{% endif %}/>
+          <input name="star_resource" type="radio" class="star star_resource" disabled="disabled" {% if average_rating == 5 %}checked{% endif %}/>
+        </div>
+      </div>
+
+      <br>
+      <ul class="unstyled">
+        {% if resource.department %}
+          <li><strong>Department</strong>: {{resource.department}}</li>
+        {% endif %}
+        {% if resource.division %}
+          <li><strong>Division</strong>: {{resource.division}}</li>
+        {% endif %}
+
+        {% if resource.contact_phone %}
+          <li><strong>Contact Phone</strong>: {{resource.contact_phone}}</li>
+        {% endif %}
+        {% if resource.contact_email %}
+          <li><strong>Contact Email</strong>: <a href="mailto:{{resource.contact_email}}" target="_blank" onclick="odp.trackEvent('External Link', 'Resource Email', 'Email', '{{resource.contact_email}}')">{{resource.contact_email}}</a></li>
+        {% endif %}
+        {% if resource.contact_url %}
+          <li><strong>Contact Url</strong>: <a href="{{resource.contact_url}}" target="_blank" onclick="odp.trackEvent('External Link', 'Resource Contact Url', 'Url', '{{resource.contact_url}}')">{{resource.contact_url}}</a></li>
+        {% endif %}
+
+        <li><strong>Date Added</strong>: {{resource.created}}</li>
+        <li><strong>Last Update</strong>: {{resource.last_updated}}</li>
+        {% if resource.release_date %}
+          <li><strong>Release Date</strong>: {{resource.release_date}}</li>
+        {% endif %}
+        {% if resource.updates %}
+          <li><strong>Update Frequency</strong>: {{resource.updates}}</li>
+        {% endif %}
+        {% if resource.time_period %}
+          <li><strong>Valid Time Period</strong>: {{resource.time_period}}</li>
+        {% endif %}
+      </ul>
+    </div>
+
+    <div class="span7">
+
+        <div class="row-fluid">
+            <p><strong>Description:</strong></p>
+            <div class="info_data">{{resource.description|safe}}</div><br>
+        </div>
+
+        {% if resource.data_types.all %}
+          <div class="info_label">Data Types</div>
+          <p>
+            {% for dt in resource.data_types.all %}
+              {{dt}}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+          </p>
+        {% endif %}
+        {% if resource.categories.all %}
+          <div class="info_label">Categories</div>
+          <p>
+            {% for category in resource.categories.all %}
+              <a href="{% url 'catalog_search' %}?q=&selected_facets=categories_exact:{{ category }}">{{category}}</a><br>
+            {% endfor %}
+          </p>
+        {% endif %}
+        {% if resource.usage %}
+          <div class="info_label">Usage</div>
+          <p>{{resource.usage}}</p>
+        {% endif %}
+        {% if resource.area_of_interest %}
+          <div class="info_label">Area of Interest</div>
+          <div class="info_data">{{resource.area_of_interest}}</div>
+          <br>
+        {% endif %}
+        {% if resource.coord_sys.all %}
+          <div class="info_label">Coordinate Systems</div>
+          <div class="info_data">
+            {% for cs in resource.coord_sys.all %}
+              {{cs}}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+          </div>
+          <br>
+        {% endif %}
+        <div class="well">
+        {% if resource.url_set.all %}
+          <p class="lead"><strong>Get the data</strong></p>
+          <div class="">
+            {% for url in resource.url_set.all %}
+              <a href="{{url.url}}" title="{{ url.url }}" class="btn btn-info"><i class="fa fa-cloud-download"></i> {{url.url_label}}</a><br><br>
+            {% endfor %}
+          </div>
+        {% endif %}
+        </div>
+    </div>
+</div> <!-- /row -->

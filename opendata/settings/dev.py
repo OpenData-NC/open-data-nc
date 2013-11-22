@@ -21,7 +21,7 @@ THUMBNAIL_DEBUG = True
 
 INTERNAL_IPS = ('127.0.0.1', )
 
-#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 SOUTH_TESTS_MIGRATE = True
 
@@ -36,6 +36,7 @@ SITE_URL = "http//localhost"
 
 # Special test settings
 if 'test' in sys.argv:
+    RECAPTCHA_PRIVATE_KEY = "no-secret-only-for-testing"
     CELERY_ALWAYS_EAGER = True
 
     COMPRESS_ENABLED = False
