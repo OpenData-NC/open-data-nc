@@ -6,6 +6,10 @@
 {% block body_id %}requests-list{% endblock body_id %}
 {% block body_class %}requests{% endblock body_class %}
 
+{% block search_form %}
+{#   this page already has a search bar, it is confusing having two #}
+{% endblock %}
+
 {% block content %}
     <h1>Request Public Data</h1>
     <div class="gray-card">
@@ -27,7 +31,7 @@
         <form method='GET' action='.'>
             <div class="input-append">
                 {{ form.text|attr:"placeholder:Search requests..." }}
-                <button class="btn"><i class="icon-search icon-white"></i></button>
+                <button class="btn btn-info"><i class="icon-search icon-white"></i></button>
             </div>
         </form>
     </div>
