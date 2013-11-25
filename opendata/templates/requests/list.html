@@ -65,28 +65,21 @@
                 </div>
             </div>
             <div class="span3 vote-or-login">
-            {% if not s.completed %}
-                {% if user.is_authenticated %}
-                    {% if vote %}
-                        {% if not object.completed %}
-                            <form method='post' action="{% url 'request-remove-vote' object.id %}">
-                                {% csrf_token %}
-                                <input class="btn btn-info" type="submit" value="Remove Vote" />
-                            </form>
-                        {% endif %}
-                        <div id="nom_voted">YOU VOTED!</div>
-                    {% else %}
-                        <form method='post' action="{% url 'request-vote' object.id %}">
-                            {% csrf_token %}
-                            <input class="btn btn-info" type="submit" value="Vote!" />
-                        </form>
-                    {% endif %}
-                {% else %}
-                    <a class="nom_vote_login" href="{% url 'auth_login' %}?next={{ object.get_full_path }}">Login to vote</a>
-                {% endif %}
-            {% else %}
-                <div id="closed">Nomination Closed</div>
-            {% endif %}
+              {% if user.is_authenticated %}
+                  {% if vote %}
+                    <form method='post' action="{% url 'request-remove-vote' object.id %}">
+                        {% csrf_token %}
+                        <input class="btn btn-info" type="submit" value="Remove Vote" />
+                    </form>
+                  {% else %}
+                      <form method='post' action="{% url 'request-vote' object.id %}">
+                          {% csrf_token %}
+                          <input class="btn btn-info" type="submit" value="Vote!" />
+                      </form>
+                  {% endif %}
+              {% else %}
+                  <a class="nom_vote_login" href="{% url 'auth_login' %}?next={{ object.get_full_path }}">Login to vote</a>
+              {% endif %}
             </div>
         </div>
         <br>

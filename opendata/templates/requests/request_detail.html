@@ -7,7 +7,7 @@
 
 {% block extra-meta %}
 <meta property="og:title" content="{{ object }}"/>
-<meta property="og:url" content="{{ site_url }}{{ object.get_absolute_url }}"/>
+<meta property="og:url" content="{{ object_uri }}"/>
 <meta property="og:image" content=""/>
 <meta property="og:locale" content="en_US" />
 <meta property="og:site_name" content="Open N.C."/>
@@ -50,30 +50,24 @@
         <div class="votes">
           <h3 style="font-size: 44px; padding: 20px 0 10px;">{{votes|default:0}} Vote{{votes|pluralize:"s"}}</h3>
           <div>
-            {% if not object.completed %}
-                {% if user.is_authenticated %}
-                    {% rating_by_request request on object.rating as vote %}
-                    {% if vote %}
-                        {% if not object.completed %}
-                            <form method='post' action="{% url 'request-remove-vote' object.id %}">
-                                {% csrf_token %}
-                                <input type="hidden" name="next" value="{{ object.get_absolute_url }}" />
-                                <input class="btn btn-info" type="submit" value="Remove Vote" />
-                            </form>
-                        {% endif %}
-                    {% else %}
-                        <form method='post' action="{% url 'request-vote' object.id %}">
-                            {% csrf_token %}
-                            <input type="hidden" name="next" value="{{ object.get_absolute_url }}" />
-                            <input class="btn btn-info" type="submit" value="Vote!" />
-                        </form>
-                    {% endif %}
-                {% else %}
-                    <a class="nom_vote_login" href="{% url 'auth_login' %}?next={{ object.get_absolute_url }}">Login to vote</a>
-                {% endif %}
-            {% else %}
-                <div id="closed">Nomination Closed</div>
-            {% endif %}
+              {% if user.is_authenticated %}
+                  {% rating_by_request request on object.rating as user_voted %}
+                  {% if user_voted %}
+                      <form method='post' action="{% url 'request-remove-vote' object.id %}">
+                          {% csrf_token %}
+                          <input type="hidden" name="next" value="{{ object.get_absolute_url }}" />
+                          <input class="btn btn-info" type="submit" value="Remove Vote" />
+                      </form>
+                  {% else %}
+                      <form method='post' action="{% url 'request-vote' object.id %}">
+                          {% csrf_token %}
+                          <input type="hidden" name="next" value="{{ object.get_absolute_url }}" />
+                          <input class="btn btn-info" type="submit" value="Vote!" />
+                      </form>
+                  {% endif %}
+              {% else %}
+                  <a class="nom_vote_login" href="{% url 'auth_login' %}?next={{ object.get_absolute_url }}">Login to vote</a>
+              {% endif %}
           </div>
         </div>
 
