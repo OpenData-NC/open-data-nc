@@ -132,6 +132,8 @@ node_ppa:
 nodejs:
   pkg.latest:
     - refresh: True
+    - require:
+      - pkgrepo: node_ppa
 
 less:
   cmd.run:
