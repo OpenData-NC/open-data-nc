@@ -1,6 +1,8 @@
+from lxml import etree
 import math
-from operator import attrgetter
 import os
+from operator import attrgetter
+from shapely.wkt import loads
 
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -348,8 +350,8 @@ class UrlImage(models.Model):
         id = instance.resource.id
         test_path = os.path.join(settings.MEDIA_ROOT, 'url_images', str(instance.id), fsplit[0] + '_' + str(extra) + '.' + fsplit[1])
         while os.path.exists(test_path):
-           extra += 1
-           test_path = os.path.join(settings.MEDIA_ROOT, 'url_images', str(instance.id), fsplit[0] + '_' + str(extra) + '.' +  fsplit[1])
+            extra += 1
+            test_path = os.path.join(settings.MEDIA_ROOT, 'url_images', str(instance.id), fsplit[0] + '_' + str(extra) + '.' + fsplit[1])
         path = os.path.join('url_images', str(id), fsplit[0] + '_' + str(extra) + '.' + fsplit[1])
         return path
 
@@ -364,7 +366,7 @@ class UrlImage(models.Model):
     objects = ImageManager()
 
     def __unicode__(self):
-        return '%s' % (self.image)
+        return '%s' % self.image
 
 
 def gen_website_url():
