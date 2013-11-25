@@ -1,0 +1,14 @@
+<div class="editor-wrapper" class="">
+    <div class="btn-toolbar" data-role="editor-toolbar" data-target="#editor">
+          <div class="btn-group">
+            <a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i class="icon-list-ul"></i></a>
+            <a class="btn" data-edit="insertorderedlist" title="Number list"><i class="icon-list-ol"></i></a>
+          </div>
+    </div>
+
+    <div id="{{ name }}-secure-input" class="bootstrap-wysiwyg">
+        {{value|default:""|safe}}
+    </div>
+</div>
+
+<textarea class="hide secure-input" id="id_{{ name }}" name="{{name}}" data-editor="{{ name }}-secure-input">{{value|default:""|safe}}</textarea>
