@@ -1,11 +1,13 @@
-from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.core.urlresolvers import reverse
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
+
 from djangoratings.exceptions import CannotDeleteVote
 
-from .models import *
 from .forms import SearchForm, RequestForm
+from .models import *
 
 
 def list_requests(request):
@@ -36,6 +38,11 @@ def add_request(request):
             request_object.save()
             request_object.rating.add(score=1, user=request.user,
                                 ip_address=request.META['REMOTE_ADDR'])
+            messages.success(
+                request,
+                "Thank you for your suggestion. It will appear on the site once "
+                "our editors review it. They will contact you if they have any questions."
+            )
             return redirect(reverse('request-list'))
     else: 
         form = RequestForm()
