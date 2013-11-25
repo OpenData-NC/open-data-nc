@@ -6,6 +6,10 @@
 {% block body_id %}requests-list{% endblock body_id %}
 {% block body_class %}requests{% endblock body_class %}
 
+{% block search_form %}
+{#   this page already has a search bar, it is confusing having two #}
+{% endblock %}
+
 {% block content %}
     <h1>Request Public Data</h1>
     <div class="gray-card">
@@ -17,7 +21,7 @@
         <p>In the meanwhile, let us know what you're looking for. Other citizens are probably looking for the same thing. Once we approve each request we will make them public so that we can help connect you with other people looking for similar information in their hometowns.</p>
         {% endscribble %}
         <form id="url-suggest-form" action="{% url 'request-create' %}" method='get'> 
-            <button class="btn">Request Data</button>
+            <button class="btn btn-info">Request Data</button>
         </form>
     </div>
 
@@ -27,7 +31,7 @@
         <form method='GET' action='.'>
             <div class="input-append">
                 {{ form.text|attr:"placeholder:Search requests..." }}
-                <button class="btn"><i class="icon-search icon-white"></i></button>
+                <button class="btn btn-info"><i class="icon-search icon-white"></i></button>
             </div>
         </form>
     </div>
@@ -55,34 +59,27 @@
                 <span>{{ object.rating_votes }}</span><br><span>vote{{object.rating_votes|pluralize}}</span>
             </div>
             <div class="span6 request-details">
-                <h3 class="nom_text">{{ object }}</h3>
+                <h3 class="nom_text"><a href="{{ object.get_absolute_url }}">{{ object }}</a></h3>
                 <div class="nom_byline">
                     By <strong>{{ object.suggested_by }}</strong> on <strong>{{ object.creation_date|date:"M. j, Y" }}</strong>
                 </div>
             </div>
             <div class="span3 vote-or-login">
-            {% if not s.completed %}
                 {% if user.is_authenticated %}
                     {% if vote %}
-                        {% if not object.completed %}
-                            <form method='post' action="{% url 'request-remove-vote' object.id %}">
-                                {% csrf_token %}
-                                <input class="btn btn-secondary btn-block" type="submit" value="Remove Vote" />
-                            </form>
-                        {% endif %}
-                        <div id="nom_voted">YOU VOTED!</div>
+                        <form method='post' action="{% url 'request-remove-vote' object.id %}">
+                            {% csrf_token %}
+                            <input class="btn btn-info" type="submit" value="Remove Vote" />
+                        </form>
                     {% else %}
                         <form method='post' action="{% url 'request-vote' object.id %}">
                             {% csrf_token %}
-                            <input class="btn btn-secondary btn-block" type="submit" value="Vote!" />
+                            <input class="btn btn-info" type="submit" value="Vote!" />
                         </form>
                     {% endif %}
                 {% else %}
                     <a class="nom_vote_login" href="{% url 'auth_login' %}?next={{ object.get_full_path }}">Login to vote</a>
                 {% endif %}
-            {% else %}
-                <div id="closed">Nomination Closed</div>
-            {% endif %}
             </div>
         </div>
         <br>

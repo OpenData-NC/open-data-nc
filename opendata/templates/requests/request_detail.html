@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% load widget_tweaks comments ratings %}
+
+{% block title %}{{ object|title }}{% endblock title %}
+{% block body_id %}resource-detail{% endblock body_id %}
+{% block body_class %}catalog{% endblock body_class %}
+
+{% block extra-meta %}
+<meta property="og:title" content="{{ object|title }}"/>
+<meta property="og:url" content="{{ object_uri }}"/>
+<meta property="og:image" content=""/>
+<meta property="og:locale" content="en_US" />
+<meta property="og:site_name" content="Open N.C."/>
+{% endblock %}
+
+
+{% block extra-js %}
+    <script charset="utf-8" src="{{ STATIC_URL }}js/comment_form.js"></script>
+{% endblock extra-js %}
+
+{% block content %}
+
+
+<h1 id="title"><span class='muted'>[Wanted]</span> {{object}}</h1>
+<h4 id="description">{{object.short_description|safe}}</h4>
+
+<!-- social widgets -->
+<div id="social-widgets">
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=1406142562935221";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+    <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://open-nc.org{{ object.get_absolute_url }}" data-text="Check out this public data that @openNC helped make public: {{ object.name|safe }} #opengov #ddj">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+    <div class="fb-like" data-href="{{ request.location }}" data-width="450" data-show-faces="true" data-send="true"></div>
+</div>
+
+<!-- end social widgets -->
+
+<div class="gray-card">
+  <div class="row-fluid">
+
+      <div class="span5">
+        <div class="votes">
+          <h3 style="font-size: 44px; padding: 20px 0 10px;">{{votes|default:0}} Vote{{votes|pluralize:"s"}}</h3>
+          <div>
+              {% if user.is_authenticated %}
+                  {% rating_by_request request on object.rating as user_voted %}
+                  {% if user_voted %}
+                      <form method='post' action="{% url 'request-remove-vote' object.id %}">
+                          {% csrf_token %}
+                          <input type="hidden" name="next" value="{{ object.get_absolute_url }}" />
+                          <input class="btn btn-info" type="submit" value="Remove Vote" />
+                      </form>
+                  {% else %}
+                      <form method='post' action="{% url 'request-vote' object.id %}">
+                          {% csrf_token %}
+                          <input type="hidden" name="next" value="{{ object.get_absolute_url }}" />
+                          <input class="btn btn-info" type="submit" value="Vote!" />
+                      </form>
+                  {% endif %}
+              {% else %}
+                  <a class="nom_vote_login" href="{% url 'auth_login' %}?next={{ object.get_absolute_url }}">Login to vote</a>
+              {% endif %}
+          </div>
+        </div>
+
+        <br>
+        <ul class="unstyled">
+          <li><strong>Requested by</strong>: {{ object.suggested_by }}</li>
+          {% if object.agency_name %}
+            <li><strong>Agency Name</strong>: {{object.agency_name}}</li>
+          {% endif %}
+          {% if object.agency_division %}
+            <li><strong>Division</strong>: {{object.agency_division}}</li>
+          {% endif %}
+          {% if object.agency_contact %}
+            <li><strong>Contact</strong>: {{object.agency_contact}}</li>
+          {% endif %}
+
+          {% if object.contact_phone %}
+            <li><strong>Contact Phone</strong>: {{object.contact_phone}}</li>
+          {% endif %}
+          {% if object.contact_email %}
+            <li><strong>Contact Email</strong>: <a href="mailto:{{object.contact_email}}" target="_blank" onclick="odp.trackEvent('External Link', 'Resource Email', 'Email', '{{resource.contact_email}}')">{{resource.contact_email}}</a></li>
+          {% endif %}
+          {% if object.contact_url %}
+            <li><strong>Contact Url</strong>: <a href="{{object.contact_url}}" target="_blank" onclick="odp.trackEvent('External Link', 'Resource Contact Url', 'Url', '{{resource.contact_url}}')">{{resource.contact_url}}</a></li>
+          {% endif %}
+
+          <li><strong>Date Requested</strong>: {{object.creation_date.date}}</li>
+          {% if object.release_date %}
+            <li><strong>Release Date</strong>: {{object.release_date}}</li>
+          {% endif %}
+          {% if object.updates %}
+            <li><strong>Update Frequency</strong>: {{object.updates}}</li>
+          {% endif %}
+        </ul>
+      </div>
+
+      <div class="span7">
+          <div class="row-fluid">
+              <p><strong>Description:</strong></p>
+              <div class="info_data">{{object.description|linebreaks}}</div>
+          </div>
+
+          <div class="row-fluid">
+              <p><strong>Relevance:</strong></p>
+              <div class="info_data">{{object.relevance|linebreaks}}</div>
+          </div>
+
+          {% if object.url %}
+            <div class="row-fluid">
+              <p><strong>URL</strong>: <a href="{{ object.url }}" rel="nonfollow">{{ object.url }}</a></p>
+            </div>
+          {% endif %}
+
+          {% if object.categories.all %}
+            <div class="info_label">Categories</div>
+            <p>
+              {% for category in object.categories.all %}
+                <a href="{% url 'catalog_search' %}?q=&selected_facets=categories_exact:{{ category }}">{{category}}</a><br>
+              {% endfor %}
+            </p>
+          {% endif %}
+
+          {% if object.other_category %}
+            <div class="row-fluid">
+              <p><strong>Other Category</strong>: {{ object.other_category }}</p>
+            </div>
+          {% endif %}
+
+      </div>
+  </div> <!-- /row -->
+
+</div>
+{% endblock content%}

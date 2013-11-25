@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 
 from djangoratings.fields import RatingField
 from opendata.catalog.models import Resource, City, County, Category, \
@@ -61,3 +62,6 @@ class Request(models.Model):
 
     def __unicode__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('requests_request_detail', kwargs={"pk": self.id})
