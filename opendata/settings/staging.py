@@ -43,4 +43,9 @@ EMAIL_HOST_PASSWORD = os.environ['AMAZON_EMAIL_PASSWORD']
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
+# recipient for email sent through the contact us page
+MANAGERS = (
+    ('Ryan Thornburg', 'info@open-nc.org'),
+)
+
 RECAPTCHA_PRIVATE_KEY = os.environ['RECAPTCHA_PRIVATE_KEY']
