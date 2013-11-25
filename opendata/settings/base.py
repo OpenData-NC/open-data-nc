@@ -153,6 +153,7 @@ INSTALLED_APPS = (
     'django_sorting',
     'registration',
     'sorl.thumbnail',
+    'secure_input',
 )
 
 # Comments app
@@ -233,3 +234,6 @@ DATE_INPUT_FORMATS = (
 
 RECAPTCHA_PUBLIC_KEY = '6LcyhuoSAAAAAPHpTGWpqvIZvO5rBttlZisQl2q3'
 RECAPTCHA_USE_SSL = True
+
+# WYSIWYG Editor
+ALLOWED_TAGS = ('p', 'ol', 'ul', 'li', 'br')
