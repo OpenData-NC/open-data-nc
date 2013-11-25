@@ -208,7 +208,7 @@ class Resource(models.Model):
         return math.floor(self.rating.get_rating())
 
     def __unicode__(self):
-        return '%s' % self.name
+        return u'%s' % self.name
 
     def save(self, *args, **kwargs):
         """Sets slug for resource."""
@@ -250,7 +250,7 @@ class UrlImage(models.Model):
     objects = ImageManager()
 
     def __unicode__(self):
-        return '%s' % self.image
+        return self.image
 
 
 def gen_website_url():
