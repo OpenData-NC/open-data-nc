@@ -6,7 +6,7 @@
 {% block body_class %}catalog{% endblock body_class %}
 
 {% block extra-meta %}
-<meta property="og:title" content="{{ object }}"/>
+<meta property="og:title" content="{{ object|title }}"/>
 <meta property="og:url" content="{{ object_uri }}"/>
 <meta property="og:image" content=""/>
 <meta property="og:locale" content="en_US" />

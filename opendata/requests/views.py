@@ -1,6 +1,4 @@
-from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from django.http import HttpRequest
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.views.generic import DetailView
@@ -8,7 +6,7 @@ from django.views.generic import DetailView
 from djangoratings.exceptions import CannotDeleteVote
 
 from .forms import SearchForm, RequestForm
-from .models import *
+from .models import Request
 
 
 def list_requests(request):
@@ -39,7 +37,7 @@ class RequestDetailView(DetailView):
         context = super(RequestDetailView, self).get_context_data(**kwargs)
         object = context['object']
         votes = object.rating.votes
-        object_uri = HttpRequest.build_absolute_uri(object.get_absolute_url())
+        object_uri = self.request.build_absolute_uri(object.get_absolute_url())
         context.update({'object_uri': object_uri, 'votes': votes})
         return context
 
