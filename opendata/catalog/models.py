@@ -1,8 +1,5 @@
-from lxml import etree
 import math
 import os
-from operator import attrgetter
-from shapely.wkt import loads
 
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -191,19 +188,6 @@ class Resource(models.Model):
     class Meta:
         ordering = ("-last_updated", )
 
-    def get_distinct_url_types(self):
-        types = []
-        for url in self.url_set.all():
-            if url.url_type not in types:
-                types.append(url.url_type)
-        return sorted(types, key=attrgetter('url_type'))
-
-    def get_grouped_urls(self):
-        urls = {}
-        for utype in UrlType.objects.all():
-            urls[utype.url_type] = self.url_set.filter(url_type=utype)            
-        return urls
-
     def get_first_image(self):
         images = self.urlimage_set.all()
         if images.count() == 0:
@@ -220,111 +204,11 @@ class Resource(models.Model):
         return reverse('catalog_resource_detail', kwargs={'slug': self.slug})
 
     def get_rating(self):
-        """Return instance raiting as an intiger"""
+        """Return instance rating as an intiger"""
         return math.floor(self.rating.get_rating())
 
     def __unicode__(self):
         return '%s' % self.name
-
-    # CSW specific properties
-    @property 
-    def csw_identifier(self):
-        return 'urn:x-odc:resource:%s::%d' % ("fix-me", self.id)
-
-    @property
-    def csw_type(self):
-        data_types = self.data_types.values()
-        if len(data_types) > 0:
-            return data_types[0]['data_type']
-        return None
-
-    @property
-    def csw_crs(self):
-        crs = self.coord_sys.values()
-        if len(crs) > 0:
-            return crs[0]['name']
-        return None
-
-    @property
-    def csw_links(self):
-        links = []
-        for url in self.url_set.all():
-            tmp = '%s,%s,%s,%s' % (url.url_label, url.url_type.url_type, 'WWW:DOWNLOAD-1.0-http--download', url.url)
-            links.append(tmp)
-        abs_url = '%s%s' % (gen_website_url(), self.get_absolute_url())
-        link = '%s,%s,%s,%s' % (self.name, self.name, 'WWW:LINK-1.0-http--link', abs_url)
-        links.append(link)
-        return '^'.join(links)
-
-    @property
-    def csw_keywords(self):
-        keywords = []
-        for keyword in self.tags.values():
-            keywords.append(keyword['tag_name'])
-        return ','.join(keywords)
-
-    @property
-    def csw_creator(self):
-        creator = User.objects.filter(username=self.created_by)[0]
-        return '%s %s' % (creator.first_name, creator.last_name)
- 
-    def gen_csw_xml(self):
-
-        def nspath(ns, element):
-            return '{%s}%s' % (ns, element)
-
-        nsmap = {
-            'csw': 'http://www.opengis.net/cat/csw/2.0.2',
-            'dc' : 'http://purl.org/dc/elements/1.1/',
-            'dct': 'http://purl.org/dc/terms/',
-            'ows': 'http://www.opengis.net/ows',
-            'xsi': 'http://www.w3.org/2001/XMLSchema-instance',
-        }
-
-        record = etree.Element(nspath(nsmap['csw'], 'Record'), nsmap=nsmap)
-        etree.SubElement(record, nspath(nsmap['dc'], 'identifier')).text = self.csw_identifier
-        etree.SubElement(record, nspath(nsmap['dc'], 'title')).text = self.name
-
-        if self.csw_type is not None:
-            etree.SubElement(record, nspath(nsmap['dc'], 'type')).text = self.csw_type
-
-        for tag in self.tags.all():
-            etree.SubElement(record, nspath(nsmap['dc'], 'subject')).text = tag.tag_name
-
-        etree.SubElement(record, nspath(nsmap['dc'], 'format')).text = str(self.data_formats)
-
-        abs_url = '%s%s' % (gen_website_url(), self.get_absolute_url())
-        etree.SubElement(record, nspath(nsmap['dct'], 'references'), scheme='WWW:LINK-1.0-http--link').text = abs_url
-
-        for link in self.url_set.all():
-            etree.SubElement(record, nspath(nsmap['dct'], 'references'),
-                             scheme='WWW:DOWNLOAD-1.0-http--download').text = link.url
-
-        etree.SubElement(record, nspath(nsmap['dct'], 'modified')).text = str(self.last_updated)
-        etree.SubElement(record, nspath(nsmap['dct'], 'abstract')).text = self.description
-
-        etree.SubElement(record, nspath(nsmap['dc'], 'date')).text = str(self.created)
-        etree.SubElement(record, nspath(nsmap['dc'], 'creator')).text = str(self.csw_creator)
-
-        etree.SubElement(record, nspath(nsmap['dc'], 'coverage')).text = self.area_of_interest
-
-        geom = loads(self.wkt_geometry)
-        bounds = geom.envelope.bounds
-        dimensions = str(geom.envelope._ndim)
-
-        bbox = etree.SubElement(record, nspath(nsmap['ows'], 'BoundingBox'), dimensions=dimensions)
-
-        if self.csw_crs is not None:
-            bbox.attrib['crs'] = self.csw_crs
-
-        etree.SubElement(bbox, nspath(nsmap['ows'], 'LowerCorner')).text = '%s %s' % (bounds[1], bounds[0])
-        etree.SubElement(bbox, nspath(nsmap['ows'], 'UpperCorner')).text = '%s %s' % (bounds[3], bounds[2])
-
-        return etree.tostring(record)
-
-    def gen_csw_anytext(self):
-        xml = etree.fromstring(self.csw_xml)
-        return ' '.join([value.strip() for value in xml.xpath('//text()')])
 
     def save(self, *args, **kwargs):
         """Sets slug for resource."""
