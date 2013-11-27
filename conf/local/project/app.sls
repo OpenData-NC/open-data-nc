@@ -126,13 +126,14 @@ gunicorn_process:
 node_ppa:
   pkgrepo.managed:
     - ppa: chris-lea/node.js
+    - require_in:
+      - pkg: nodejs
 
 nodejs:
-  pkg.installed:
-    - version: 0.10.15-1chl1~precise1
+  pkg.latest:
+    - refresh: True
     - require:
       - pkgrepo: node_ppa
-    - refresh: True
 
 less:
   cmd.run:
